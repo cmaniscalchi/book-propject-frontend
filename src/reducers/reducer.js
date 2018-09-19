@@ -14,7 +14,7 @@ const initialState = {
 }
 
 export default function reducer(state = initialState, action) {
-  // console.log("Reducer:", state, action)
+  console.log("Reducer:", state, action)
   switch (action.type) {
     case 'SELECT_BOOK':
     return { ...state, selectedBook: action.payload }
