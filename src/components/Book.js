@@ -10,15 +10,15 @@ const Book = props => {
   let {author, title, publication_year} = props.book
   //
 
-  const handleClick = () => {
-    props.dispatch({
-      type: 'SELECT_BOOK',
-      payload: props.book
-    })
-  }
+  // const handleClick = () => {
+  //   props.dispatch({
+  //     type: 'SELECT_BOOK',
+  //     payload: props.book
+  //   })
+  // }
 
   return (
-    <div onClick={handleClick}>
+    <div onClick={() => props.selectBook(props.book)}>
       {/* <img src={image_url} alt={title} /> */}
       {/* <h3>{year ? `${title} by ${author} (${year})` : `${title} by ${author}`}</h3> */}
       <h3>{title} by {author} ({publication_year})</h3>
@@ -26,8 +26,15 @@ const Book = props => {
   )
 }
 
-function mapDispatchToProps() {
-  return {}
+function mapDispatchToProps(dispatch) {
+  return {
+    selectBook: (book) => {
+      dispatch({
+        type: 'SELECT_BOOK',
+        payload: book
+      })
+    }
+  }
 }
 
-export default connect()(Book)
+export default connect(null, mapDispatchToProps)(Book)

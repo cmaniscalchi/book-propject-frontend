@@ -6,17 +6,17 @@ const BookDetail = props => {
 
   let {author, title, publication_year} = props.book
 
-  const saveBook = book => {
-    props.dispatch({
-      type: 'SAVE_BOOK',
-      payload: props.book
-    })
-  }
+  // const saveBook = book => {
+  //   props.dispatch({
+  //     type: 'SAVE_BOOK',
+  //     payload: props.book
+  //   })
+  // }
 
   return (
     <div>
       <h1>{title} by {author} ({publication_year})</h1>
-      <button onClick={saveBook}>Save Book to Bookshelf</button>
+      <button onClick={() => props.saveBook(props.book)}>Save Book to Bookshelf</button>
     </div>
   )
 }
@@ -27,8 +27,15 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps() {
-  return {}
+function mapDispatchToProps(dispatch) {
+  return {
+    saveBook: book => {
+      dispatch({
+        type: 'SAVE_BOOK',
+        payload: book
+      })
+    }
+  }
 }
 
-export default connect(mapStateToProps)(BookDetail)
+export default connect(mapStateToProps, mapDispatchToProps)(BookDetail)
