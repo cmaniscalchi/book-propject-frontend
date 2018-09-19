@@ -1,5 +1,6 @@
 import React from "react"
 import { connect } from 'react-redux'
+import { selectBookAction } from '../actions'
 
 const Book = props => {
   // console.log("Book props:", props)
@@ -28,12 +29,7 @@ const Book = props => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    selectBook: (book) => {
-      dispatch({
-        type: 'SELECT_BOOK',
-        payload: book
-      })
-    }
+    selectBook: (book) => dispatch(selectBookAction(book))
   }
 }
 

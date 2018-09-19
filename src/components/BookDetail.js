@@ -1,5 +1,6 @@
 import React from "react"
 import { connect } from 'react-redux'
+import { saveBookAction } from '../actions'
 
 const BookDetail = props => {
   console.log("BookDetail props:", props)
@@ -29,12 +30,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    saveBook: book => {
-      dispatch({
-        type: 'SAVE_BOOK',
-        payload: book
-      })
-    }
+    saveBook: book => dispatch(saveBookAction(book))
   }
 }
 
