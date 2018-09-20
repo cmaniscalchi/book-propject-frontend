@@ -12,8 +12,9 @@ const BookSearchList = props => {
 }
 
 const mapStateToProps = state => {
+  console.log("BookSearchList state:", state, state.book.searchResults)
   return {
-    searchResults: state.searchResults
+    searchResults: state.book.searchResults
   }
 }
 

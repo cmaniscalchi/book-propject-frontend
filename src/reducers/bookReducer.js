@@ -1,6 +1,6 @@
 import { SELECT_BOOK } from '../types'
 
-const initialState = {
+const initialBookState = {
   searchResults: [
     { author: "Gabriel García Márquez", title: "One Hundred Years of Solitude", goodreads_book_id: 320, publication_year: 1967 },
     { author: "John Steinbeck", title: "The Grapes of Wrath", goodreads_book_id: 4397, publication_year: 1939 },
@@ -15,8 +15,8 @@ const initialState = {
   shelvedBooks: []
 }
 
-export default function reducer(state = initialState, action) {
-  // console.log("Reducer:", state, action)
+export default function bookReducer(state = initialBookState, action) {
+  // console.log("bookReducer:", state, action)
   switch (action.type) {
     case SELECT_BOOK:
     return { ...state, selectedBook: action.payload }
