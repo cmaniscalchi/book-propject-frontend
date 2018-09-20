@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { searchBook } from '../actions'
 
 class SearchBar extends Component {
   state = { input: ''}
@@ -10,7 +11,7 @@ class SearchBar extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault()
-    console.log(event.target.value)
+    this.props.searchBook(this.state.input)
     this.setState({ input: '' })
   }
 
@@ -28,4 +29,4 @@ class SearchBar extends Component {
   }
 }
 
-export default connect()(SearchBar)
+export default connect(null, { searchBook })(SearchBar)

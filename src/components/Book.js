@@ -1,6 +1,7 @@
 import React from "react"
 import { connect } from 'react-redux'
-import { selectBookAction } from '../actions'
+import { selectBook } from '../actions'
+// import * as actions from '../actions'
 
 const Book = props => {
   // console.log("Book props:", props)
@@ -27,10 +28,10 @@ const Book = props => {
   )
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    selectBook: (book) => dispatch(selectBookAction(book))
-  }
-}
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     selectBook: (book) => dispatch(selectBookAction(book))
+//   }
+// }
 
-export default connect(null, mapDispatchToProps)(Book)
+export default connect(null, { selectBook })(Book)

@@ -1,9 +1,9 @@
 import React from "react"
 import { connect } from 'react-redux'
-import { saveBookAction } from '../actions'
+import { saveBook } from '../actions'
 
 const BookDetail = props => {
-  console.log("BookDetail props:", props)
+  // console.log("BookDetail props:", props)
 
   let {author, title, publication_year} = props.book
 
@@ -28,10 +28,10 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    saveBook: book => dispatch(saveBookAction(book))
-  }
-}
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     saveBook: book => dispatch(saveBookAction(book))
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookDetail)
+export default connect(mapStateToProps, { saveBook })(BookDetail)
