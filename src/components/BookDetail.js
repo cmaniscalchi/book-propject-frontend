@@ -26,7 +26,7 @@ const BookDetail = props => {
 }
 
 function mapStateToProps(state) {
-  console.log("BookDetail State:", state)
+  // console.log("BookDetail State:", state)
   return {
     book: state.book.selectedBook
   }

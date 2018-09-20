@@ -3,13 +3,14 @@ import { SEARCH_BOOK, SELECT_BOOK, SAVE_BOOK } from './types'
 const BASE_URL = 'http://localhost:3001/api/v1/'
 
 export function searchBook(input) {
-  const urlSuffix = 'book_search'
-  const postConfig = {
+  let urlSuffix = 'book_search'
+  let postConfig = {
     method: "POST",
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ input })
   }
-  const request = fetch(BASE_URL+urlSuffix, postConfig).then(res => res.json())
+  let request = fetch(BASE_URL+urlSuffix, postConfig).then(res => res.json())
+
   return {
     type: SEARCH_BOOK,
     payload: request
@@ -24,8 +25,24 @@ export function selectBook(book) {
 }
 
 export function saveBook(book) {
+  // debugger
+  let urlSuffix = 'books'
+  let postConfig = {
+    method: "POST",
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      title: book["best_book"]["title"],
+      author: book["best_book"]["author"]["name"],
+      goodreads_book_id: book["best_book"]["id"],
+      goodreads_author_id: book["best_book"]["author"]["id"],
+      publication_year: book["original_publication_year"],
+      image_url: book["best_book"]["image_url"]
+    })
+  }
+  let request = fetch(BASE_URL+urlSuffix, postConfig).then(res => res.json())
+
   return {
     type: SAVE_BOOK,
-    payload: book
+    payload: request
   }
 }
