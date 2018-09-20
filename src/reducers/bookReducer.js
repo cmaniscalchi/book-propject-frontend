@@ -1,28 +1,40 @@
-import { SEARCH_BOOK, SELECT_BOOK } from '../types'
+import { DISPLAY_BOOKSHELF, SEARCH_BOOK, SELECT_BOOK, SAVE_BOOK } from '../types'
 
 const initialBookState = {
   searchResults: [],
-  // [
-  //   { author: "Gabriel García Márquez", title: "One Hundred Years of Solitude", goodreads_book_id: 320, publication_year: 1967 },
-  //   { author: "John Steinbeck", title: "East of Eden", goodreads_book_id: 4406, publication_year: 1952 },
-  //   { author: "Salman Rushdie", title: "Haroun and the Sea of Stories", goodreads_book_id: 4835, publication_year: 1990 },
-  //   { author: "J.M. Coetzee", title: "Waiting for the Barbarians", goodreads_book_id: 6194, publication_year: 1980 },
-  //   { author: "Ian McEwan", title: "Atonement", goodreads_book_id: 6867, publication_year: 2001 },
-  //   { author: "Barbara Kingsolver", title: "The Poisonwood Bible", goodreads_book_id: 7244, publication_year: 1998 },
-  //   { author: "Isabel Allende", title: "The House of the Spirits", goodreads_book_id: 9331, publication_year: 1982 }
-  // ],
   selectedBook: null,
-  shelvedBooks: []
+  shelvedBooks: [
+    { author: "Charles Webb",
+    bookshelves: [],
+    goodreads_author_id: 40163,
+    goodreads_book_id: 71047,
+    id: 45,
+    image_url: "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+    publication_year: 1963,
+    title: "The Graduate" },
+    { author: "Isabel Allende",
+    bookshelves: [],
+    goodreads_author_id: 2238,
+    goodreads_book_id: 9328,
+    id: 47,
+    image_url: "https://images.gr-assets.com/books/1358615501m/9328.jpg",
+    publication_year: 1982,
+    title: "The House of the Spirits" }
+  ]
 }
 
 export default function bookReducer(state = initialBookState, action) {
-  // console.log("bookReducer:", state, action)
+  console.log("bookReducer:", state, action)
   switch (action.type) {
+    case DISPLAY_BOOKSHELF:
+    return state
     case SEARCH_BOOK:
     return { ...state, searchResults: action.payload.GoodreadsResponse.search.results.work }
     case SELECT_BOOK:
     return { ...state, selectedBook: action.payload }
+    case SAVE_BOOK:
+    return { ...state, shelvedBooks: [...state.shelvedBooks, action.payload] }
     default:
-      return state
+    return state
   }
 }

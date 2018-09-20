@@ -8,9 +8,6 @@ import { Grid, Image } from 'semantic-ui-react'
 const Book = props => {
   // console.log("Book props:", props)
 
-  let year = props.book.original_publication_year
-  let {title, image_url} = props.book.best_book
-  let author = props.book.best_book.author.name
 
   // const handleClick = () => {
   //   props.dispatch({
@@ -19,19 +16,31 @@ const Book = props => {
   //   })
   // }
   if (props.book) {
-    return (
-      <Grid.Column>
-        <Image onClick={() => props.selectBook(props.book)} src={image_url} alt={title} />
-        <h3>{year ? `${title} by ${author} (${year})` : `${title} by ${author}`}</h3>
-      </Grid.Column>
-    )
+    if (props.book.books_count) {
+      let publication_year = props.book.original_publication_year
+      let {title, image_url} = props.book.best_book
+      let author = props.book.best_book.author.name
+      return (
+        <Grid.Column>
+          <Image onClick={() => props.selectBook(props.book)} src={image_url} alt={title} />
+          <h3>{publication_year ? `${title} by ${author} (${publication_year})` : `${title} by ${author}`}</h3>
+        </Grid.Column>
+      )} else {
+        let {author, bookshelves, goodreads_author_id, goodreads_book_id, image_url, publication_year, title} = props.book
+        return (
+          <Grid.Column>
+            <Image src={image_url} alt={title} />
+            <h3>{publication_year ? `${title} by ${author} (${publication_year})` : `${title} by ${author}`}</h3>
+          </Grid.Column>
+        )
+      }
+    }
   }
-}
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     selectBook: (book) => dispatch(selectBookAction(book))
-//   }
-// }
+  // function mapDispatchToProps(dispatch) {
+  //   return {
+  //     selectBook: (book) => dispatch(selectBookAction(book))
+  //   }
+  // }
 
-export default connect(null, { selectBook })(Book)
+  export default connect(null, { selectBook })(Book)

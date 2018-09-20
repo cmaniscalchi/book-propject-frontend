@@ -1,6 +1,6 @@
 import { SEARCH_BOOK, SELECT_BOOK, SAVE_BOOK } from './types'
 
-const BASE_URL = 'http://localhost:3001/api/v1/'
+const BASE_URL = 'http://localhost:3000/api/v1/'
 
 export function searchBook(input) {
   let urlSuffix = 'book_search'
