@@ -1,6 +1,8 @@
 import React from "react"
 import { connect } from 'react-redux'
 import { selectBook } from '../actions'
+import { Grid, Image } from 'semantic-ui-react'
+
 // import * as actions from '../actions'
 
 const Book = props => {
@@ -16,13 +18,14 @@ const Book = props => {
   //     payload: props.book
   //   })
   // }
-
-  return (
-    <div onClick={() => props.selectBook(props.book)}>
-      <img src={image_url} alt={title} />
-      <h3>{year ? `${title} by ${author} (${year})` : `${title} by ${author}`}</h3>
-    </div>
-  )
+  if (props.book) {
+    return (
+      <Grid.Column>
+        <Image onClick={() => props.selectBook(props.book)} src={image_url} alt={title} />
+        <h3>{year ? `${title} by ${author} (${year})` : `${title} by ${author}`}</h3>
+      </Grid.Column>
+    )
+  }
 }
 
 // function mapDispatchToProps(dispatch) {

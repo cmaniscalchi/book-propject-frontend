@@ -1,4 +1,4 @@
-import { SEARCH_BOOK } from '../types'
+import { SEARCH_BOOK, SELECT_BOOK } from '../types'
 
 const initialBookState = {
   searchResults: [],
@@ -11,7 +11,7 @@ const initialBookState = {
   //   { author: "Barbara Kingsolver", title: "The Poisonwood Bible", goodreads_book_id: 7244, publication_year: 1998 },
   //   { author: "Isabel Allende", title: "The House of the Spirits", goodreads_book_id: 9331, publication_year: 1982 }
   // ],
-  selectedBook: {},
+  selectedBook: null,
   shelvedBooks: []
 }
 
@@ -20,6 +20,8 @@ export default function bookReducer(state = initialBookState, action) {
   switch (action.type) {
     case SEARCH_BOOK:
     return { ...state, searchResults: action.payload.GoodreadsResponse.search.results.work }
+    case SELECT_BOOK:
+    return { ...state, selectedBook: action.payload }
     default:
       return state
   }

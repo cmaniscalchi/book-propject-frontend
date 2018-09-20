@@ -1,11 +1,10 @@
 import React from "react"
 import { connect } from 'react-redux'
 import { saveBook } from '../actions'
+import { Container, Button } from 'semantic-ui-react'
 
 const BookDetail = props => {
-  // console.log("BookDetail props:", props)
 
-  let {author, title, publication_year} = props.book
 
   // const saveBook = book => {
   //   props.dispatch({
@@ -13,16 +12,21 @@ const BookDetail = props => {
   //     payload: props.book
   //   })
   // }
-
-  return (
-    <div>
-      <h1>{title} by {author} ({publication_year})</h1>
-      <button onClick={() => props.saveBook(props.book)}>Save Book to Bookshelf</button>
-    </div>
-  )
+  if (props.book) {
+    let {title} = props.book.best_book
+    return (
+      <Container>
+        <h1>{title}</h1>
+        <Button onClick={() => props.saveBook(props.book)}>Save Book to Bookshelf</Button>
+      </Container>
+    )
+  } else {
+    return null
+  }
 }
 
 function mapStateToProps(state) {
+  console.log("BookDetail State:", state)
   return {
     book: state.book.selectedBook
   }

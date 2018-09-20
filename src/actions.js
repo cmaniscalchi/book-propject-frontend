@@ -1,13 +1,15 @@
 import { SEARCH_BOOK, SELECT_BOOK, SAVE_BOOK } from './types'
 
+const BASE_URL = 'http://localhost:3001/api/v1/'
+
 export function searchBook(input) {
-  const url = 'http://localhost:3001/api/v1/book_search'
+  const urlSuffix = 'book_search'
   const postConfig = {
     method: "POST",
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ input })
   }
-  const request = fetch(url, postConfig).then(res => res.json())
+  const request = fetch(BASE_URL+urlSuffix, postConfig).then(res => res.json())
   return {
     type: SEARCH_BOOK,
     payload: request
