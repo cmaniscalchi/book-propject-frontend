@@ -1,4 +1,5 @@
 import React from 'react'
+import LoginForm from './LoginForm'
 import Bookshelf from './Bookshelf'
 import SearchBar from './SearchBar'
 import BookSearchList from './BookSearchList'
@@ -29,6 +30,7 @@ const App = props => {
 
   return (
     <div>
+      <LoginForm />
       <Bookshelf />
       <SearchBar />
       <BookSearchList />
