@@ -1,4 +1,4 @@
-import { SEARCH_BOOK, SELECT_BOOK, SAVE_BOOK } from './types'
+import { SEARCH_BOOK, SELECT_BOOK, SAVE_BOOK } from '../types'
 
 const BASE_URL = 'http://localhost:3000/api/v1/'
 
@@ -25,7 +25,6 @@ export function selectBook(book) {
 }
 
 export function saveBook(book) {
-  // debugger
   let urlSuffix = 'books'
   let postConfig = {
     method: "POST",
