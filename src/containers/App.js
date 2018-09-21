@@ -1,13 +1,12 @@
-import React from 'react'
-import LoginForm from './LoginForm'
+import React, { Component } from 'react'
+// import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
+// import NavBar from '../components/NavBar'
+import LoginForm from '../components/LoginForm'
 import Bookshelf from './Bookshelf'
-import SearchBar from './SearchBar'
-import BookSearchList from './BookSearchList'
-import BookDetail from './BookDetail'
+import BookSearch from './BookSearch'
 import '../assets/css/App.css'
 
-const App = props => {
-  console.log("App:", props)
+class App extends Component {
 
   // TEST User Create
   //   componentDidMount() {
@@ -28,16 +27,21 @@ const App = props => {
   //     .then(r => r.json())
   //     .then(console.log)
   //   }
-
-  return (
-    <div>
-      <LoginForm />
-      <Bookshelf />
-      <SearchBar />
-      <BookSearchList />
-      <BookDetail />
-    </div>
-  )
+  render() {
+    // console.log("App:", props)
+    return (
+      <div>
+        {/* <NavBar /> */}
+        <LoginForm />
+        <Bookshelf />
+        <BookSearch />
+      </div>
+    )
+  }
 }
+
+// export default withRouter(App)
+// {/* <Switch> */}
+// {/* </Switch> */}
 
 export default App

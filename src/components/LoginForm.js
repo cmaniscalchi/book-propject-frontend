@@ -4,10 +4,7 @@ import { connect } from 'react-redux'
 import { Button, Form, Segment } from 'semantic-ui-react'
 
 class LoginForm extends Component {
-  state = {
-    name: '',
-    password: ''
-  }
+  state = { name: '', password: '' }
 
   handleInputChange = event => {
     this.setState({ [event.target.name]: event.target.value })
@@ -22,8 +19,6 @@ class LoginForm extends Component {
       <Segment>
         <Form
           // onSubmit={this.handleLoginSubmit}
-          size="mini"
-          key="mini"
           // loading={this.props.authenticatingUser}
           // error={this.props.failedLogin}
         >
