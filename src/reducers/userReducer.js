@@ -7,7 +7,7 @@ const initialUserState = {
 }
 
 export default function userReducer(state = initialUserState, action) {
-  // console.log("userReducer:", state, action)
+  console.log("userReducer:", state, action)
   switch (action.type) {
     default:
       return state

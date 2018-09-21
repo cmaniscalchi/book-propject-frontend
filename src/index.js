@@ -6,6 +6,7 @@ import registerServiceWorker from './registerServiceWorker'
 import { Provider } from 'react-redux'
 import store from './store'
 import reducers from './reducers'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 // App
 //   NavBar
@@ -20,5 +21,12 @@ import reducers from './reducers'
 //       Book
 //     BookDetail
 
-ReactDOM.render(<Provider store={store(reducers)}><App /></Provider>, document.getElementById('root'))
+ReactDOM.render(
+
+  <Provider store={store(reducers)}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>, document.getElementById('root')
+)
 registerServiceWorker()

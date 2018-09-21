@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-// import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
-// import NavBar from '../components/NavBar'
+import React, { Component, Fragment } from 'react'
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
+import NavBar from '../components/NavBar'
 import LoginForm from '../components/LoginForm'
 import Bookshelf from './Bookshelf'
 import BookSearch from './BookSearch'
@@ -30,18 +30,17 @@ class App extends Component {
   render() {
     // console.log("App:", props)
     return (
-      <div>
-        {/* <NavBar /> */}
-        <LoginForm />
-        <Bookshelf />
-        <BookSearch />
-      </div>
+      <Fragment>
+        <NavBar />
+        <Switch>
+          <Route exact path="/" render={() => <Redirect to="/bookshelf" />} />
+          <Route exact path="/login" component={LoginForm} />
+          <Route exact path="/bookshelf" component={Bookshelf}/>
+          <Route exact path="/search" component={BookSearch}/>
+        </Switch>
+      </Fragment>
     )
   }
 }
 
-// export default withRouter(App)
-// {/* <Switch> */}
-// {/* </Switch> */}
-
-export default App
+export default withRouter(App)

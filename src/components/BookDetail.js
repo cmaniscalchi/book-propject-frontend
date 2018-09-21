@@ -5,7 +5,6 @@ import { Container, Button } from 'semantic-ui-react'
 
 const BookDetail = props => {
 
-
   // const saveBook = book => {
   //   props.dispatch({
   //     type: 'SAVE_BOOK',

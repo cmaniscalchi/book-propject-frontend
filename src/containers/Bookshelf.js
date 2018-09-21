@@ -1,5 +1,5 @@
 import React from 'react'
-import BookshelfList from '../components/BookSearchList'
+import BookshelfList from '../components/BookshelfList'
 // import BookDetail from '../components/BookDetail'
 import { Container } from 'semantic-ui-react'
 
