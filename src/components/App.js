@@ -7,6 +7,7 @@ import BookDetail from './BookDetail'
 import '../assets/css/App.css'
 
 const App = props => {
+  console.log("App:", props)
 
   // TEST User Create
   //   componentDidMount() {

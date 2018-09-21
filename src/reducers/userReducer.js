@@ -1,5 +1,9 @@
 const initialUserState = {
-  selectedUser: {}
+  user: null,
+  loggedIn: false,
+  authenticatingUser: false,
+  failedLogin: false,
+  error: null
 }
 
 export default function userReducer(state = initialUserState, action) {

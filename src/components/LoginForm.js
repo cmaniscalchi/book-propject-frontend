@@ -1,17 +1,20 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+// import { withRouter, Redirect } from 'react-router-dom'
 import { Button, Form, Segment } from 'semantic-ui-react'
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
   state = {
     name: '',
     password: ''
   }
 
   handleInputChange = event => {
-    this.setState({ [event.target.name]: event.target.value }, () => console.log("Input:", this.state))
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   render() {
+    console.log("LoginForm:", this.props, this.state)
     // return this.props.loggedIn ? (
     //   <Redirect to="/profile" />
     // ) : (
@@ -48,3 +51,10 @@ export default class LoginForm extends Component {
       )
     }
   }
+
+  const mapStateToProps = state => {
+    let {authenticatingUser, failedLogin, error, user, loggedIn} = state.user
+    return {authenticatingUser, failedLogin, error, user, loggedIn}
+  }
+
+  export default connect(mapStateToProps)(LoginForm)
