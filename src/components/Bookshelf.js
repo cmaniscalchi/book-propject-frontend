@@ -4,7 +4,7 @@ import Book from './Book'
 import { Container, Grid } from 'semantic-ui-react'
 
 const Bookshelf = props => {
-  console.log("Bookshelf props:", props)
+  // console.log("Bookshelf props:", props)
   return (
     <div>
       <Container>

@@ -1,15 +1,17 @@
 import { SEARCH_BOOK, SELECT_BOOK, SAVE_BOOK } from '../types'
 
-const BASE_URL = 'http://localhost:3000/api/v1/'
+// const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
+const BASE_URL = `http://localhost:3000/api/v1/`
 
 export function searchBook(input) {
-  let urlSuffix = 'book_search'
+  debugger
+  let urlSuffix = `book_search`
   let postConfig = {
     method: "POST",
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ input })
   }
-  let request = fetch(BASE_URL+urlSuffix, postConfig).then(res => res.json())
+  let request = fetch(`${BASE_URL}${urlSuffix}`, postConfig).then(res => res.json())
 
   return {
     type: SEARCH_BOOK,
@@ -25,7 +27,7 @@ export function selectBook(book) {
 }
 
 export function saveBook(book) {
-  let urlSuffix = 'books'
+  let urlSuffix = `books`
   let postConfig = {
     method: "POST",
     headers: { 'Content-Type': 'application/json' },
@@ -38,7 +40,7 @@ export function saveBook(book) {
       image_url: book["best_book"]["image_url"]
     })
   }
-  let request = fetch(BASE_URL+urlSuffix, postConfig).then(res => res.json())
+  let request = fetch(`${BASE_URL}${urlSuffix}`, postConfig).then(res => res.json())
 
   return {
     type: SAVE_BOOK,
