@@ -16,6 +16,7 @@ const Book = props => {
   //   })
   // }
   if (props.book) {
+    // debugger;
     if (props.book.books_count) {
       let publication_year = props.book.original_publication_year
       let {title, image_url} = props.book.best_book
@@ -26,7 +27,7 @@ const Book = props => {
           <h3>{publication_year ? `${title} by ${author} (${publication_year})` : `${title} by ${author}`}</h3>
         </Grid.Column>
       )} else {
-        let {author, bookshelves, goodreads_author_id, goodreads_book_id, image_url, publication_year, title} = props.book
+        let {author, image_url, publication_year, title} = props.book
         return (
           <Grid.Column>
             <Image src={image_url} alt={title} />
