@@ -5,7 +5,8 @@ import { Container } from 'semantic-ui-react'
 import withAuth from '../hocs/withAuth'
 
 const Bookshelf = () => {
-  // console.log("BookshelfList props:", props)
+
+  // console.log("Bookshelf props:", props)
   return (
     <Container>
       <BookshelfList />

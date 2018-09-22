@@ -12,7 +12,7 @@ const NavBar = ({ user: { loggedIn }, location: { pathname } }) => {
           <Menu.Item as={NavLink} to="/bookshelf" name="Bookshelf" active={pathname === '/bookshelf'} />
           <Menu.Item as={NavLink} to="/search" name="Search Books" active={pathname === '/search'} />
           <Menu.Menu position="right">
-            <Menu.Item as={NavLink} to="/logout" name="Logout" onClick={logout} />
+            <Menu.Item as={NavLink} to="/login" name="Logout" onClick={logout} />
           </Menu.Menu>
         </Fragment>
       ) : (

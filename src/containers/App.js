@@ -27,7 +27,7 @@ const App = props => {
   //     .then(r => r.json())
   //     .then(console.log)
   //   }
-  // console.log('%c APP Props: ', 'color: cyan', props)
+  console.log('%c APP Props: ', 'color: cyan', props)
   return (
     <Fragment>
       <NavBar />

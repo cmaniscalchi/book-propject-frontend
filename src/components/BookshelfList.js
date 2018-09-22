@@ -4,7 +4,11 @@ import Book from './Book'
 import { Grid } from 'semantic-ui-react'
 
 const BookshelfList = props => {
-  console.log("BookshelfList props:", props)
+
+  function componentDidMount() {
+    console.log("BookshelfList props:", props)
+  }
+
   return (
     <div>
       <Grid relaxed columns={4}>
