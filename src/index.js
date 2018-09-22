@@ -3,10 +3,9 @@ import ReactDOM from 'react-dom'
 import './assets/css/index.css'
 import App from './containers/App'
 import registerServiceWorker from './registerServiceWorker'
+import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './store'
-import reducers from './reducers'
-import { BrowserRouter as Router } from 'react-router-dom'
 
 // App
 //   NavBar
@@ -23,7 +22,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 
 ReactDOM.render(
 
-  <Provider store={store(reducers)}>
+  <Provider store={store}>
     <Router>
       <App />
     </Router>
