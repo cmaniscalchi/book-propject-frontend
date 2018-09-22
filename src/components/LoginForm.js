@@ -17,17 +17,16 @@ class LoginForm extends Component {
   }
 
   render() {
-    console.log("LoginForm:", this.props, this.state)
     return this.props.loggedIn ? (
       <Redirect to="/profile" />
     ) : (
       <Segment>
         <Form
           onSubmit={this.handleLoginSubmit}
-          // loading={this.props.authenticatingUser}
-          // error={this.props.failedLogin}
+          loading={this.props.authenticatingUser}
+          error={this.props.failedLogin}
         >
-          {/* <Message error header={this.props.failedLogin ? this.props.error : null} /> */}
+          <Message error header={this.props.failedLogin ? this.props.error : null} />
           <Form.Group widths="equal">
             <Form.Input
               label="username"
@@ -53,7 +52,7 @@ class LoginForm extends Component {
   }
 
   const mapStateToProps = ({ user: { authenticatingUser, failedLogin, error, user, loggedIn } }) => (
-    { authenticatingUser, failedLogin, error, loggedIn }
+    { authenticatingUser, failedLogin, error, user, loggedIn }
   )
 
   export default withRouter(connect(mapStateToProps, { loginUser })(LoginForm))
