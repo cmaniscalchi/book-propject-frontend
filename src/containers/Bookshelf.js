@@ -2,6 +2,7 @@ import React from 'react'
 import BookshelfList from '../components/BookshelfList'
 // import BookDetail from '../components/BookDetail'
 import { Container } from 'semantic-ui-react'
+import withAuth from '../hocs/withAuth'
 
 const Bookshelf = () => {
   // console.log("BookshelfList props:", props)
@@ -13,4 +14,4 @@ const Bookshelf = () => {
   )
 }
 
-export default Bookshelf
+export default withAuth(Bookshelf)

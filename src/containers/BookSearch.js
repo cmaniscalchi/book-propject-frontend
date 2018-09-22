@@ -3,6 +3,7 @@ import SearchBar from '../components/SearchBar'
 import BookSearchList from '../components/BookSearchList'
 import BookDetail from '../components/BookDetail'
 import { Container } from 'semantic-ui-react'
+import withAuth from '../hocs/withAuth'
 
 const BookSearch = () => {
   // console.log("BookSearchList props:", props)
@@ -15,4 +16,4 @@ const BookSearch = () => {
   )
 }
 
-export default BookSearch
+export default withAuth(BookSearch)

@@ -20,7 +20,7 @@ export default function userReducer(state = initialUserState, action) {
     case FAILED_LOGIN:
       return { ...state, failedLogin: true, error: action.payload, authenticatingUser: false }
     case REMOVE_CURRENT_USER:
-      return { state: initialUserState }
+      return initialUserState
     default:
       return state
   }

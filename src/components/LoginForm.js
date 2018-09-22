@@ -17,7 +17,7 @@ class LoginForm extends Component {
   }
 
   render() {
-    console.log("Login Form:", this.state, this.props)
+    // console.log("Login Form:", this.state, this.props)
     return this.props.loggedIn ? (
       <Redirect to="/bookshelf" />
     ) : (
