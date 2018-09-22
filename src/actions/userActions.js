@@ -46,15 +46,14 @@ export const fetchCurrentUser = () => {
   }
 }
 
-
 export const setCurrentUser = userData => ({
   type: SET_CURRENT_USER,
   payload: userData
 })
 
-export const failedLogin = (errorMsg) => ({
+export const failedLogin = error => ({
   type: FAILED_LOGIN,
-  payload: errorMsg
+  payload: error
 })
 
 export const authenticatingUser = () => ({ type: AUTHENTICATING_USER })

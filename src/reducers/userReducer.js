@@ -18,12 +18,7 @@ export default function userReducer(state = initialUserState, action) {
     case AUTHENTICATED_USER:
       return { ...state, authenticatingUser: false }
     case FAILED_LOGIN:
-      return {
-        ...state,
-        failedLogin: true,
-        error: action.payload,
-        authenticatingUser: false
-      }
+      return { ...state, failedLogin: true, error: action.payload, authenticatingUser: false }
     default:
       return state
   }
