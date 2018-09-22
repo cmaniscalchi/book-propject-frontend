@@ -8,7 +8,10 @@ export function searchBook(input) {
   let urlSuffix = `book_search`
   let postConfig = {
     method: "POST",
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
     body: JSON.stringify({ input })
   }
   let request = fetch(`${BASE_URL}${urlSuffix}`, postConfig).then(res => res.json())
@@ -30,7 +33,10 @@ export function saveBook(book) {
   let urlSuffix = `books`
   let postConfig = {
     method: "POST",
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
     body: JSON.stringify({
       title: book["best_book"]["title"],
       author: book["best_book"]["author"]["name"],

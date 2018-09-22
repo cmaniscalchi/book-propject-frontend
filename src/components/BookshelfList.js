@@ -8,12 +8,15 @@ const BookshelfList = props => {
   return (
     <div>
       <Grid relaxed columns={4}>
-        {/* {props.books.length > 0 ? props.books.map(book => <Book book={book} key={book.goodreads_book_id} />) : null} */}
+        {props.books.length > 0 ? props.books.map(book => <Book book={book} key={book.goodreads_book_id} />) : null}
       </Grid>
     </div>
   )
 }
 
-const mapStateToProps = ({ user: { user } }) => ( { user } )
+const mapStateToProps = state => ({
+  books: state.book.shelvedBooks,
+  user: state.user.user
+})
 
 export default connect(mapStateToProps)(BookshelfList)

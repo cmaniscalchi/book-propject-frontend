@@ -22,10 +22,9 @@ export const loginUser = (name, password) => {
 
     dispatch({ type: SET_CURRENT_USER, payload: JSONResponse.user})
     })
-    .catch(res => res.json()
-    .then(error => dispatch({
-      type: FAILED_LOGIN,
-      payload: error.message })
+    .catch(res => res.json().then(error => dispatch({
+        type: FAILED_LOGIN,
+        payload: error.message })
     ))
   }
 }

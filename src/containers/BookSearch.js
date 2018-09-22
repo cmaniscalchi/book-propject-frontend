@@ -6,7 +6,6 @@ import { Container } from 'semantic-ui-react'
 import withAuth from '../hocs/withAuth'
 
 const BookSearch = () => {
-  // console.log("BookSearchList props:", props)
   return (
     <Container>
       <SearchBar />
