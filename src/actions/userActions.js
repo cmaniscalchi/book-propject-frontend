@@ -1,4 +1,4 @@
-import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN } from '../types'
+import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER } from '../types'
 
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 
@@ -55,5 +55,7 @@ export const failedLogin = error => ({
   type: FAILED_LOGIN,
   payload: error
 })
+
+export const logout = () => ({ type: REMOVE_CURRENT_USER })
 
 export const authenticatingUser = () => ({ type: AUTHENTICATING_USER })
