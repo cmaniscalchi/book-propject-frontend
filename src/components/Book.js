@@ -16,6 +16,8 @@ const Book = props => {
   // }
   if (props.book) {
 
+
+// Formatting Book cards using data fetched from Goodreads
     if (props.book.books_count) {
       let publication_year = props.book.original_publication_year
       let {title, image_url} = props.book.best_book
@@ -29,11 +31,12 @@ const Book = props => {
       )
 
     } else {
+      // Formatting Book cards with data from backend database
       let {author, image_url, publication_year, title} = props.book
 
       return (
         <Grid.Column>
-          <Image src={image_url} alt={title} />
+          {image_url ? <Image src={image_url} alt={title} /> : null}
           <h3>{publication_year ? `${title} by ${author} (${publication_year})` : `${title} by ${author}`}</h3>
         </Grid.Column>
       )

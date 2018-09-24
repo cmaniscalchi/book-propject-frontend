@@ -9,7 +9,7 @@ const initialUserState = {
 }
 
 export default function userReducer(state = initialUserState, action) {
-  console.log("userReducer:", state, action)
+  // console.log("userReducer:", state, action)
   switch (action.type) {
     case SET_CURRENT_USER:
       return { ...state, user: action.payload, loggedIn: true, authenticatingUser: false }

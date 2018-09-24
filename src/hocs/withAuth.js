@@ -31,11 +31,11 @@ const withAuth = WrappedComponent => {
     }
   }
 
-  const mapDispatchToProps = dispatch => {
-    return {
-      fetchCurrentUser: () => dispatch(actions.fetchCurrentUser())
-    }
-  }
+  // const mapDispatchToProps = dispatch => {
+  //   return {
+  //     fetchCurrentUser: () => dispatch(actions.fetchCurrentUser())
+  //   }
+  // }
 
   return connect(mapStateToProps, actions)(AuthorizedComponent)
 }

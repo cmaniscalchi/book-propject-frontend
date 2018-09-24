@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router-dom'
-import { Button, Tab, Form, Segment, Message } from 'semantic-ui-react'
+import { Button, Tab, Form, Message } from 'semantic-ui-react'
 import { loginUser } from '../actions/userActions'
 
 class LoginForm extends Component {

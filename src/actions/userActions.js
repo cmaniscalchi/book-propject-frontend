@@ -1,4 +1,5 @@
 import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER } from '../types'
+// import { bookSearchAdapter } from '../adapters/bookAdapters'
 
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 

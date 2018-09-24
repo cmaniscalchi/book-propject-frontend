@@ -3,7 +3,9 @@ import { SEARCH_BOOK, SELECT_BOOK, SAVE_BOOK } from '../types'
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 // const BASE_URL = `http://localhost:3000/api/v1/`
 
-export function searchBook(input) {
+// TODO: move all api calls to adapters folder
+
+export const searchBook = input => {
   // debugger
   let urlSuffix = `book_search`
   let postConfig = {
@@ -22,14 +24,14 @@ export function searchBook(input) {
   }
 }
 
-export function selectBook(book) {
+export const selectBook = book => {
   return {
     type: SELECT_BOOK,
     payload: book
   }
 }
 
-export function saveBook(book) {
+export const saveBook = book => {
   let urlSuffix = `books`
   let postConfig = {
     method: "POST",
