@@ -3,20 +3,14 @@ import { connect } from 'react-redux'
 import { saveBook } from '../actions'
 import { Container, Button } from 'semantic-ui-react'
 
-const BookDetail = props => {
+const BookDetail = ({ book, saveBook, userId }) => {
+  console.log("BookDetail:", book, userId)
 
-  // const saveBook = book => {
-  //   props.dispatch({
-  //     type: 'SAVE_BOOK',
-  //     payload: props.book
-  //   })
-  // }
-  if (props.book) {
-    let {title} = props.book.best_book
+  if (book && userId) {
     return (
       <Container>
-        <h1>{title}</h1>
-        <Button onClick={() => props.saveBook(props.book)}>Save Book to Bookshelf</Button>
+        <h1>{book.best_book.title}</h1>
+        <Button onClick={() => saveBook(book, userId)}>Save Book to Bookshelf</Button>
       </Container>
     )
   } else {
@@ -25,16 +19,10 @@ const BookDetail = props => {
 }
 
 function mapStateToProps(state) {
-  // console.log("BookDetail State:", state)
   return {
-    book: state.book.selectedBook
+    book: state.book.selectedBook,
+    userId: state.user.user.id
   }
 }
-
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     saveBook: book => dispatch(saveBookAction(book))
-//   }
-// }
 
 export default connect(mapStateToProps, { saveBook })(BookDetail)

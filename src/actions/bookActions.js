@@ -31,7 +31,10 @@ export const selectBook = book => {
   }
 }
 
-export const saveBook = book => {
+export const saveBook = (book, userId) => {
+  // console.log(userId)
+  let chosenBook = book.best_book
+  let chosenAuthor = book.best_book.author
   let urlSuffix = `books`
   let postConfig = {
     method: "POST",
@@ -40,15 +43,16 @@ export const saveBook = book => {
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     },
     body: JSON.stringify({
-      title: book["best_book"]["title"],
-      author: book["best_book"]["author"]["name"],
-      goodreads_book_id: book["best_book"]["id"],
-      goodreads_author_id: book["best_book"]["author"]["id"],
+      title: chosenBook["title"],
+      author: chosenAuthor["name"],
+      goodreads_book_id: chosenBook["id"],
+      goodreads_author_id: chosenAuthor["id"],
       publication_year: book["original_publication_year"],
-      image_url: book["best_book"]["image_url"]
+      image_url: chosenBook["image_url"],
+      bookshelf_id: userId
     })
   }
-  let request = fetch(`${BASE_URL}${urlSuffix}`, postConfig).then(res => res.json())
+  let request = fetch(`${BASE_URL}${urlSuffix}`, postConfig).then(res => res.json()).then(data => console.log(data))
 
   return {
     type: SAVE_BOOK,
