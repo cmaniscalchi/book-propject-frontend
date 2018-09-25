@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router-dom'
 import { Button, Tab, Form, Message } from 'semantic-ui-react'
-import { loginUser } from '../actions/userActions'
+import { loginUser, signUpUser } from '../actions/userActions'
 
 class LoginForm extends Component {
   state = { name: '', password: '' }
@@ -16,8 +16,13 @@ class LoginForm extends Component {
     this.setState({ name: '', password: '' })
   }
 
-  render() {
+  handleSignUpSubmit = () => {
+    console.log("I hit the sign up submit function")
+    this.props.signUpUser(this.state.name, this.state.password)
+    this.setState({ name: '', password: '' })
+  }
 
+  render() {
     const nameInput = (
       <Form.Input
         label="Username"
@@ -56,7 +61,7 @@ class LoginForm extends Component {
 
     const signUpForm = (
       <Form
-        // onSubmit={this.handleLoginSubmit}
+        onSubmit={this.handleSignUpSubmit}
         loading={this.props.authenticatingUser}
         error={this.props.failedLogin}
       >
@@ -74,7 +79,7 @@ class LoginForm extends Component {
       { menuItem: 'Sign Up', render: () => <Tab.Pane>{signUpForm}</Tab.Pane> }
     ]
 
-    // console.log("Login Form:", this.state, this.props)
+    console.log("Login Form:", this.state, this.props)
     return this.props.loggedIn ? <Redirect to="/bookshelf" /> : <Tab style={{width:'66%'}} panes={panes} />
 
   }
@@ -84,4 +89,4 @@ class LoginForm extends Component {
     { authenticatingUser, failedLogin, error, user, loggedIn }
   )
 
-  export default withRouter(connect(mapStateToProps, { loginUser })(LoginForm))
+  export default withRouter(connect(mapStateToProps, { loginUser, signUpUser })(LoginForm))

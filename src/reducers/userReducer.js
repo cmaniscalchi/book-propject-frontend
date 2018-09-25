@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, AUTHENTICATING_USER, AUTHENTICATED_USER, FAILED_LOGIN, REMOVE_CURRENT_USER } from '../types'
+import { SET_CURRENT_USER, AUTHENTICATING_USER, AUTHENTICATED_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, CREATE_USER } from '../types'
 
 const initialUserState = {
   user: null,
@@ -21,6 +21,8 @@ export default function userReducer(state = initialUserState, action) {
       return { ...state, failedLogin: true, error: action.payload, authenticatingUser: false }
     case REMOVE_CURRENT_USER:
       return initialUserState
+    case CREATE_USER:
+      return { ...state, user: action.payload}
     default:
       return state
   }
