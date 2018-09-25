@@ -31,17 +31,32 @@ export const searchBook = input => {
 }
 
 export const selectBook = book => {
+  // let {title, id} = book.best_book
+  // let image_url = book.best_book.image_url.replace("m/", "l/").replace("m/", "l/").replace("col/", "com/")
+  // let {name} = book.best_book.author
+  // let authorId = book.best_book.author.id
+  // let publication_year = book.original_publication_year
+  // let formattedBook = {
+  //   title, image_url, publication_year, author: name, goodreads_book_id: id, goodreads_author_id: authorId
+  // }
+
+  console.log("selectBook:", book)
   return {
     type: SELECT_BOOK,
     payload: book
   }
 }
 
-export const saveBook = (book, userId) => {
-  let chosenBook = book.best_book
-  let chosenAuthor = book.best_book.author
-  let urlSuffix = `books`
+// export const selectBookFromRails = book => {
+//   console.log("selectBookFromRails:", book)
+//   return {
+//     type: SELECT_BOOK,
+//     payload: book
+//   }
+// }
 
+export const saveBook = (book, userId) => {
+  let urlSuffix = `books`
   let postConfig = {
     method: "POST",
     headers: {
@@ -49,12 +64,12 @@ export const saveBook = (book, userId) => {
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     },
     body: JSON.stringify({
-      title: chosenBook["title"],
-      author: chosenAuthor["name"],
-      goodreads_book_id: chosenBook["id"],
-      goodreads_author_id: chosenAuthor["id"],
-      publication_year: book["original_publication_year"],
-      image_url: chosenBook["image_url"],
+      title: book["title"],
+      author: book["author"],
+      goodreads_book_id: book["goodreads_book_id"],
+      goodreads_author_id: book["goodreads_author_id"],
+      publication_year: book["publication_year"],
+      image_url: book["image_url"],
       bookshelf_id: userId
     })
   }
@@ -64,4 +79,12 @@ export const saveBook = (book, userId) => {
     type: SAVE_BOOK,
     payload: request
   }
+}
+
+export const viewEditions = book => {
+  console.log("viewEditions:", book)
+}
+
+export const deleteBook = (book, userId) => {
+  console.log("deleteBook:", book, userId)
 }

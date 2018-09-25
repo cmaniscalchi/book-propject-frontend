@@ -11,14 +11,19 @@ const Book = ({ book, selectBook }) => {
 
     // Formatting for Books using data fetched from Goodreads (for rendering in Book Search results)
     if (book.books_count) {
+      let {title, id} = book.best_book
+      let image_url = book.best_book.image_url.replace("m/", "l/").replace("m/", "l/").replace("col/", "com/")
+      let {name} = book.best_book.author
+      let authorId = book.best_book.author.id
       let publication_year = book.original_publication_year
-      let {title, image_url} = book.best_book
-      let author = book.best_book.author.name
+      let formattedBook = {
+        title, image_url, publication_year, author: name, goodreads_book_id: id, goodreads_author_id: authorId
+      }
 
       return (
         <Grid.Column>
-          <Image onClick={() => selectBook(book)} src={image_url} alt={title} />
-          <h3>{publication_year ? `${title} by ${author} (${publication_year})` : `${title} by ${author}`}</h3>
+          <Image onClick={() => selectBook(formattedBook)} src={image_url} alt={title} />
+          <h3>{publication_year ? `${title} by ${name} (${publication_year})` : `${title} by ${name}`}</h3>
         </Grid.Column>
       )
 

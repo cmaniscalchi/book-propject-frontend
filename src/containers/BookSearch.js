@@ -9,8 +9,8 @@ const BookSearch = () => {
   return (
     <Container>
       <SearchBar />
-      <BookSearchList />
       <BookDetail />
+      <BookSearchList />
     </Container>
   )
 }
