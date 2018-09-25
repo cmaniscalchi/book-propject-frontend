@@ -9,7 +9,7 @@ const Book = ({ book, selectBook }) => {
   // Only try to render books if a user has either books shelved or books returned in search results
   if (book) {
 
-    // Formatting for Books using data fetched from Goodreads (for rendering in Book Search results)
+    // Formatting  Books using data fetched from Goodreads (for rendering in Book Search results & posting to Rails)
     if (book.books_count) {
       let {title, id} = book.best_book
       let image_url = book.best_book.image_url.replace("m/", "l/").replace("m/", "l/").replace("col/", "com/")

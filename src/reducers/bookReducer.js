@@ -1,4 +1,4 @@
-import { SEARCH_BOOK, SELECT_BOOK, SAVE_BOOK, SET_SHELVED_BOOKS } from '../types'
+import { SEARCH_BOOK, SELECT_BOOK, SAVE_BOOK, SET_SHELVED_BOOKS, UNSELECT_BOOK } from '../types'
 
 const initialBookState = {
   searchResults: [],
@@ -17,6 +17,8 @@ export default function bookReducer(state = initialBookState, action) {
     return { ...state, selectedBook: action.payload }
     case SAVE_BOOK:
     return { ...state, shelvedBooks: state.shelvedBooks.concat(action.payload) }
+    case UNSELECT_BOOK:
+    return { ...state, selectedBook: null }
     default:
     return state
   }

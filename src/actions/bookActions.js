@@ -1,4 +1,4 @@
-import { SEARCH_BOOK, SELECT_BOOK, SAVE_BOOK, SET_SHELVED_BOOKS } from '../types'
+import { SEARCH_BOOK, SELECT_BOOK, SAVE_BOOK, SET_SHELVED_BOOKS, UNSELECT_BOOK } from '../types'
 
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 // const BASE_URL = `http://localhost:3000/api/v1/`
@@ -87,4 +87,10 @@ export const viewEditions = book => {
 
 export const deleteBook = (book, userId) => {
   console.log("deleteBook:", book, userId)
+}
+
+export const resetSelectedBook = () => {
+  return {
+    type: UNSELECT_BOOK
+  }
 }

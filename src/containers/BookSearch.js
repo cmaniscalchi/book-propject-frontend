@@ -1,7 +1,7 @@
 import React from 'react'
 import SearchBar from '../components/SearchBar'
 import BookSearchList from '../components/BookSearchList'
-import BookDetail from '../components/BookDetail'
+import BookSearchDetail from '../components/BookSearchDetail'
 import { Container } from 'semantic-ui-react'
 import withAuth from '../hocs/withAuth'
 
@@ -9,7 +9,7 @@ const BookSearch = () => {
   return (
     <Container>
       <SearchBar />
-      <BookDetail />
+      <BookSearchDetail />
       <BookSearchList />
     </Container>
   )
