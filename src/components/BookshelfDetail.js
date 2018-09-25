@@ -12,7 +12,7 @@ const BookshelfDetail = ({ book, deleteBook, viewEditions, userId, location: { p
       <Container>
         <h1>{book.title} by {book.author}</h1>
         <Button onClick={() => viewEditions(book)}>View Alternate Editions</Button>
-        <Button onClick={() => deleteBook(book, userId)}>Remove Book from Shelf</Button>
+        <Button onClick={() => deleteBook(book.id)}>Remove Book from Shelf</Button>
       </Container>
     )
   } else {

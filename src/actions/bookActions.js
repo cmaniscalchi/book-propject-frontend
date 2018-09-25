@@ -1,4 +1,4 @@
-import { SEARCH_BOOK, SELECT_BOOK, SAVE_BOOK, SET_SHELVED_BOOKS, UNSELECT_BOOK } from '../types'
+import { SEARCH_BOOK, SELECT_BOOK, SAVE_BOOK, SET_SHELVED_BOOKS, UNSELECT_BOOK, REMOVE_BOOK } from '../types'
 
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 // const BASE_URL = `http://localhost:3000/api/v1/`
@@ -68,9 +68,22 @@ export const viewEditions = book => {
   return { type: 'SEARCH_EDITIONS' }
 }
 
-export const deleteBook = (book, userId) => {
-  console.log("deleteBook:", book, userId)
-  return { type: 'REMOVE_BOOK' }
+export const deleteBook = bookId => {
+  let urlSuffix = `books/${bookId}`
+  let postConfig = {
+    method: "DELETE",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
+    body: JSON.stringify({ bookId })
+  }
+  fetch(`${BASE_URL}${urlSuffix}`, postConfig)
+
+  return {
+    type: REMOVE_BOOK,
+    payload: bookId
+  }
 }
 
 export const resetSelectedBook = () => {
