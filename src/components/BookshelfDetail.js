@@ -4,14 +4,15 @@ import { saveBook, deleteBook, viewEditions } from '../actions'
 import { Container, Button } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 
-const BookshelfDetail = ({ book, saveBook, userId, location: { pathname } }) => {
-  console.log("BookshelfDetail:", book, userId, pathname)
+const BookshelfDetail = ({ book, deleteBook, viewEditions, userId, location: { pathname } }) => {
+  // console.log("BookshelfDetail:", book, userId, pathname)
 
   if (book && pathname === "/bookshelf") {
     return (
       <Container>
         <h1>{book.title} by {book.author}</h1>
-        <Button onClick={() => saveBook(book, userId)}>Save Book to Bookshelf</Button>
+        <Button onClick={() => viewEditions(book)}>View Alternate Editions</Button>
+        <Button onClick={() => deleteBook(book, userId)}>Remove Book from Shelf</Button>
       </Container>
     )
   } else {
@@ -26,4 +27,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRouter(connect(mapStateToProps, { saveBook, deleteBook, viewEditions })(BookshelfDetail))
+export default withRouter(connect(mapStateToProps, { deleteBook, viewEditions })(BookshelfDetail))

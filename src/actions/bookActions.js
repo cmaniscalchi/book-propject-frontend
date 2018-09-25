@@ -5,7 +5,7 @@ const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 
 // TODO: move all api calls to adapters folder
 
-export const setShelvedBooks = (books) => {
+export const setShelvedBooks = books => {
   return {
     type: SET_SHELVED_BOOKS,
     payload: books
@@ -31,29 +31,11 @@ export const searchBook = input => {
 }
 
 export const selectBook = book => {
-  // let {title, id} = book.best_book
-  // let image_url = book.best_book.image_url.replace("m/", "l/").replace("m/", "l/").replace("col/", "com/")
-  // let {name} = book.best_book.author
-  // let authorId = book.best_book.author.id
-  // let publication_year = book.original_publication_year
-  // let formattedBook = {
-  //   title, image_url, publication_year, author: name, goodreads_book_id: id, goodreads_author_id: authorId
-  // }
-
-  console.log("selectBook:", book)
   return {
     type: SELECT_BOOK,
     payload: book
   }
 }
-
-// export const selectBookFromRails = book => {
-//   console.log("selectBookFromRails:", book)
-//   return {
-//     type: SELECT_BOOK,
-//     payload: book
-//   }
-// }
 
 export const saveBook = (book, userId) => {
   let urlSuffix = `books`
@@ -73,7 +55,7 @@ export const saveBook = (book, userId) => {
       bookshelf_id: userId
     })
   }
-  let request = fetch(`${BASE_URL}${urlSuffix}`, postConfig).then(res => res.json()).then(data => console.log(data))
+  let request = fetch(`${BASE_URL}${urlSuffix}`, postConfig).then(res => res.json())
 
   return {
     type: SAVE_BOOK,
@@ -83,10 +65,12 @@ export const saveBook = (book, userId) => {
 
 export const viewEditions = book => {
   console.log("viewEditions:", book)
+  return { type: 'SEARCH_EDITIONS' }
 }
 
 export const deleteBook = (book, userId) => {
   console.log("deleteBook:", book, userId)
+  return { type: 'REMOVE_BOOK' }
 }
 
 export const resetSelectedBook = () => {
