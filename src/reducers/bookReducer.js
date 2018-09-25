@@ -6,10 +6,8 @@ const initialBookState = {
   shelvedBooks: []
 }
 
-// const findShelvedBook = book => book.id === action.payload
-
 export default function bookReducer(state = initialBookState, action) {
-  console.log("bookReducer:", state, action)
+  // console.log("bookReducer:", state, action)
   switch (action.type) {
     case SET_SHELVED_BOOKS:
     return { ...state, shelvedBooks: action.payload }
@@ -22,8 +20,6 @@ export default function bookReducer(state = initialBookState, action) {
     case UNSELECT_BOOK:
     return { ...state, selectedBook: null }
     case REMOVE_BOOK:
-    // let index = [...shelvedBooks].findIndex(book => book.id === action.payload)
-    // debugger
     return { ...state, shelvedBooks: state.shelvedBooks.filter(book => book.id !== action.payload)}
     default:
     return state
