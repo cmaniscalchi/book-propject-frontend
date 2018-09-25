@@ -20,12 +20,11 @@ export const loginUser = (name, password) => {
     })
     .then(JSONResponse => {
       localStorage.setItem('jwt', JSONResponse.jwt)
-
-    dispatch({ type: SET_CURRENT_USER, payload: JSONResponse.user})
+      dispatch({ type: SET_CURRENT_USER, payload: JSONResponse.user})
     })
     .catch(res => res.json().then(error => dispatch({
-        type: FAILED_LOGIN,
-        payload: error.message })
+      type: FAILED_LOGIN,
+      payload: error.message })
     ))
   }
 }
@@ -55,6 +54,22 @@ export const failedLogin = error => ({
   payload: error
 })
 
-export const logout = () => ({ type: REMOVE_CURRENT_USER })
+export const logoutUser = name => {
+  let urlSuffix = `logout`
+  let postConfig = {
+    method: "POST",
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ "user": { "name": name } })
+  }
+
+  return dispatch => {
+    dispatch({ type: AUTHENTICATING_USER })
+    fetch(`${BASE_URL}${urlSuffix}`, postConfig)
+    .then(res => {
+      localStorage.removeItem('jwt')
+      dispatch({ type: REMOVE_CURRENT_USER })
+    })
+  }
+}
 
 export const authenticatingUser = () => ({ type: AUTHENTICATING_USER })

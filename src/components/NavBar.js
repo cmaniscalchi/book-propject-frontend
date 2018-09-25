@@ -2,9 +2,11 @@ import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { NavLink, withRouter } from 'react-router-dom'
 import { Menu } from 'semantic-ui-react'
-import { logout } from '../actions/userActions'
+import { logoutUser } from '../actions/userActions'
 
-const NavBar = ({ user: { loggedIn }, location: { pathname } }) => {
+const NavBar = ({ user: { loggedIn, user }, logoutUser, location: { pathname } }) => {
+  // debugger;
+
   return (
     <Menu pointing secondary>
       {loggedIn ? (
@@ -12,7 +14,7 @@ const NavBar = ({ user: { loggedIn }, location: { pathname } }) => {
           <Menu.Item as={NavLink} to="/bookshelf" name="Bookshelf" active={pathname === '/bookshelf'} />
           <Menu.Item as={NavLink} to="/search" name="Search Books" active={pathname === '/search'} />
           <Menu.Menu position="right">
-            <Menu.Item as={NavLink} to="/login" name="Logout" onClick={logout} />
+            <Menu.Item as={NavLink} to="/login" name="Log out" onClick={() => logoutUser(user.name)} />
           </Menu.Menu>
         </Fragment>
       ) : (
@@ -26,4 +28,4 @@ const NavBar = ({ user: { loggedIn }, location: { pathname } }) => {
 
 const mapStateToProps = ({ user }) => ({ user })
 
-export default withRouter(connect(mapStateToProps)(NavBar))
+export default withRouter(connect(mapStateToProps, { logoutUser })(NavBar))

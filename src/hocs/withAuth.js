@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
 import * as actions from '../actions'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
 import { Loader } from 'semantic-ui-react'
 
 const withAuth = WrappedComponent => {
-  class AuthorizedComponent extends React.Component {
+  class AuthorizedComponent extends Component {
 
     componentDidMount() {
       if (localStorage.getItem('jwt') && !this.props.loggedIn) {
@@ -30,12 +30,6 @@ const withAuth = WrappedComponent => {
       authenticatingUser: state.user.authenticatingUser
     }
   }
-
-  // const mapDispatchToProps = dispatch => {
-  //   return {
-  //     fetchCurrentUser: () => dispatch(actions.fetchCurrentUser())
-  //   }
-  // }
 
   return connect(mapStateToProps, actions)(AuthorizedComponent)
 }

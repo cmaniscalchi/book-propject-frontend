@@ -41,7 +41,7 @@ export const saveBook = (book, userId) => {
   let chosenBook = book.best_book
   let chosenAuthor = book.best_book.author
   let urlSuffix = `books`
-  
+
   let postConfig = {
     method: "POST",
     headers: {

@@ -4,7 +4,7 @@ import { saveBook } from '../actions'
 import { Container, Button } from 'semantic-ui-react'
 
 const BookDetail = ({ book, saveBook, userId }) => {
-  console.log("BookDetail:", book, userId)
+  // console.log("BookDetail:", book, userId)
 
   if (book && userId) {
     return (
