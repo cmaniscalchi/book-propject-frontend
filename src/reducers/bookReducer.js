@@ -1,4 +1,4 @@
-import { DISPLAY_BOOKSHELF, SEARCH_BOOK, SELECT_BOOK, SAVE_BOOK } from '../types'
+import { SEARCH_BOOK, SELECT_BOOK, SAVE_BOOK, SET_SHELVED_BOOKS } from '../types'
 
 const initialBookState = {
   searchResults: [],
@@ -9,14 +9,14 @@ const initialBookState = {
 export default function bookReducer(state = initialBookState, action) {
   console.log("bookReducer:", state, action)
   switch (action.type) {
-    case DISPLAY_BOOKSHELF:
-    return state
+    case SET_SHELVED_BOOKS:
+    return { ...state, shelvedBooks: action.payload }
     case SEARCH_BOOK:
     return { ...state, searchResults: action.payload.GoodreadsResponse.search.results.work }
     case SELECT_BOOK:
     return { ...state, selectedBook: action.payload }
     case SAVE_BOOK:
-    return { ...state, shelvedBooks: [...state.shelvedBooks, action.payload] }
+    return { ...state, shelvedBooks: state.shelvedBooks.concat(action.payload) }
     default:
     return state
   }

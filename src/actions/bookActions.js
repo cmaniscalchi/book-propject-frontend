@@ -1,12 +1,18 @@
-import { SEARCH_BOOK, SELECT_BOOK, SAVE_BOOK } from '../types'
+import { SEARCH_BOOK, SELECT_BOOK, SAVE_BOOK, SET_SHELVED_BOOKS } from '../types'
 
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 // const BASE_URL = `http://localhost:3000/api/v1/`
 
 // TODO: move all api calls to adapters folder
 
+export const setShelvedBooks = (books) => {
+  return {
+    type: SET_SHELVED_BOOKS,
+    payload: books
+  }
+}
+
 export const searchBook = input => {
-  // debugger
   let urlSuffix = `book_search`
   let postConfig = {
     method: "POST",
@@ -32,10 +38,10 @@ export const selectBook = book => {
 }
 
 export const saveBook = (book, userId) => {
-  // console.log(userId)
   let chosenBook = book.best_book
   let chosenAuthor = book.best_book.author
   let urlSuffix = `books`
+  
   let postConfig = {
     method: "POST",
     headers: {
