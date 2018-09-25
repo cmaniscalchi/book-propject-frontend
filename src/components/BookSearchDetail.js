@@ -2,12 +2,11 @@ import React from "react"
 import { connect } from 'react-redux'
 import { saveBook, deleteBook, viewEditions } from '../actions'
 import { Container, Button } from 'semantic-ui-react'
-import { withRouter } from 'react-router-dom'
 
-const BookSearchDetail = ({ book, saveBook, userId, location: { pathname } }) => {
-  console.log("BookSearchDetail:", book, userId, pathname)
+const BookSearchDetail = ({ shelvedBooks, book, saveBook, userId }) => {
+  console.log("BookSearchDetail:", shelvedBooks, book, userId)
 
-  if (book && pathname === "/search") {
+  if (book) {
     return (
       <Container>
         <h1>{book.title} by {book.author}</h1>
@@ -22,8 +21,9 @@ const BookSearchDetail = ({ book, saveBook, userId, location: { pathname } }) =>
 function mapStateToProps(state) {
   return {
     book: state.book.selectedBook,
+    shelvedBooks: state.book.shelvedBooks,
     userId: state.user.user.id
   }
 }
 
-export default withRouter(connect(mapStateToProps, { saveBook, deleteBook, viewEditions })(BookSearchDetail))
+export default connect(mapStateToProps, { saveBook, deleteBook, viewEditions })(BookSearchDetail)

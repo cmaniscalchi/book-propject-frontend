@@ -2,12 +2,11 @@ import React from "react"
 import { connect } from 'react-redux'
 import { saveBook, deleteBook, viewEditions } from '../actions'
 import { Container, Button } from 'semantic-ui-react'
-import { withRouter } from 'react-router-dom'
 
-const BookshelfDetail = ({ book, deleteBook, viewEditions, userId, location: { pathname } }) => {
-  // console.log("BookshelfDetail:", book, userId, pathname)
+const BookshelfDetail = ({ book, deleteBook, viewEditions, userId }) => {
+  // console.log("BookshelfDetail:", book, userId)
 
-  if (book && pathname === "/bookshelf") {
+  if (book) {
     return (
       <Container>
         <h1>{book.title} by {book.author}</h1>
@@ -27,4 +26,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRouter(connect(mapStateToProps, { deleteBook, viewEditions })(BookshelfDetail))
+export default connect(mapStateToProps, { deleteBook, viewEditions })(BookshelfDetail)
