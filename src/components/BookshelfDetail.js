@@ -3,11 +3,13 @@ import { connect } from 'react-redux'
 import { Button, Header, Image, Modal } from 'semantic-ui-react'
 import { deleteUserBook, viewEditions, clearSelectedBook } from '../actions'
 
-// const BookshelfDetail = ({ book, deleteUserBook, viewEditions, dimmer, open, close }) => {
-//   console.log("BookshelfDetail:", dimmer, open, close)
+const BookshelfDetail = ({ book, modalOpen, deleteUserBook, viewEditions, clearSelectedBook }) => {
+  // console.log("BookshelfDetail:", book, modalOpen)
 
-const BookshelfDetail = ({ book, modalOpen, clearSelectedBook }) => {
-  console.log("BookshelfDetail:", book, modalOpen)
+const handleBookRemoveOnClick = (bookId) => {
+  deleteUserBook(bookId)
+  clearSelectedBook()
+}
 
   if (book) {
     return (
@@ -24,13 +26,9 @@ const BookshelfDetail = ({ book, modalOpen, clearSelectedBook }) => {
           </Modal.Content>
           <Modal.Actions>
             <Button onClick={() => viewEditions(book)}>View Alternate Editions</Button>
-            <Button onClick={() => deleteUserBook(book.id)}>Remove Book from Shelf</Button>
+            <Button onClick={() => handleBookRemoveOnClick(book.id)}>Remove Book from Shelf</Button>
           </Modal.Actions>
         </Modal>
-
-        {/* <h1>{book.title} by {book.author}</h1>
-          <Button onClick={() => viewEditions(book)}>View Alternate Editions</Button>
-        <Button onClick={() => deleteUserBook(book.id)}>Remove Book from Shelf</Button> */}
       </div>
     )
   } else {
