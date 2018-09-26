@@ -1,15 +1,24 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Book from './Book'
 import { Grid } from 'semantic-ui-react'
+import { clearSearchResults } from '../actions'
 
-const BookSearchList = props => {
+class BookSearchList extends Component {
+
+  componentDidMount() {
+    this.props.clearSearchResults()
+  }
   // console.log("BookSearchList props:", props)
-  return (
-    <Grid relaxed columns={4}>
-      {props.searchResults.length > 0 ? props.searchResults.map(book => <Book book={book} key={book.id} />) : null}
-    </Grid>
-  )
+  render() {
+    let { searchResults } = this.props
+
+    return (
+      <Grid relaxed columns={4}>
+        {searchResults.length > 0 ? searchResults.map(book => <Book book={book} key={book.id} />) : null}
+      </Grid>
+    )
+  }
 }
 
 const mapStateToProps = state => {
@@ -18,4 +27,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(BookSearchList)
+export default connect(mapStateToProps, { clearSearchResults })(BookSearchList)

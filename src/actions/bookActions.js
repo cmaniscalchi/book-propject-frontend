@@ -1,4 +1,4 @@
-import { SEARCH_BOOK, SELECT_BOOK, SET_SHELVED_BOOKS, UNSELECT_BOOK } from '../types'
+import { SEARCH_BOOK, SELECT_BOOK, SET_SHELVED_BOOKS, UNSELECT_BOOK, CLEAR_SEARCH } from '../types'
 
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 
@@ -19,6 +19,12 @@ export const selectBook = book => {
 export const clearSelectedBook = () => {
   return {
     type: UNSELECT_BOOK
+  }
+}
+
+export const clearSearchResults = () => {
+  return {
+    type: CLEAR_SEARCH
   }
 }
 

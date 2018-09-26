@@ -18,7 +18,7 @@ class BookSearchDetail extends Component {
       return (
         <Container>
           <h1>{book.title} by {book.author}</h1>
-          {shelvedBooks.some(shelvedBook => shelvedBook.goodreads_book_id === book.goodreads_book_id) ? <em>This book is already on your bookshelf</em> : <Button onClick={() => saveUserBook(book, userId, shelvedBooks)}>Save Book to Bookshelf</Button>}
+          {shelvedBooks.some(shelvedBook => shelvedBook.goodreads_book_id === book.goodreads_book_id) ? null : <Button onClick={() => saveUserBook(book, userId, shelvedBooks)}>Save Book to Bookshelf</Button>}
         </Container>
       )
     } else {
