@@ -3,7 +3,8 @@ import { SEARCH_BOOK, SELECT_BOOK, SET_SHELVED_BOOKS, UNSELECT_BOOK, CLEAR_SEARC
 const initialBookState = {
   searchResults: [],
   selectedBook: null,
-  shelvedBooks: []
+  shelvedBooks: [],
+  modalOpen: false
 }
 
 export default function bookReducer(state = initialBookState, action) {
@@ -15,9 +16,9 @@ export default function bookReducer(state = initialBookState, action) {
     case SEARCH_BOOK:
     return { ...state, searchResults: action.payload.GoodreadsResponse.search.results.work }
     case SELECT_BOOK:
-    return { ...state, selectedBook: action.payload }
+    return { ...state, selectedBook: action.payload, modalOpen: true }
     case UNSELECT_BOOK:
-    return { ...state, selectedBook: null }
+    return { ...state, selectedBook: null, modalOpen: false }
     case CLEAR_SEARCH:
     return { ...state, searchResults: [] }
     default:

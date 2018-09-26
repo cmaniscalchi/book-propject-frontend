@@ -4,7 +4,7 @@ import { selectBook } from '../actions'
 import { Grid, Image } from 'semantic-ui-react'
 
 const Book = ({ book, selectBook }) => {
-  // console.log("Book props:", book)
+  // console.log("Book props:", book, selectBook, modalOpen)
 
   // Only try to render books if a user has either books shelved or books returned in search results
   if (book) {
