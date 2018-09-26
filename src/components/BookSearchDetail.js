@@ -17,7 +17,6 @@ class BookSearchDetail extends Component {
     // console.log("BookSearchDetail:", shelvedBooks, book, userId)
 
     if (book) {
-      debugger
       return (
         <Container>
           <h1>{book.title} by {book.author}</h1>

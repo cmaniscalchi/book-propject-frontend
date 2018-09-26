@@ -8,8 +8,9 @@ const Book = ({ book, selectBook }) => {
 
   // Only try to render books if a user has either books shelved or books returned in search results
   if (book) {
+    let placeholder_image = "https://image.ibb.co/fzKNz9/Placeholder_Cover_Resize.png"
 
-    // Formatting  Books using data fetched from Goodreads (for rendering in Book Search results & posting to Rails)
+    // Formatting Books using data fetched from Goodreads (for rendering in Book Search results & posting to Rails)
     if (book.books_count) {
       let {title, id} = book.best_book
       let image_url = book.best_book.image_url.replace("m/", "l/").replace("m/", "l/").replace("col/", "com/")
@@ -22,7 +23,7 @@ const Book = ({ book, selectBook }) => {
 
       return (
         <Grid.Column>
-          <Image onClick={() => selectBook(formattedBook)} src={image_url} alt={title} />
+          <Image onClick={() => selectBook(formattedBook)} src={image_url.includes("nophoto") ? placeholder_image : image_url} alt={title} />
           <h3>{publication_year ? `${title} by ${name} (${publication_year})` : `${title} by ${name}`}</h3>
         </Grid.Column>
       )
@@ -33,7 +34,7 @@ const Book = ({ book, selectBook }) => {
 
       return (
         <Grid.Column>
-          {image_url ? <Image onClick={() => selectBook(book)} src={image_url} alt={title} /> : null}
+          <Image onClick={() => selectBook(book)} src={image_url.includes("nophoto") ? placeholder_image : image_url} alt={title} />
           <h3>{publication_year ? `${title} by ${author} (${publication_year})` : `${title} by ${author}`}</h3>
         </Grid.Column>
       )
