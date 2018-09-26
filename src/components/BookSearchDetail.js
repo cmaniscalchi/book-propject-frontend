@@ -1,14 +1,12 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
-import { saveBook, deleteBook, viewEditions } from '../actions'
 import { Container, Button } from 'semantic-ui-react'
-import { setShelvedBooks } from '../actions'
+import { setShelvedBooks, saveBook } from '../actions'
 
 class BookSearchDetail extends Component {
 
   componentDidMount() {
-    let { shelvedBooks, setShelvedBooks } = this.props
-    console.log(shelvedBooks)
+    let { setShelvedBooks, shelvedBooks } = this.props
     setShelvedBooks(shelvedBooks)
   }
 
@@ -20,7 +18,7 @@ class BookSearchDetail extends Component {
       return (
         <Container>
           <h1>{book.title} by {book.author}</h1>
-          {shelvedBooks.some(shelvedBook => shelvedBook.goodreads_book_id === book.goodreads_book_id) ? <em>This book is already on your bookshelf</em> : <Button onClick={() => saveBook(book, userId)}>Save Book to Bookshelf</Button>}
+          {shelvedBooks.some(shelvedBook => shelvedBook.goodreads_book_id === book.goodreads_book_id) ? <em>This book is already on your bookshelf</em> : <Button onClick={() => saveBook(book, userId, shelvedBooks)}>Save Book to Bookshelf</Button>}
         </Container>
       )
     } else {
@@ -30,7 +28,6 @@ class BookSearchDetail extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state)
   return {
     book: state.book.selectedBook,
     shelvedBooks: state.user.user.books,

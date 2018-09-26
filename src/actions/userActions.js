@@ -1,7 +1,18 @@
 import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER } from '../types'
-// import { bookSearchAdapter } from '../adapters/bookAdapters'
 
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
+
+export const setCurrentUser = userData => ({
+  type: SET_CURRENT_USER,
+  payload: userData
+})
+
+export const failedLogin = error => ({
+  type: FAILED_LOGIN,
+  payload: error
+})
+
+export const authenticatingUser = () => ({ type: AUTHENTICATING_USER })
 
 export const loginUser = (name, password) => {
   let urlSuffix = `login`
@@ -56,7 +67,6 @@ export const signUpUser = (name, password) => {
   }
 }
 
-
 export const fetchCurrentUser = () => {
   return dispatch => {
     let urlSuffix = `bookshelf`
@@ -71,16 +81,6 @@ export const fetchCurrentUser = () => {
     .then(JSONResponse => dispatch(setCurrentUser(JSONResponse.user)))
   }
 }
-
-export const setCurrentUser = userData => ({
-  type: SET_CURRENT_USER,
-  payload: userData
-})
-
-export const failedLogin = error => ({
-  type: FAILED_LOGIN,
-  payload: error
-})
 
 export const logoutUser = name => {
   let urlSuffix = `logout`
@@ -99,6 +99,3 @@ export const logoutUser = name => {
     })
   }
 }
-
-
-export const authenticatingUser = () => ({ type: AUTHENTICATING_USER })

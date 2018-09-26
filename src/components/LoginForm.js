@@ -85,8 +85,8 @@ class LoginForm extends Component {
   }
 }
 
-  const mapStateToProps = ({ user: { authenticatingUser, failedLogin, error, user, loggedIn } }) => (
-    { authenticatingUser, failedLogin, error, user, loggedIn }
+  const mapStateToProps = ({ user: { authenticatingUser, failedLogin, error, loggedIn } }) => (
+    { authenticatingUser, failedLogin, error, loggedIn }
   )
 
   export default withRouter(connect(mapStateToProps, { loginUser, signUpUser })(LoginForm))

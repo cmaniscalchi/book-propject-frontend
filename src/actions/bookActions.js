@@ -1,15 +1,29 @@
 import { SEARCH_BOOK, SELECT_BOOK, SAVE_BOOK, SET_SHELVED_BOOKS, UNSELECT_BOOK, REMOVE_BOOK } from '../types'
 
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
-// const BASE_URL = `http://localhost:3000/api/v1/`
-
-// TODO: move all api calls to adapters folder
 
 export const setShelvedBooks = books => {
   return {
     type: SET_SHELVED_BOOKS,
     payload: books
   }
+}
+
+export const selectBook = book => {
+  return {
+    type: SELECT_BOOK,
+    payload: book
+  }
+}
+
+export const clearSelectedBook = () => {
+  return {
+    type: UNSELECT_BOOK
+  }
+}
+
+export const viewEditions = book => {
+  return { type: 'SEARCH_EDITIONS' }
 }
 
 export const searchBook = input => {
@@ -22,20 +36,13 @@ export const searchBook = input => {
     },
     body: JSON.stringify({ input })
   }
-  let request = fetch(`${BASE_URL}${urlSuffix}`, postConfig).then(res => res.json())
-
-  return {
-    type: SEARCH_BOOK,
-    payload: request
+  return dispatch => {
+    fetch(`${BASE_URL}${urlSuffix}`, postConfig)
+    .then(res => res.json())
+    .then(book => dispatch({ type: SEARCH_BOOK, payload: book }))
   }
 }
 
-export const selectBook = book => {
-  return {
-    type: SELECT_BOOK,
-    payload: book
-  }
-}
 
 export const saveBook = (book, userId) => {
   let urlSuffix = `books`
@@ -43,7 +50,8 @@ export const saveBook = (book, userId) => {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+      'Accept': 'application/json'
     },
     body: JSON.stringify({
       title: book["title"],
@@ -55,17 +63,11 @@ export const saveBook = (book, userId) => {
       bookshelf_id: userId
     })
   }
-  let request = fetch(`${BASE_URL}${urlSuffix}`, postConfig).then(res => res.json())
-
-  return {
-    type: SAVE_BOOK,
-    payload: request
+  return dispatch => {
+    fetch(`${BASE_URL}${urlSuffix}`, postConfig)
+    .then(res => res.json())
+    .then(book => dispatch({ type: SAVE_BOOK, payload: book }))
   }
-}
-
-export const viewEditions = book => {
-  console.log("viewEditions:", book)
-  return { type: 'SEARCH_EDITIONS' }
 }
 
 export const deleteBook = bookId => {
@@ -74,20 +76,13 @@ export const deleteBook = bookId => {
     method: "DELETE",
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+      'Accept': 'application/json'
     },
     body: JSON.stringify({ bookId })
   }
-  fetch(`${BASE_URL}${urlSuffix}`, postConfig)
-
-  return {
-    type: REMOVE_BOOK,
-    payload: bookId
-  }
-}
-
-export const resetSelectedBook = () => {
-  return {
-    type: UNSELECT_BOOK
+  return dispatch => {
+    fetch(`${BASE_URL}${urlSuffix}`, postConfig)
+    .then(dispatch({ type: REMOVE_BOOK, payload: bookId }))
   }
 }

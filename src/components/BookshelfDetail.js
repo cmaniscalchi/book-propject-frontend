@@ -1,10 +1,10 @@
 import React from "react"
 import { connect } from 'react-redux'
-import { saveBook, deleteBook, viewEditions } from '../actions'
 import { Container, Button } from 'semantic-ui-react'
+import { deleteBook, viewEditions } from '../actions'
 
-const BookshelfDetail = ({ book, deleteBook, viewEditions, userId }) => {
-  // console.log("BookshelfDetail:", book, userId)
+const BookshelfDetail = ({ book, deleteBook, viewEditions }) => {
+  // console.log("BookshelfDetail:", book)
 
   if (book) {
     return (
@@ -21,8 +21,7 @@ const BookshelfDetail = ({ book, deleteBook, viewEditions, userId }) => {
 
 function mapStateToProps(state) {
   return {
-    book: state.book.selectedBook,
-    userId: state.user.user.id
+    book: state.book.selectedBook
   }
 }
 
