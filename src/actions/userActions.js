@@ -1,4 +1,4 @@
-import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER } from '../types'
+import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SAVE_BOOK, REMOVE_BOOK } from '../types'
 
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 
@@ -97,5 +97,48 @@ export const logoutUser = name => {
       localStorage.removeItem('jwt')
       dispatch({ type: REMOVE_CURRENT_USER })
     })
+  }
+}
+
+export const deleteUserBook = bookId => {
+  let urlSuffix = `books/${bookId}`
+  let postConfig = {
+    method: "DELETE",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({ bookId })
+  }
+  return dispatch => {
+    fetch(`${BASE_URL}${urlSuffix}`, postConfig)
+    .then(dispatch({ type: REMOVE_BOOK, payload: bookId }))
+  }
+}
+
+export const saveUserBook = (book, userId) => {
+  let urlSuffix = `books`
+  let postConfig = {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      title: book["title"],
+      author: book["author"],
+      goodreads_book_id: book["goodreads_book_id"],
+      goodreads_author_id: book["goodreads_author_id"],
+      publication_year: book["publication_year"],
+      image_url: book["image_url"],
+      bookshelf_id: userId
+    })
+  }
+  return dispatch => {
+    fetch(`${BASE_URL}${urlSuffix}`, postConfig)
+    .then(res => res.json())
+    .then(book => dispatch({ type: SAVE_BOOK, payload: book }))
   }
 }

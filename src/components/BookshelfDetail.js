@@ -1,9 +1,9 @@
 import React from "react"
 import { connect } from 'react-redux'
 import { Container, Button } from 'semantic-ui-react'
-import { deleteBook, viewEditions } from '../actions'
+import { deleteUserBook, viewEditions } from '../actions'
 
-const BookshelfDetail = ({ book, deleteBook, viewEditions }) => {
+const BookshelfDetail = ({ book, deleteUserBook, viewEditions }) => {
   // console.log("BookshelfDetail:", book)
 
   if (book) {
@@ -11,7 +11,7 @@ const BookshelfDetail = ({ book, deleteBook, viewEditions }) => {
       <Container>
         <h1>{book.title} by {book.author}</h1>
         <Button onClick={() => viewEditions(book)}>View Alternate Editions</Button>
-        <Button onClick={() => deleteBook(book.id)}>Remove Book from Shelf</Button>
+        <Button onClick={() => deleteUserBook(book.id)}>Remove Book from Shelf</Button>
       </Container>
     )
   } else {
@@ -25,4 +25,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { deleteBook, viewEditions })(BookshelfDetail)
+export default connect(mapStateToProps, { deleteUserBook, viewEditions })(BookshelfDetail)

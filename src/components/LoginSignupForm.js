@@ -4,7 +4,7 @@ import { withRouter, Redirect } from 'react-router-dom'
 import { Button, Tab, Form, Message } from 'semantic-ui-react'
 import { loginUser, signUpUser } from '../actions/userActions'
 
-class LoginForm extends Component {
+class LoginSignupForm extends Component {
   state = { name: '', password: '' }
 
   handleInputChange = event => {
@@ -23,6 +23,8 @@ class LoginForm extends Component {
   }
 
   render() {
+    let { authenticatingUser, failedLogin, error, loggedIn } = this.props
+
     const nameInput = (
       <Form.Input
         label="Username"
@@ -47,46 +49,44 @@ class LoginForm extends Component {
     const logInForm = (
       <Form
         onSubmit={this.handleLoginSubmit}
-        loading={this.props.authenticatingUser}
-        error={this.props.failedLogin}
+        loading={authenticatingUser}
+        error={failedLogin}
       >
-        <Message error header={this.props.failedLogin ? this.props.error : null} />
+        <Message error header={failedLogin ? error : null} />
         <Form.Group widths="equal">
           {nameInput}
           {passwordInput}
         </Form.Group>
         <Button type="submit">Log In</Button>
       </Form>
+      )
+
+      const signUpForm = (
+        <Form
+          onSubmit={this.handleSignUpSubmit}
+          loading={authenticatingUser}
+          error={failedLogin}
+        >
+          {/* <Message error header={failedLogin ? error : null} /> */}
+          <Form.Group widths="equal">
+            {nameInput}
+            {passwordInput}
+          </Form.Group>
+          <Button type="submit">Sign Up</Button>
+        </Form>
+        )
+
+        const panes = [
+          { menuItem: 'Log In', render: () => <Tab.Pane>{logInForm}</Tab.Pane> },
+          { menuItem: 'Sign Up', render: () => <Tab.Pane>{signUpForm}</Tab.Pane> }
+        ]
+
+        return loggedIn ? <Redirect to="/bookshelf" /> : <Tab style={{width:'66%'}} panes={panes} />
+      }
+    }
+
+    const mapStateToProps = ({ user: { authenticatingUser, failedLogin, error, loggedIn } }) => (
+      { authenticatingUser, failedLogin, error, loggedIn }
     )
 
-    const signUpForm = (
-      <Form
-        onSubmit={this.handleSignUpSubmit}
-        loading={this.props.authenticatingUser}
-        error={this.props.failedLogin}
-      >
-        {/* <Message error header={this.props.failedLogin ? this.props.error : null} /> */}
-        <Form.Group widths="equal">
-          {nameInput}
-          {passwordInput}
-        </Form.Group>
-        <Button type="submit">Sign Up</Button>
-      </Form>
-    )
-
-    const panes = [
-      { menuItem: 'Log In', render: () => <Tab.Pane>{logInForm}</Tab.Pane> },
-      { menuItem: 'Sign Up', render: () => <Tab.Pane>{signUpForm}</Tab.Pane> }
-    ]
-
-    console.log("Login Form:", this.state, this.props)
-    return this.props.loggedIn ? <Redirect to="/bookshelf" /> : <Tab style={{width:'66%'}} panes={panes} />
-
-  }
-}
-
-  const mapStateToProps = ({ user: { authenticatingUser, failedLogin, error, loggedIn } }) => (
-    { authenticatingUser, failedLogin, error, loggedIn }
-  )
-
-  export default withRouter(connect(mapStateToProps, { loginUser, signUpUser })(LoginForm))
+    export default withRouter(connect(mapStateToProps, { loginUser, signUpUser })(LoginSignupForm))
