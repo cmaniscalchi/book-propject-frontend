@@ -19,7 +19,7 @@ class BookSearchDetail extends Component {
 
   render() {
     let { book, modalOpen, shelvedBooks, clearSelectedBook, user } = this.props
-    console.log("BookSearchDetail:", book, user, modalOpen, shelvedBooks)
+    // console.log("BookSearchDetail:", book, user, modalOpen, shelvedBooks)
 
     if (book) {
       return (

@@ -24,7 +24,7 @@ class BookshelfList extends Component {
 }
 
 const mapStateToProps = state => ({
-  shelvedBooks: state.user.user.books,
+  shelvedBooks: state.user.user.books
 })
 
 export default connect(mapStateToProps, { setShelvedBooks })(BookshelfList)
