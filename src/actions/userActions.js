@@ -41,7 +41,6 @@ export const loginUser = (name, password) => {
 }
 
 export const signUpUser = (name, password) => {
-  console.log("sign up user:", name, password)
   let urlSuffix = `users`
   let postConfig = {
     method: "POST",

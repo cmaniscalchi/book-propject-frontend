@@ -17,7 +17,6 @@ class LoginSignupForm extends Component {
   }
 
   handleSignUpSubmit = () => {
-    console.log("I hit the sign up submit function")
     this.props.signUpUser(this.state.name, this.state.password)
     this.setState({ name: '', password: '' })
   }

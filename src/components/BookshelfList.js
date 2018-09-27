@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Book from './Book'
+import BookshelfBook from './BookshelfBook'
 import { Grid } from 'semantic-ui-react'
 import { setShelvedBooks } from '../actions'
 
@@ -16,7 +16,7 @@ class BookshelfList extends Component {
     return (
       <div>
         <Grid relaxed columns={4}>
-          {shelvedBooks.length > 0 ? shelvedBooks.map(book => <Book book={book} key={book.goodreads_book_id} />) : null}
+          {shelvedBooks.length > 0 ? shelvedBooks.map(book => <BookshelfBook book={book} key={book.goodreads_book_id} />) : null}
         </Grid>
       </div>
     )

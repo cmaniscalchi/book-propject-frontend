@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Book from './Book'
+import BookSearchBook from './BookSearchBook'
 import { Grid } from 'semantic-ui-react'
 import { clearSearchResults } from '../actions'
 
@@ -15,7 +15,7 @@ class BookSearchList extends Component {
 
     return (
       <Grid relaxed columns={4}>
-        {searchResults.length > 0 ? searchResults.map(book => <Book book={book} key={book.id} />) : null}
+        {searchResults.length > 0 ? searchResults.map(book => <BookSearchBook book={book} key={book.id} />) : null}
       </Grid>
     )
   }
