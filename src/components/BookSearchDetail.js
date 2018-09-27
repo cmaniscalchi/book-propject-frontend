@@ -16,13 +16,14 @@ class BookSearchDetail extends Component {
     saveUserBook(book, user.bookshelves[0].id)
     clearSelectedBook()
   }
-
+  
   render() {
-    console.log("BookSearchDetail:", this.props)
+    // console.log("BookSearchDetail:", this.props)
 
     let { book, details, modalOpen, shelvedBooks, clearSelectedBook, user } = this.props
-
+    let striptags = require('striptags')
     if (book && details) {
+
       return (
         <div>
           <Modal size='large' open={modalOpen} onClose={clearSelectedBook}>
@@ -33,12 +34,13 @@ class BookSearchDetail extends Component {
                 <Header as='h3'>{book.title} by {book.author}</Header>
                 { book.publication_year && details.publication_year ? <Header sub>Original Publication Year: {book.publication_year}<br />Edition Year: {details.publication_year}</Header> : <Header sub>Original Publication Year: {book.publication_year}</Header> }
                 <br />
-                <p>{details.description}</p>
-                <h5>Average Goodreads User Rating (Out of {details.work.ratings_count.toString().split( /(?=(?:\d{3})+(?:\.|$))/g ).join( "," )})</h5>
+                <p>{striptags(details.description)}</p>
+                <h5>Average Goodreads User Rating (out of {details.work.ratings_count.toString().split( /(?=(?:\d{3})+(?:\.|$))/g ).join( "," )})</h5>
                 <Rating defaultRating={Math.round(details.average_rating)} maxRating={5} disabled />
               </Modal.Description>
             </Modal.Content>
             <Modal.Actions>
+              {/* <Button onClick={() => viewEditions(book)}>View Alternate Editions</Button> */}
               {shelvedBooks.some(shelvedBook => shelvedBook.goodreads_book_id === book.goodreads_book_id) ? null : <Button onClick={() => this.handleBookSaveOnClick(book, user)}>Save Book to Bookshelf</Button>}
               <a href={ details.link } target='_blank'><Button>View Book on Goodreads</Button></a>
             </Modal.Actions>
