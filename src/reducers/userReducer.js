@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, AUTHENTICATING_USER, AUTHENTICATED_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SAVE_BOOK, REMOVE_BOOK } from '../types'
+import { SET_CURRENT_USER, AUTHENTICATING_USER, AUTHENTICATED_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SAVE_BOOK, REMOVE_BOOK, SAVE_BOOKSHELF } from '../types'
 
 const initialUserState = {
   user: null,
@@ -22,9 +22,11 @@ export default function userReducer(state = initialUserState, action) {
     case REMOVE_CURRENT_USER:
       return initialUserState
     case SAVE_BOOK:
-      return { ...state, user: {...state.user, books: state.user.books.concat(action.payload)}} 
+      return { ...state, user: {...state.user, books: state.user.books.concat(action.payload)}}
     case REMOVE_BOOK:
       return { ...state, user: {...state.user, books: state.user.books.filter(book => book.id !== action.payload)}}
+    case SAVE_BOOKSHELF:
+      return { ...state, user: {...state.user, bookshelves: state.user.bookshelves.concat(action.payload)}}
     default:
       return state
   }

@@ -29,9 +29,9 @@ export const loginUser = (name, password) => {
       if (res.ok) { return res.json()}
       else { throw res }
     })
-    .then(JSONResponse => {
-      localStorage.setItem('jwt', JSONResponse.jwt)
-      dispatch({ type: SET_CURRENT_USER, payload: JSONResponse.user})
+    .then(userData => {
+      localStorage.setItem('jwt', userData.jwt)
+      dispatch({ type: SET_CURRENT_USER, payload: userData.user})
     })
     .catch(res => res.json().then(error => dispatch({
       type: FAILED_LOGIN,
@@ -56,9 +56,9 @@ export const signUpUser = (name, password) => {
       if (res.ok) { return res.json()}
       else { throw res }
     })
-    .then(JSONResponse => {
-      localStorage.setItem('jwt', JSONResponse.jwt)
-      dispatch({ type: SET_CURRENT_USER, payload: JSONResponse.user})
+    .then(userData => {
+      localStorage.setItem('jwt', userData.jwt)
+      dispatch({ type: SET_CURRENT_USER, payload: userData.user})
     })
     .catch(res => res.json().then(error => dispatch({
       type: FAILED_LOGIN,
@@ -78,7 +78,7 @@ export const fetchCurrentUser = () => {
 
     fetch(`${BASE_URL}${urlSuffix}`, getConfig)
     .then(res => res.json())
-    .then(JSONResponse => dispatch(setCurrentUser(JSONResponse.user)))
+    .then(userData => dispatch(setCurrentUser(userData.user)))
   }
 }
 

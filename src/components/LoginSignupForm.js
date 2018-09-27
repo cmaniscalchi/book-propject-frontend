@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router-dom'
 import { Button, Tab, Form, Message } from 'semantic-ui-react'
-import { loginUser, signUpUser } from '../actions/userActions'
+import { loginUser, signUpUser, createBookshelf } from '../actions'
 
 class LoginSignupForm extends Component {
   state = { name: '', password: '' }
@@ -24,6 +24,7 @@ class LoginSignupForm extends Component {
 
   render() {
     let { authenticatingUser, failedLogin, error, loggedIn } = this.props
+    let { name, password } = this.state
 
     const nameInput = (
       <Form.Input
@@ -31,7 +32,7 @@ class LoginSignupForm extends Component {
         placeholder="Username"
         name="name"
         onChange={this.handleInputChange}
-        value={this.state.name}
+        value={name}
       />
     )
 
@@ -42,7 +43,7 @@ class LoginSignupForm extends Component {
         placeholder="Password"
         name="password"
         onChange={this.handleInputChange}
-        value={this.state.password}
+        value={password}
       />
     )
 
@@ -89,4 +90,4 @@ class LoginSignupForm extends Component {
       { authenticatingUser, failedLogin, error, loggedIn }
     )
 
-    export default withRouter(connect(mapStateToProps, { loginUser, signUpUser })(LoginSignupForm))
+    export default withRouter(connect(mapStateToProps, { loginUser, signUpUser, createBookshelf })(LoginSignupForm))

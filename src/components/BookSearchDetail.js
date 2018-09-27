@@ -1,24 +1,25 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { Button, Header, Image, Modal } from 'semantic-ui-react'
-import { setShelvedBooks, saveUserBook, clearSelectedBook } from '../actions'
+import { setShelvedBooks, saveUserBook, clearSelectedBook, createBookshelf } from '../actions'
 
 class BookSearchDetail extends Component {
 
   componentDidMount() {
-    let { setShelvedBooks, shelvedBooks } = this.props
+    let { user, setShelvedBooks, shelvedBooks, createBookshelf } = this.props
+    if (user.bookshelves.length === 0) {createBookshelf(user.id)}
     setShelvedBooks(shelvedBooks)
   }
 
-  handleBookSaveOnClick = (book, userId) => {
+  handleBookSaveOnClick = (book, user) => {
     let { saveUserBook, clearSelectedBook } = this.props
-    saveUserBook(book, userId)
+    saveUserBook(book, user.bookshelves[0].id)
     clearSelectedBook()
   }
 
   render() {
-    let { book, userId, modalOpen, shelvedBooks, clearSelectedBook } = this.props
-    // console.log("BookSearchDetail:", book, userId, modalOpen, shelvedBooks)
+    let { book, modalOpen, shelvedBooks, clearSelectedBook, user } = this.props
+    console.log("BookSearchDetail:", book, user, modalOpen, shelvedBooks)
 
     if (book) {
       return (
@@ -34,7 +35,7 @@ class BookSearchDetail extends Component {
               </Modal.Description>
             </Modal.Content>
             <Modal.Actions>
-              {shelvedBooks.some(shelvedBook => shelvedBook.goodreads_book_id === book.goodreads_book_id) ? null : <Button onClick={() => this.handleBookSaveOnClick(book, userId)}>Save Book to Bookshelf</Button>}
+              {shelvedBooks.some(shelvedBook => shelvedBook.goodreads_book_id === book.goodreads_book_id) ? null : <Button onClick={() => this.handleBookSaveOnClick(book, user)}>Save Book to Bookshelf</Button>}
             </Modal.Actions>
           </Modal>
         </div>
@@ -49,9 +50,9 @@ function mapStateToProps(state) {
   return {
     book: state.book.selectedBook,
     shelvedBooks: state.user.user.books,
-    userId: state.user.user.id,
+    user: state.user.user,
     modalOpen: state.book.modalOpen
   }
 }
 
-export default connect(mapStateToProps, { setShelvedBooks, saveUserBook, clearSelectedBook })(BookSearchDetail)
+export default connect(mapStateToProps, { setShelvedBooks, saveUserBook, clearSelectedBook, createBookshelf })(BookSearchDetail)

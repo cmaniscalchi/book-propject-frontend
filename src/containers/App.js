@@ -6,7 +6,7 @@ import Bookshelf from './Bookshelf'
 import BookSearch from './BookSearch'
 import '../assets/css/App.css'
 
-const App = props => {
+const App = () => {
 
   return (
     <Fragment>
