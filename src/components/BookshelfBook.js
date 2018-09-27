@@ -12,13 +12,13 @@ const BookshelfBook = ({ book, selectBook, getBookDetails }) => {
   }
 
   if (book) {
-    let placeholder_image = "https://image.ibb.co/fzKNz9/Placeholder_Cover_Resize.png"
+
     let {author, image_url, publication_year, title} = book
 
     return (
       <Grid.Column>
         <Card>
-          <Image onClick={() => handleBookSelect(book)} src={image_url.includes("nophoto") ? placeholder_image : image_url} alt={title} />
+          <Image onClick={() => handleBookSelect(book)} src={image_url} alt={title} />
           <Card.Content>
             {publication_year ? (
               <div>
@@ -30,7 +30,6 @@ const BookshelfBook = ({ book, selectBook, getBookDetails }) => {
         </Card>
       </Grid.Column>
     )
-
   }
 }
 
