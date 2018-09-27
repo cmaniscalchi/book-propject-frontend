@@ -21,7 +21,7 @@ export default function bookReducer(state = initialBookState, action) {
     case UNSELECT_BOOK:
     return { ...state, selectedBook: null, modalOpen: false, selectedBookDetails: null }
     case CLEAR_SEARCH:
-    return { ...state, searchResults: [] }
+    return { ...state, searchResults: null }
     case SET_BOOK_DETAILS:
     return { ...state, selectedBookDetails: action.payload.GoodreadsResponse.book }
     default:

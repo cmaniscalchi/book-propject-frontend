@@ -9,22 +9,20 @@ class BookSearchList extends Component {
   componentDidMount() {
     this.props.clearSearchResults()
   }
-  // console.log("BookSearchList props:", props)
   render() {
-    let { searchResults } = this.props
-
-    return (
-      <Grid relaxed columns={4}>
-        {searchResults.length > 0 ? searchResults.map(book => <BookSearchBook book={book} key={book.id} />) : null}
-      </Grid>
-    )
+    // console.log("BookSearchList props:", this.props)
+    if (this.props.searchResults) {
+      return (
+        <Grid relaxed columns={4}>
+          {this.props.searchResults.map(book => <BookSearchBook book={book} key={book.id} />)}
+        </Grid>
+      )
+    } else {
+      return null
+    }
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    searchResults: state.book.searchResults
-  }
-}
+  const mapStateToProps = state => ({ searchResults: state.book.searchResults })
 
-export default connect(mapStateToProps, { clearSearchResults })(BookSearchList)
+  export default connect(mapStateToProps, { clearSearchResults })(BookSearchList)
