@@ -1,8 +1,9 @@
-import { SEARCH_BOOK, SELECT_BOOK, SET_SHELVED_BOOKS, UNSELECT_BOOK, CLEAR_SEARCH } from '../types'
+import { SEARCH_BOOK, SELECT_BOOK, SET_SHELVED_BOOKS, UNSELECT_BOOK, CLEAR_SEARCH, SET_BOOK_DETAILS } from '../types'
 
 const initialBookState = {
   searchResults: [],
   selectedBook: null,
+  selectedBookDetails: null,
   shelvedBooks: [],
   modalOpen: false
 }
@@ -18,9 +19,11 @@ export default function bookReducer(state = initialBookState, action) {
     case SELECT_BOOK:
     return { ...state, selectedBook: action.payload, modalOpen: true }
     case UNSELECT_BOOK:
-    return { ...state, selectedBook: null, modalOpen: false }
+    return { ...state, selectedBook: null, modalOpen: false, selectedBookDetails: null }
     case CLEAR_SEARCH:
     return { ...state, searchResults: [] }
+    case SET_BOOK_DETAILS:
+    return { ...state, selectedBookDetails: action.payload.GoodreadsResponse.book }
     default:
     return state
   }
