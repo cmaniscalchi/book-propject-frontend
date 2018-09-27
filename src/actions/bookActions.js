@@ -1,4 +1,4 @@
-import { SEARCH_BOOK, SELECT_BOOK, SET_SHELVED_BOOKS, UNSELECT_BOOK, CLEAR_SEARCH, SET_BOOK_DETAILS } from '../types'
+import { SEARCH_BOOK, SELECT_BOOK, SET_SHELVED_BOOKS, UNSELECT_BOOK, CLEAR_SEARCH, SET_BOOK_DETAILS, SEARCH_AUTHOR_BOOKS } from '../types'
 
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 
@@ -26,10 +26,6 @@ export const clearSearchResults = () => {
   return {
     type: CLEAR_SEARCH
   }
-}
-
-export const viewEditions = book => {
-  return { type: 'SEARCH_EDITIONS' }
 }
 
 export const searchBook = input => {
@@ -67,5 +63,24 @@ export const getBookDetails = id => {
     fetch(`${BASE_URL}${urlSuffix}`, postConfig)
     .then(res => res.json())
     .then(details => dispatch({ type: SET_BOOK_DETAILS, payload: details }))
+  }
+}
+
+export const searchAuthorBooks = authorId => {
+  let urlSuffix = `author_book_search`
+  let postConfig = {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      'Accepts': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+    },
+    body: JSON.stringify({ authorId })
+  }
+
+  return dispatch => {
+    fetch(`${BASE_URL}${urlSuffix}`, postConfig)
+    .then(res => res.json())
+    .then(books => dispatch({ type: SEARCH_AUTHOR_BOOKS, payload: books }))
   }
 }
