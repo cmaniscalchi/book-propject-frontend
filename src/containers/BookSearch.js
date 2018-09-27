@@ -7,7 +7,7 @@ import withAuth from '../hocs/withAuth'
 
 const BookSearch = () => {
   return (
-    <Container>
+    <Container style={{ padding: '2em 2em' }}>
       <SearchBar />
       <BookSearchDetail />
       <BookSearchList />

@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from 'react-redux'
 import { selectBook } from '../actions'
-import { Grid, Image } from 'semantic-ui-react'
+import { Grid, Image, Card } from 'semantic-ui-react'
 
 const Book = ({ book, selectBook }) => {
   // console.log("Book props:", book, selectBook, modalOpen)
@@ -23,8 +23,12 @@ const Book = ({ book, selectBook }) => {
 
       return (
         <Grid.Column>
-          <Image onClick={() => selectBook(formattedBook)} src={image_url.includes("nophoto") ? placeholder_image : image_url} alt={title} />
-          <h3>{publication_year ? `${title} by ${name} (${publication_year})` : `${title} by ${name}`}</h3>
+          <Card>
+            <Image onClick={() => selectBook(formattedBook)} src={image_url.includes("nophoto") ? placeholder_image : image_url} alt={title} />
+            <Card.Content>
+              <Card.Header>{publication_year ? `${title} by ${name} (${publication_year})` : `${title} by ${name}`}</Card.Header>
+            </Card.Content>
+          </Card>
         </Grid.Column>
       )
 
@@ -34,8 +38,12 @@ const Book = ({ book, selectBook }) => {
 
       return (
         <Grid.Column>
-          <Image onClick={() => selectBook(book)} src={image_url.includes("nophoto") ? placeholder_image : image_url} alt={title} />
-          <h3>{publication_year ? `${title} by ${author} (${publication_year})` : `${title} by ${author}`}</h3>
+          <Card>
+            <Image onClick={() => selectBook(book)} src={image_url.includes("nophoto") ? placeholder_image : image_url} alt={title} />
+            <Card.Content>
+              <Card.Header>{publication_year ? `${title} by ${author} (${publication_year})` : `${title} by ${author}`}</Card.Header>
+            </Card.Content>
+          </Card>
         </Grid.Column>
       )
     }

@@ -6,7 +6,7 @@ import withAuth from '../hocs/withAuth'
 
 const Bookshelf = () => {
   return (
-    <Container>
+    <Container style={{ padding: '2em 2em' }}>
       <BookshelfDetail />
       <BookshelfList />
     </Container>
