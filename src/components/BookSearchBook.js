@@ -1,11 +1,17 @@
 import React from "react"
 import { connect } from 'react-redux'
-import { selectBook } from '../actions'
+import { selectBook, getBookDetails } from '../actions'
 import { Grid, Image, Card } from 'semantic-ui-react'
 
-const BookSearchBook = ({ book, selectBook }) => {
+const BookSearchBook = ({ book, selectBook, getBookDetails }) => {
   // console.log("BookSearchBook props:", book, selectBook, modalOpen)
-  // Only try to render books if a user has either books shelved or books returned in search results
+
+  const handleBookSelect = book => {
+    // debugger;
+    selectBook(book)
+    getBookDetails(book.goodreads_book_id)
+  }
+
   if (book) {
     let placeholder_image = "https://image.ibb.co/fzKNz9/Placeholder_Cover_Resize.png"
     let {title, id} = book.best_book
@@ -18,7 +24,7 @@ const BookSearchBook = ({ book, selectBook }) => {
     return (
       <Grid.Column>
         <Card>
-          <Image onClick={() => selectBook(formattedBook)} src={image_url.includes("nophoto") ? placeholder_image : image_url} alt={title} />
+          <Image onClick={() => handleBookSelect(formattedBook)} src={image_url.includes("nophoto") ? placeholder_image : image_url} alt={title} />
           <Card.Content>
             {publication_year ? (
               <div>
@@ -33,4 +39,4 @@ const BookSearchBook = ({ book, selectBook }) => {
   }
 }
 
-export default connect(null, { selectBook })(BookSearchBook)
+export default connect(null, { selectBook, getBookDetails })(BookSearchBook)

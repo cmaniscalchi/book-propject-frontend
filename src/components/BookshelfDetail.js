@@ -1,10 +1,10 @@
-import React, { Link } from "react"
+import React from "react"
 import { connect } from 'react-redux'
-import { Button, Header, Image, Modal, Rating, Grid } from 'semantic-ui-react'
+import { Button, Header, Image, Modal, Rating } from 'semantic-ui-react'
 import { deleteUserBook, viewEditions, clearSelectedBook } from '../actions'
 
 const BookshelfDetail = ({ book, details, modalOpen, deleteUserBook, viewEditions, clearSelectedBook }) => {
-  console.log("BookshelfDetail:", details)
+  // console.log("BookshelfDetail:", details)
 
 const handleBookRemoveOnClick = (bookId) => {
   deleteUserBook(bookId)

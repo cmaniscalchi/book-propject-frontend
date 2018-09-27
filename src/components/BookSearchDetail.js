@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
-import { Button, Header, Image, Modal } from 'semantic-ui-react'
+import { Button, Header, Image, Modal, Rating } from 'semantic-ui-react'
 import { setShelvedBooks, saveUserBook, clearSelectedBook, createBookshelf } from '../actions'
 
 class BookSearchDetail extends Component {
@@ -18,24 +18,29 @@ class BookSearchDetail extends Component {
   }
 
   render() {
-    let { book, modalOpen, shelvedBooks, clearSelectedBook, user } = this.props
-    // console.log("BookSearchDetail:", book, user, modalOpen, shelvedBooks)
+    console.log("BookSearchDetail:", this.props)
 
-    if (book) {
+    let { book, details, modalOpen, shelvedBooks, clearSelectedBook, user } = this.props
+
+    if (book && details) {
       return (
         <div>
-          <Modal open={modalOpen} onClose={clearSelectedBook}>
-            <Modal.Header>Save A Book To Your Bookshelf</Modal.Header>
+          <Modal size='large' open={modalOpen} onClose={clearSelectedBook}>
+            <Modal.Header>My Shelved Books</Modal.Header>
             <Modal.Content image>
               <Image wrapped size='medium' src={book.image_url} />
               <Modal.Description>
-                <Header>{book.title} by {book.author}</Header>
-                <p>More deets to go here.</p>
-                <p>Eventually.</p>
+                <Header as='h3'>{book.title} by {book.author}</Header>
+                { book.publication_year && details.publication_year ? <Header sub>Original Publication Year: {book.publication_year}<br />Edition Year: {details.publication_year}</Header> : <Header sub>Original Publication Year: {book.publication_year}</Header> }
+                <br />
+                <p>{details.description}</p>
+                <h5>Average Goodreads User Rating (Out of {details.work.ratings_count.toString().split( /(?=(?:\d{3})+(?:\.|$))/g ).join( "," )})</h5>
+                <Rating defaultRating={Math.round(details.average_rating)} maxRating={5} disabled />
               </Modal.Description>
             </Modal.Content>
             <Modal.Actions>
               {shelvedBooks.some(shelvedBook => shelvedBook.goodreads_book_id === book.goodreads_book_id) ? null : <Button onClick={() => this.handleBookSaveOnClick(book, user)}>Save Book to Bookshelf</Button>}
+              <a href={ details.link } target='_blank'><Button>View Book on Goodreads</Button></a>
             </Modal.Actions>
           </Modal>
         </div>
@@ -49,6 +54,7 @@ class BookSearchDetail extends Component {
 function mapStateToProps(state) {
   return {
     book: state.book.selectedBook,
+    details: state.book.selectedBookDetails,
     shelvedBooks: state.user.user.books,
     user: state.user.user,
     modalOpen: state.book.modalOpen
