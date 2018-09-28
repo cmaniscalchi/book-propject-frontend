@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { Button, Header, Image, Modal, Rating } from 'semantic-ui-react'
-import { setShelvedBooks, saveUserBook, clearSelectedBook, createBookshelf } from '../actions'
+import { setShelvedBooks, saveUserBook, searchAuthorBooks, clearSelectedBook, createBookshelf } from '../actions'
 
 class BookSearchDetail extends Component {
 
@@ -11,18 +11,24 @@ class BookSearchDetail extends Component {
     setShelvedBooks(shelvedBooks)
   }
 
+  handleAuthorBookSearch = (authorId) => {
+    let { searchAuthorBooks, clearSelectedBook } = this.props
+    searchAuthorBooks(authorId)
+    clearSelectedBook()
+  }
+
   handleBookSaveOnClick = (book, user) => {
     let { saveUserBook, clearSelectedBook } = this.props
     saveUserBook(book, user.bookshelves[0].id)
     clearSelectedBook()
   }
-  
-  render() {
-    // console.log("BookSearchDetail:", this.props)
 
-    let { book, details, modalOpen, shelvedBooks, clearSelectedBook, user } = this.props
-    let striptags = require('striptags')
-    if (book && details) {
+  render() {
+    console.log("BookSearchDetail:", this.props)
+    if (this.props.book && this.props.details) {
+
+      let { book, details, modalOpen, shelvedBooks, clearSelectedBook, user } = this.props
+      let striptags = require('striptags')
 
       return (
         <div>
@@ -32,7 +38,7 @@ class BookSearchDetail extends Component {
               <Image wrapped size='medium' src={book.image_url} />
               <Modal.Description>
                 <Header as='h3'>{book.title} by {book.author}</Header>
-                { book.publication_year && details.publication_year ? <Header sub>Original Publication Year: {book.publication_year}<br />Edition Year: {details.publication_year}</Header> : <Header sub>Original Publication Year: {book.publication_year}</Header> }
+                { book.publication_year && details.publication_year ? <Header sub>Original Publication Year: { book.publication_year}<br />Edition Year: {details.publication_year}</Header> : <Header sub>Original Publication Year: {details.publication_year}</Header> }
                 <br />
                 <p>{striptags(details.description)}</p>
                 <h5>Average Goodreads User Rating (out of {details.work.ratings_count.toString().split( /(?=(?:\d{3})+(?:\.|$))/g ).join( "," )})</h5>
@@ -40,8 +46,8 @@ class BookSearchDetail extends Component {
               </Modal.Description>
             </Modal.Content>
             <Modal.Actions>
-              {/* <Button onClick={() => viewEditions(book)}>View Alternate Editions</Button> */}
-              {shelvedBooks.some(shelvedBook => shelvedBook.goodreads_book_id === book.goodreads_book_id) ? null : <Button onClick={() => this.handleBookSaveOnClick(book, user)}>Save Book to Bookshelf</Button>}
+              { book.goodreads_author_id ? <Button onClick={() => this.handleAuthorBookSearch(book.goodreads_author_id)}>Other Works by {book.author}</Button> : null }
+              { shelvedBooks.some(shelvedBook => shelvedBook.goodreads_book_id === book.goodreads_book_id) ? null : <Button onClick={() => this.handleBookSaveOnClick(this.props.book, user)}>Save Book to Bookshelf</Button> }
               <a href={ details.link } target='_blank'><Button>View Book on Goodreads</Button></a>
             </Modal.Actions>
           </Modal>
@@ -63,4 +69,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { setShelvedBooks, saveUserBook, clearSelectedBook, createBookshelf })(BookSearchDetail)
+export default connect(mapStateToProps, { setShelvedBooks, saveUserBook, clearSelectedBook, createBookshelf, searchAuthorBooks })(BookSearchDetail)
