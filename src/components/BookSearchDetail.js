@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { Button, Header, Image, Modal, Rating } from 'semantic-ui-react'
-import { setShelvedBooks, saveUserBook, searchAuthorBooks, clearSelectedBook, createBookshelf } from '../actions'
+import { setShelvedBooks, saveUserBook, searchAuthorBooks, clearSelectedBook, createBookshelf, viewSimilarBooks } from '../actions'
 
 class BookSearchDetail extends Component {
 
@@ -11,7 +11,7 @@ class BookSearchDetail extends Component {
     setShelvedBooks(shelvedBooks)
   }
 
-  handleAuthorBookSearch = (authorId) => {
+  handleAuthorBookSearch = authorId => {
     let { searchAuthorBooks, clearSelectedBook } = this.props
     searchAuthorBooks(authorId)
     clearSelectedBook()
@@ -20,6 +20,12 @@ class BookSearchDetail extends Component {
   handleBookSaveOnClick = (book, user) => {
     let { saveUserBook, clearSelectedBook } = this.props
     saveUserBook(book, user.bookshelves[0].id)
+    clearSelectedBook()
+  }
+
+  handleViewSimilarBooks = book => {
+    let { viewSimilarBooks, clearSelectedBook } = this.props
+    viewSimilarBooks(book)
     clearSelectedBook()
   }
 
@@ -47,6 +53,7 @@ class BookSearchDetail extends Component {
             </Modal.Content>
             <Modal.Actions>
               { book.goodreads_author_id ? <Button onClick={() => this.handleAuthorBookSearch(book.goodreads_author_id)}>Other Works by {book.author}</Button> : null }
+              { details.similar_books ? <Button onClick={() => this.handleViewSimilarBooks(details)}>View Similar Books</Button> : null }
               { shelvedBooks.some(shelvedBook => shelvedBook.goodreads_book_id === book.goodreads_book_id) ? null : <Button onClick={() => this.handleBookSaveOnClick(this.props.book, user)}>Save Book to Bookshelf</Button> }
               <a href={ details.link } target='_blank'><Button>View Book on Goodreads</Button></a>
             </Modal.Actions>
@@ -60,6 +67,7 @@ class BookSearchDetail extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log(state)
   return {
     book: state.book.selectedBook,
     details: state.book.selectedBookDetails,
@@ -69,4 +77,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { setShelvedBooks, saveUserBook, clearSelectedBook, createBookshelf, searchAuthorBooks })(BookSearchDetail)
+export default connect(mapStateToProps, { setShelvedBooks, saveUserBook, clearSelectedBook, createBookshelf, searchAuthorBooks, viewSimilarBooks })(BookSearchDetail)
