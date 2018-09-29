@@ -4,16 +4,16 @@ import { NavLink, withRouter } from 'react-router-dom'
 import { Segment, Menu, Container, Image } from 'semantic-ui-react'
 import { logoutUser, clearSelectedBook } from '../actions'
 
-const logo = require('../assets/imgs/ex-libris-cropped.png')
 
 const NavBar = ({clearSelectedBook, logoutUser, location: { pathname }, user: { loggedIn, user }}) => {
+  const logo = require('../assets/imgs/ex-libris.png')
 
   return (
     <Segment textAlign='center' style={{padding: '1em 1em'}} vertical >
       <Menu size='large' borderless style={{ border: 'none', boxShadow: 'none' }}>
         {loggedIn ? (
           <Container>
-            <Image src={logo} style={{ width:'117px', height:'125px' }}  />
+            <Image src={logo} style={{ width:'122px', height:'125px' }}  />
             <Menu.Item as='h1' name="Ex Libris" />
             <Menu.Item as={NavLink} to="/bookshelf" name="Bookshelf" onClick={clearSelectedBook} active={pathname === '/bookshelf'} />
             <Menu.Item as={NavLink} to="/search" name="Search Books" onClick={clearSelectedBook} active={pathname === '/search'} />
