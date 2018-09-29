@@ -12,11 +12,13 @@ class BookshelfList extends Component {
   }
 
   render() {
-    let { shelvedBooks } = this.props
+    console.log("BookshelfList props:", this.props)
+    let { shelvedBooks, bookCovers, selectedBook } = this.props
     return (
       <div>
         <Grid relaxed columns={4}>
-          {shelvedBooks.length > 0 ? shelvedBooks.map(book => <BookshelfBook book={book} key={book.goodreads_book_id} />) : null}
+          {shelvedBooks.length > 0 && bookCovers.length === 0 ? shelvedBooks.map(book => <BookshelfBook book={book} key={book.goodreads_book_id} />) : null}
+          {shelvedBooks.length > 0 && bookCovers.length > 0 ? bookCovers.map(cover => <BookshelfBook book={selectedBook} cover={cover} key={selectedBook} />) : null}
         </Grid>
       </div>
     )
@@ -24,7 +26,9 @@ class BookshelfList extends Component {
 }
 
 const mapStateToProps = state => ({
-  shelvedBooks: state.user.user.books
+  shelvedBooks: state.user.user.books,
+  bookCovers: state.book.bookCovers,
+  selectedBook: state.book.selectedBook
 })
 
 export default connect(mapStateToProps, { setShelvedBooks })(BookshelfList)

@@ -10,7 +10,7 @@ class BookSearchList extends Component {
     this.props.clearSearchResults()
   }
   render() {
-    console.log("BookSearchList props:", this.props)
+    // console.log("BookSearchList props:", this.props)
     if (this.props.searchResults) {
       return (
         <Grid relaxed columns={4}>

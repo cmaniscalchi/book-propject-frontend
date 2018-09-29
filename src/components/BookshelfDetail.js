@@ -1,13 +1,18 @@
 import React from "react"
 import { connect } from 'react-redux'
 import { Button, Header, Image, Modal, Rating } from 'semantic-ui-react'
-import { deleteUserBook, clearSelectedBook } from '../actions'
+import { deleteUserBook, clearSelectedBook, searchBookCovers } from '../actions'
 
-const BookshelfDetail = ({ details, modalOpen, book, deleteUserBook, clearSelectedBook }) => {
-  // console.log("BookshelfDetail:", details, modalOpen, book)
+const BookshelfDetail = ({ details, modalOpen, book, cover, deleteUserBook, clearSelectedBook, searchBookCovers }) => {
+  console.log("BookshelfDetail:", details, modalOpen, book, cover)
 
-  const handleBookRemoveOnClick = (bookId) => {
+  const handleBookRemoveOnClick = bookId => {
     deleteUserBook(bookId)
+    clearSelectedBook()
+  }
+
+  const handleBookCoverSearch = ({ title, author }) => {
+    searchBookCovers(title, author)
     clearSelectedBook()
   }
 
@@ -31,6 +36,7 @@ const BookshelfDetail = ({ details, modalOpen, book, deleteUserBook, clearSelect
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
+            <Button onClick={() => handleBookCoverSearch(book)}>Display an Alternate Cover</Button>
             <Button onClick={() => handleBookRemoveOnClick(id)}>Remove Book from Shelf</Button>
             <a href={ details.link } target='_blank'><Button>View Book on Goodreads</Button></a>
           </Modal.Actions>
@@ -45,9 +51,10 @@ const BookshelfDetail = ({ details, modalOpen, book, deleteUserBook, clearSelect
 function mapStateToProps(state) {
   return {
     book: state.book.selectedBook,
+    cover: state.book.selectedCover,
     details: state.book.selectedBookDetails,
     modalOpen: state.book.modalOpen
   }
 }
 
-export default connect(mapStateToProps, { deleteUserBook, clearSelectedBook })(BookshelfDetail)
+export default connect(mapStateToProps, { deleteUserBook, clearSelectedBook, searchBookCovers })(BookshelfDetail)

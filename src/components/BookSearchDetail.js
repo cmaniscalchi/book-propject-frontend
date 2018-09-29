@@ -30,7 +30,7 @@ class BookSearchDetail extends Component {
   }
 
   render() {
-    console.log("BookSearchDetail:", this.props)
+    // console.log("BookSearchDetail:", this.props)
     if (this.props.book && this.props.details) {
 
       let { book, details, modalOpen, shelvedBooks, clearSelectedBook, user } = this.props
@@ -52,6 +52,7 @@ class BookSearchDetail extends Component {
               </Modal.Description>
             </Modal.Content>
             <Modal.Actions>
+              {/* TODO: get rid of the check for goodreads authorId, I only need it because my seed data doesn't have author ids */}
               { book.goodreads_author_id ? <Button onClick={() => this.handleAuthorBookSearch(book.goodreads_author_id)}>Other Works by {book.author}</Button> : null }
               { details.similar_books ? <Button onClick={() => this.handleViewSimilarBooks(details)}>View Similar Books</Button> : null }
               { shelvedBooks.some(shelvedBook => shelvedBook.goodreads_book_id === book.goodreads_book_id) ? null : <Button onClick={() => this.handleBookSaveOnClick(this.props.book, user)}>Save Book to Bookshelf</Button> }
@@ -67,7 +68,6 @@ class BookSearchDetail extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state)
   return {
     book: state.book.selectedBook,
     details: state.book.selectedBookDetails,

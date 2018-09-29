@@ -1,4 +1,4 @@
-import { SEARCH_BOOK, SELECT_BOOK, SET_SHELVED_BOOKS, UNSELECT_BOOK, CLEAR_SEARCH, SET_BOOK_DETAILS, SEARCH_AUTHOR_BOOKS, SIMILAR_BOOKS } from '../types'
+import { SEARCH_BOOK, SELECT_BOOK, SET_SHELVED_BOOKS, UNSELECT_BOOK, CLEAR_SEARCH, SET_BOOK_DETAILS, SEARCH_AUTHOR_BOOKS, SIMILAR_BOOKS, SEARCH_BOOK_COVER, SELECT_BOOK_COVER, UNSELECT_BOOK_COVER, PATCH_BOOK_COVER } from '../types'
 
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 
@@ -10,8 +10,16 @@ export const selectBook = book => {
   return { type: SELECT_BOOK, payload: book }
 }
 
+export const selectCover = book => {
+  return { type: SELECT_BOOK_COVER, payload: book }
+}
+
 export const clearSelectedBook = () => {
   return { type: UNSELECT_BOOK }
+}
+
+export const clearSelectedCover = () => {
+  return { type: UNSELECT_BOOK_COVER }
 }
 
 export const clearSearchResults = () => {
@@ -60,6 +68,25 @@ export const getBookDetails = id => {
   }
 }
 
+export const searchBookCovers = ( title, author ) => {
+  let urlSuffix = `book_cover_search`
+  let postConfig = {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      'Accepts': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+    },
+    body: JSON.stringify({ title, author })
+  }
+
+  return dispatch => {
+    fetch(`${BASE_URL}${urlSuffix}`, postConfig)
+    .then(res => res.json())
+    .then(books => dispatch({ type: SEARCH_BOOK_COVER, payload: books }))
+  }
+}
+
 export const searchAuthorBooks = authorId => {
   let urlSuffix = `author_book_search`
   let postConfig = {
@@ -77,4 +104,9 @@ export const searchAuthorBooks = authorId => {
     .then(res => res.json())
     .then(books => dispatch({ type: SEARCH_AUTHOR_BOOKS, payload: books }))
   }
+}
+
+export const swapBookCover = (newCover, image_url) => {
+  console.log(newCover, image_url)
+  return { type: PATCH_BOOK_COVER }
 }

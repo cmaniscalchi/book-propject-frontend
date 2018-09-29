@@ -1,18 +1,24 @@
 import React from "react"
 import { connect } from 'react-redux'
-import { selectBook, getBookDetails } from '../actions'
+import { selectBook, selectCover, clearSelectedCover, swapBookCover, getBookDetails } from '../actions'
 import { Grid, Image, Card } from 'semantic-ui-react'
 
-const BookshelfBook = ({ book, selectBook, getBookDetails }) => {
-  // console.log("BookshelfBook props:", book, selectBook)
+const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCover, swapBookCover, getBookDetails, bookCovers, selectedBook, selectedCover }) => {
+  // console.log("BookshelfBook props:", book, cover, bookCovers, selectedBook, selectedCover)
 
   const handleBookSelect = book => {
     selectBook(book)
+    selectCover(book)
     getBookDetails(book.goodreads_book_id)
   }
 
-  if (book) {
+  const handleCoverSwap = (newCover, {image_url}) => {
+    console.log("Cover Swap:", newCover, image_url)
+    swapBookCover(cover, image_url)
+    clearSelectedCover()
+  }
 
+  if (book) {
     let {author, image_url, publication_year, title} = book
 
     return (
@@ -30,7 +36,25 @@ const BookshelfBook = ({ book, selectBook, getBookDetails }) => {
         </Card>
       </Grid.Column>
     )
+  } else if (cover && selectedCover) {
+    let { image_url, title } = selectedCover
+    let newCover = cover.thumbnail.replace('&zoom=1&edge=curl', '&zoom=0')
+    return (
+      <Grid.Column>
+        <Card>
+          <Image onClick={() => handleCoverSwap(newCover, image_url)} src={newCover} alt={title} />
+        </Card>
+      </Grid.Column>
+    )
+  } else {
+    return null
   }
 }
 
-export default connect(null, { selectBook, getBookDetails })(BookshelfBook)
+const mapStateToProps = state => ({
+  bookCovers: state.book.bookCovers,
+  selectedBook: state.book.selectedBook,
+  selectedCover: state.book.selectedCover
+})
+
+export default connect(mapStateToProps, { selectBook, selectCover, clearSelectedCover, getBookDetails, swapBookCover })(BookshelfBook)
