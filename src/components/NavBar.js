@@ -23,6 +23,7 @@ const NavBar = ({clearSelectedBook, logoutUser, location: { pathname }, user: { 
           </Container>
         ) : (
           <Container>
+            <Image src={logo} style={{ width:'122px', height:'125px' }}  />
             <Menu.Item as='h1' name="Ex Libris" />
             <Menu.Menu position="right">
               <Menu.Item as={NavLink} to="/login" name="Log In or Sign Up" active={pathname === '/login'} />

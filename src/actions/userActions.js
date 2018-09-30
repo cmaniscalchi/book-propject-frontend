@@ -1,4 +1,4 @@
-import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SAVE_BOOK, REMOVE_BOOK } from '../types'
+import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SAVE_BOOK, REMOVE_BOOK, SWAP_COVER } from '../types'
 
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 
@@ -139,5 +139,23 @@ export const saveUserBook = (book, userId) => {
     fetch(`${BASE_URL}${urlSuffix}`, postConfig)
     .then(res => res.json())
     .then(book => dispatch({ type: SAVE_BOOK, payload: book }))
+  }
+}
+
+export const swapUserBookCover = (newCover, bookId) => {
+  let urlSuffix = `books/${bookId}`
+  let postConfig = {
+    method: "PATCH",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({ image_url: newCover })
+  }
+  return dispatch => {
+    fetch(`${BASE_URL}${urlSuffix}`, postConfig)
+    .then(res => res.json())
+    .then(book => dispatch({ type: SWAP_COVER, payload: [book, bookId] }))
   }
 }

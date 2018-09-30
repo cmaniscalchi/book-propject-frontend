@@ -4,7 +4,7 @@ import { Button, Header, Image, Modal, Rating } from 'semantic-ui-react'
 import { deleteUserBook, clearSelectedBook, searchBookCovers } from '../actions'
 
 const BookshelfDetail = ({ details, modalOpen, book, cover, deleteUserBook, clearSelectedBook, searchBookCovers }) => {
-  console.log("BookshelfDetail:", details, modalOpen, book, cover)
+  // console.log("BookshelfDetail:", details, modalOpen, book, cover)
 
   const handleBookRemoveOnClick = bookId => {
     deleteUserBook(bookId)

@@ -1,11 +1,15 @@
-.ui.container, .ui.card, .ui.modal, .ui.header, .ui.button, .header {
+.ui.container, .ui.card, .ui.form, .ui.modal, .ui.button, .ui.header, .header, a.item, h5 {
   font-family: 'Josefin Sans', sans-serif !important;
 }
 
-h1, h5 {
-  font-family: 'Josefin Sans', sans-serif !important;
+h1.item, ui.menu {
+  font-family: 'Poiret One', cursive !important;
+  font-size: 35px;
+  font-weight: 700 !important;
+  margin-top: 14px;
 }
-/*
-.header {
-  font-family: 'Josefin Sans', sans-serif !important;
-} */
+
+
+ui.menu .item {
+  padding: .5em 1em !important;
+}

@@ -1,9 +1,9 @@
 import React from "react"
 import { connect } from 'react-redux'
-import { selectBook, selectCover, clearSelectedCover, swapBookCover, getBookDetails } from '../actions'
+import { selectBook, selectCover, clearSelectedCover, swapUserBookCover, getBookDetails } from '../actions'
 import { Grid, Image, Card } from 'semantic-ui-react'
 
-const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCover, swapBookCover, getBookDetails, bookCovers, selectedBook, selectedCover }) => {
+const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCover, swapUserBookCover, getBookDetails, bookCovers, selectedBook, selectedCover }) => {
   // console.log("BookshelfBook props:", book, cover, bookCovers, selectedBook, selectedCover)
 
   const handleBookSelect = book => {
@@ -12,9 +12,8 @@ const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCove
     getBookDetails(book.goodreads_book_id)
   }
 
-  const handleCoverSwap = (newCover, {image_url}) => {
-    console.log("Cover Swap:", newCover, image_url)
-    swapBookCover(cover, image_url)
+  const handleCoverSwap = (newCover, id) => {
+    swapUserBookCover(newCover, id)
     clearSelectedCover()
   }
 
@@ -37,12 +36,12 @@ const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCove
       </Grid.Column>
     )
   } else if (cover && selectedCover) {
-    let { image_url, title } = selectedCover
+    let { id, title } = selectedCover
     let newCover = cover.thumbnail.replace('&zoom=1&edge=curl', '&zoom=0')
     return (
       <Grid.Column>
         <Card>
-          <Image onClick={() => handleCoverSwap(newCover, image_url)} src={newCover} alt={title} />
+          <Image onClick={() => handleCoverSwap(newCover, id)} src={newCover} alt={title} />
         </Card>
       </Grid.Column>
     )
@@ -57,4 +56,4 @@ const mapStateToProps = state => ({
   selectedCover: state.book.selectedCover
 })
 
-export default connect(mapStateToProps, { selectBook, selectCover, clearSelectedCover, getBookDetails, swapBookCover })(BookshelfBook)
+export default connect(mapStateToProps, { selectBook, selectCover, clearSelectedCover, getBookDetails, swapUserBookCover })(BookshelfBook)
