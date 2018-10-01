@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router-dom'
-import { Button, Tab, Form, Message } from 'semantic-ui-react'
+import { Button, Tab, Form, Message, Grid, Header } from 'semantic-ui-react'
 import { loginUser, signUpUser, createBookshelf } from '../actions'
 
 class LoginSignupForm extends Component {
@@ -47,33 +47,41 @@ class LoginSignupForm extends Component {
     )
 
     const logInForm = (
-      <Form
-        onSubmit={this.handleLoginSubmit}
-        loading={authenticatingUser}
-        error={failedLogin}
-      >
-        <Message error header={failedLogin ? error : null} />
-        <Form.Group widths="equal">
-          {nameInput}
-          {passwordInput}
-        </Form.Group>
-        <Button type="submit">Log In</Button>
-      </Form>
-      )
-
-      const signUpForm = (
-        <Form
-          onSubmit={this.handleSignUpSubmit}
+      <div>
+        <Header as='h2' textAlign='center'>Log In to Your Account</Header>
+        <br />
+        <Form size='large'
+          onSubmit={this.handleLoginSubmit}
           loading={authenticatingUser}
           error={failedLogin}
         >
-          {/* <Message error header={failedLogin ? error : null} /> */}
+          <Message error header={failedLogin ? error : null} />
           <Form.Group widths="equal">
             {nameInput}
             {passwordInput}
           </Form.Group>
-          <Button type="submit">Sign Up</Button>
+          <Button type="submit">Log In</Button>
         </Form>
+      </div>
+      )
+
+      const signUpForm = (
+        <div>
+          <Header as='h2' textAlign='center'>Create a New Ex Libris Account</Header>
+          <br />
+          <Form size='large'
+            onSubmit={this.handleSignUpSubmit}
+            loading={authenticatingUser}
+            error={failedLogin}
+          >
+            {/* <Message error header={failedLogin ? error : null} /> */}
+            <Form.Group widths="equal">
+              {nameInput}
+              {passwordInput}
+            </Form.Group>
+            <Button type="submit">Sign Up</Button>
+          </Form>
+        </div>
         )
 
         const panes = [
@@ -81,7 +89,16 @@ class LoginSignupForm extends Component {
           { menuItem: 'Sign Up', render: () => <Tab.Pane>{signUpForm}</Tab.Pane> }
         ]
 
-        return loggedIn ? <Redirect to="/bookshelf" /> : <Tab style={{width:'66%'}} panes={panes} />
+        return loggedIn ? <Redirect to="/bookshelf" /> : (
+          <div>
+            <br />
+            <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+              <Grid.Column style={{ maxWidth: 600 }}>
+                <Tab style={{ width: 600 }} panes={panes} />
+              </Grid.Column>
+            </Grid>
+          </div>
+        )
       }
     }
 
