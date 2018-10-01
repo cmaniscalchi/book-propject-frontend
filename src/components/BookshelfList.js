@@ -19,8 +19,9 @@ class BookshelfList extends Component {
         <div>
           {bookCovers.length > 0 ? (
             <div>
-              <Message floating content="Please note: The covers displayed here may not all match your book exactly, they are Google Books's best guess at covers for this work." />
-              <Button floated='right' onClick={clearSelectedCover}>Cancel</Button>
+              <Message size='large' floating floated='left' content="Please note: The covers displayed here may not all match your book exactly; they are Google Books's best guess at covers for this work." />
+              <Button fluid onClick={clearSelectedCover}>Cancel Book Cover Change</Button>
+              <br />
             </div>
           ) : null}
         </div>
