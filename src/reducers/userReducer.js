@@ -28,10 +28,10 @@ export default function userReducer(state = initialUserState, action) {
     case SAVE_BOOKSHELF:
       return { ...state, user: {...state.user, bookshelves: state.user.bookshelves.concat(action.payload)}}
     case SWAP_COVER:
-    let index = state.user.books.findIndex(book => book.id === action.payload[1])
-      debugger;
-    return state
-      // return { ...state, user: {...state.user, books: state.user.books}}
+      let index = state.user.books.findIndex(book => book.id === action.payload[1])
+      let prevState = { ...state}
+      prevState.user.books[index] = action.payload[0]
+    return prevState;
     default:
       return state
   }

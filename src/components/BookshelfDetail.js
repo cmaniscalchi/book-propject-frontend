@@ -28,7 +28,7 @@ const BookshelfDetail = ({ details, modalOpen, book, cover, deleteUserBook, clea
             <Image wrapped size='medium' src={image_url} />
             <Modal.Description>
               <Header as='h3'>{title} by {author}</Header>
-              { publication_year && details.publication_year ? <Header sub>Original Publication Year: {publication_year}<br />Edition Year: {details.publication_year}</Header> : <Header sub>Original Publication Year: {publication_year}</Header> }
+              { publication_year ? <Header sub>Original Publication Year: {publication_year}</Header> : null }
               <br />
               <p>{striptags(details.description)}</p>
               <h5>Average Goodreads User Rating (out of {details.work.ratings_count.toString().split( /(?=(?:\d{3})+(?:\.|$))/g ).join( "," )})</h5>

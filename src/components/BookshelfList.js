@@ -31,8 +31,8 @@ class BookshelfList extends Component {
           </Grid>
         </div>
       </div>
-  )
-}
+    )
+  }
 }
 
 const mapStateToProps = state => ({
