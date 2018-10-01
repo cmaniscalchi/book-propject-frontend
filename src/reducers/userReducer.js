@@ -1,16 +1,19 @@
-import { SET_CURRENT_USER, AUTHENTICATING_USER, AUTHENTICATED_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SAVE_BOOK, REMOVE_BOOK, SAVE_BOOKSHELF, SWAP_COVER } from '../types'
+import { SET_CURRENT_USER, AUTHENTICATING_USER, AUTHENTICATED_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_SHELVED_BOOKS, SAVE_BOOK, REMOVE_BOOK, SAVE_BOOKSHELF, SWAP_COVER } from '../types'
 
 const initialUserState = {
   user: null,
   loggedIn: false,
   authenticatingUser: false,
   failedLogin: false,
-  error: null
+  error: null,
+  shelvedBooks: []
 }
 
 export default function userReducer(state = initialUserState, action) {
   // console.log("userReducer:", state, action)
   switch (action.type) {
+    case SET_SHELVED_BOOKS:
+    return { ...state, shelvedBooks: state.user.books }
     case SET_CURRENT_USER:
       return { ...state, user: action.payload, loggedIn: true, authenticatingUser: false }
     case AUTHENTICATING_USER:
@@ -29,9 +32,8 @@ export default function userReducer(state = initialUserState, action) {
       return { ...state, user: {...state.user, bookshelves: state.user.bookshelves.concat(action.payload)}}
     case SWAP_COVER:
       let index = state.user.books.findIndex(book => book.id === action.payload[1])
-      let prevState = { ...state}
-      prevState.user.books[index] = action.payload[0]
-    return prevState;
+      return { ...state, user: {...state.user, books: state.user.books.slice(0, index).concat(action.payload[0])
+      .concat(state.user.books.slice(index + 1)) } }
     default:
       return state
   }
