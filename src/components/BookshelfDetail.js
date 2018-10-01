@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Button, Header, Image, Modal, Rating } from 'semantic-ui-react'
 import { deleteUserBook, clearSelectedBook, searchBookCovers } from '../actions'
 
-const BookshelfDetail = ({ details, modalOpen, book, cover, deleteUserBook, clearSelectedBook, searchBookCovers }) => {
+const BookshelfDetail = ({ details, modalOpen, book, cover, deleteUserBook, clearSelectedBook, searchBookCovers, bookCovers }) => {
   // console.log("BookshelfDetail:", details, modalOpen, book, cover)
 
   const handleBookRemoveOnClick = bookId => {
@@ -53,7 +53,8 @@ function mapStateToProps(state) {
     book: state.book.selectedBook,
     cover: state.book.selectedCover,
     details: state.book.selectedBookDetails,
-    modalOpen: state.book.modalOpen
+    modalOpen: state.book.modalOpen,
+    bookCovers: state.book.bookCovers,
   }
 }
 

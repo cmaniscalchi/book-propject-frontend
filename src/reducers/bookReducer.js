@@ -5,7 +5,6 @@ const initialBookState = {
   selectedBook: null,
   selectedCover: null,
   selectedBookDetails: null,
-  // shelvedBooks: [],
   bookCovers: [],
   modalOpen: false
 }
@@ -14,8 +13,6 @@ export default function bookReducer(state = initialBookState, action) {
   // console.log("bookReducer:", state, action)
 
   switch (action.type) {
-    // case SET_SHELVED_BOOKS:
-    // return { ...state, shelvedBooks: action.payload }
     case SEARCH_BOOK:
     return { ...state, searchResults: action.payload.GoodreadsResponse.search.results.work }
     case SEARCH_AUTHOR_BOOKS:
