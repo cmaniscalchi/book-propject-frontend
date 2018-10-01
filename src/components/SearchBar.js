@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { searchBook } from '../actions'
-import { Segment, Form, Button } from 'semantic-ui-react'
+import { Segment, Form, Button, Grid, Header, Image, Message } from 'semantic-ui-react'
 
 class SearchBar extends Component {
   state = { input: ''}
@@ -19,18 +19,25 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <Segment style={{width:400}}>
-        <Form onSubmit={this.handleFormSubmit}>
-          <Form.Input
-            icon='book'
-            iconPosition='left'
-            value={this.state.input}
-            onChange={this.handleInputChange}
-            placeholder="Search for a book to add to your shelf"
-          />
-          <Button type="submit">Search</Button>
-        </Form>
-      </Segment>
+      <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+        <Grid.Column style={{ maxWidth: 600 }}>
+          <Header as='h2' textAlign='center'>Search for Books to Add to Your Shelf</Header>
+          <Form size='large'>
+            <Segment style={{ width:600 }}>
+              <Form onSubmit={this.handleFormSubmit}>
+                <Form.Input
+                  icon='book'
+                  iconPosition='left'
+                  value={this.state.input}
+                  onChange={this.handleInputChange}
+                  placeholder="Search by Title or Author"
+                />
+                <Button type="submit">Search</Button>
+              </Form>
+            </Segment>
+          </Form>
+        </Grid.Column>
+      </Grid>
     )
   }
 }

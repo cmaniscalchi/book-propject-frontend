@@ -6,12 +6,17 @@ import { Container } from 'semantic-ui-react'
 import withAuth from '../hocs/withAuth'
 
 const BookSearch = () => {
+
+  const background = require('../assets/imgs/exclusive_paper/exclusive_paper_@2X.png')
+
   return (
-    <Container style={{ padding: '2em 2em' }}>
-      <SearchBar />
-      <BookSearchDetail />
-      <BookSearchList />
-    </Container>
+    // <div style={{ `backgroundImage: url(${background}), minHeight: 100%, width: 100%` }}>
+      <Container style={{ padding: '2em 2em' }}>
+        <SearchBar />
+        <BookSearchDetail />
+        <BookSearchList style={{ backgroundImage: `url(${background})` }}/>
+      </Container>
+    // </div>
   )
 }
 

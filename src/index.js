@@ -22,11 +22,13 @@ import store from './store'
 //       Book
 //     BookDetail
 
+const background = require('./assets/imgs/smooth_wall/smooth_wall_@2X.png')
+
 ReactDOM.render(
 
   <Provider store={store}>
     <Router>
-      <App />
+      <App style={{backgroundImage: `url(${background})` }}/>
     </Router>
   </Provider>, document.getElementById('root')
 )

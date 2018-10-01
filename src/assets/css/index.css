@@ -1,4 +1,4 @@
-.ui.container, .ui.card, .ui.form, .ui.modal, .ui.button, .ui.header, .header, a.item, h5 {
+.ui.container, .ui.card, .ui.form, ui.form.input, .ui.modal, .ui.button, .ui.header, .header, a.item, h5 {
   font-family: 'Josefin Sans', sans-serif !important;
 }
 
@@ -9,6 +9,10 @@ h1.item, ui.menu {
   margin-top: 14px;
 }
 
+h2.ui.center.aligned.header {
+  font-family: 'Poiret One', cursive !important;
+  font-weight: 700 !important;
+}
 
 ui.menu .item {
   padding: .5em 1em !important;

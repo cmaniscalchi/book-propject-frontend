@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import BookSearchBook from './BookSearchBook'
-import { Grid } from 'semantic-ui-react'
+import { Grid, Message } from 'semantic-ui-react'
 import { clearSearchResults } from '../actions'
 
 class BookSearchList extends Component {
@@ -14,15 +14,25 @@ class BookSearchList extends Component {
       let { searchResults } = this.props
       if (searchResults.length > 1) {
         return (
-          <Grid relaxed columns={4}>
-            {searchResults.map(book => <BookSearchBook book={book} key={book.id} />)}
-          </Grid>
+          <div>
+            <br />
+            <Message size='large' floating floated='left' content="You'll have the ability to change a book's cover once it's been added to your shelf." />
+            <br />
+            <Grid relaxed columns={4}>
+              {searchResults.map(book => <BookSearchBook book={book} key={book.id} />)}
+            </Grid>
+          </div>
         )
       } else if (searchResults.length === 1) {
         return (
-          <Grid relaxed columns={4}>
-            <BookSearchBook book={searchResults[0]} key={searchResults[0].id} />)
-          </Grid>
+          <div>
+            <br />
+            <Message size='large' floating floated='left' content="You'll have the ability to change your book covers once you've added a book to your shelf." />
+            <br />
+            <Grid relaxed columns={4}>
+              <BookSearchBook book={searchResults[0]} key={searchResults[0].id} />)
+            </Grid>
+          </div>
         )
       } else {
         return null

@@ -7,10 +7,12 @@ import BookSearch from './BookSearch'
 
 const App = () => {
 
+  const background = require('../assets/imgs/exclusive_paper/exclusive_paper_@2X.png')
+
   return (
     <Fragment>
       <NavBar />
-      <Switch>
+      <Switch style={{ backgroundImage: `url(${background})` }}>
         <Route exact path="/" render={() => <Redirect to="/bookshelf" />} />
         <Route exact path="/login" component={LoginSignupForm} />
         <Route exact path="/bookshelf" component={Bookshelf}/>
