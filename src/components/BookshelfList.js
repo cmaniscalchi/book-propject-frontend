@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import BookshelfBook from './BookshelfBook'
-import { Grid, Message, Button } from 'semantic-ui-react'
+import { Grid, Message, Button, Header } from 'semantic-ui-react'
 import { setShelvedBooks, clearSelectedCover } from '../actions'
 
 class BookshelfList extends Component {
@@ -26,6 +26,23 @@ class BookshelfList extends Component {
           ) : null}
         </div>
         <div>
+          {shelvedBooks.length === 0 ? (
+            <div>
+              <Header as='h2' textAlign='center'>My Bookshelf</Header>
+              <Header sub textAlign='center'>Welcome to Ex Libris, your virtual bookshelf!</Header>
+              <Header sub textAlign='center'>Begin by exploring books to add to your shelf.</Header>
+              <br />
+            </div>
+          ) : null}
+        </div>
+        <div>
+          {shelvedBooks.length > 0 && bookCovers.length === 0 ? (
+            <div>
+              <Header as='h2' textAlign='center'>My Bookshelf</Header>
+              <Header sub textAlign='center'>Select a Book to View Its Details, Change the Display Cover, or Remove It From Your Shelf</Header>
+              <br />
+            </div>
+          ) : null}
           <Grid relaxed columns={4}>
             {shelvedBooks.length > 0 && bookCovers.length === 0 ? shelvedBooks.map(book => <BookshelfBook book={book} key={book.goodreads_book_id} />) : null}
             {shelvedBooks.length > 0 && bookCovers.length > 0 ? bookCovers.map(cover => <BookshelfBook book={selectedBook} cover={cover} key={cover.thumbnail} />) : null}
