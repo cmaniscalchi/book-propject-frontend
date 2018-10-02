@@ -25,7 +25,7 @@ const BookshelfDetail = ({ details, modalOpen, book, cover, deleteUserBook, clea
         <Modal size='large' open={modalOpen} onClose={clearSelectedBook}>
           <Modal.Header>My Shelved Books</Modal.Header>
           <Modal.Content image>
-            <Image wrapped size='medium' src={image_url} />
+            <Image size='medium' style={{maxWidth:'255px', maxHeight:'389px'}} src={image_url} />
             <Modal.Description>
               <Header as='h3'>{title} by {author}</Header>
               { publication_year ? <Header sub>Original Publication Year: {publication_year}</Header> : null }

@@ -74,7 +74,7 @@ class LoginSignupForm extends Component {
             loading={authenticatingUser}
             error={failedLogin}
           >
-            {/* <Message error header={failedLogin ? error : null} /> */}
+            <Message error header={failedLogin ? error : null} />
             <Form.Group widths="equal">
               {nameInput}
               {passwordInput}

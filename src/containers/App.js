@@ -7,7 +7,7 @@ import BookSearch from './BookSearch'
 
 const App = () => {
 
-  const background = require('../assets/imgs/exclusive_paper/exclusive_paper_@2X.png')
+  const background = require('../assets/img/gplaypattern.png')
 
   return (
     <Fragment>

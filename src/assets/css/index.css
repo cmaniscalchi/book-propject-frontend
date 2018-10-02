@@ -1,4 +1,4 @@
-.ui.container, .ui.card, .ui.form, ui.form.input, .ui.modal, .ui.button, .ui.header, .header, a.item, h5 {
+.ui.container, .ui.form, ui.form.input, .ui.modal, .ui.button, .ui.header, .header, a.item, h5, input {
   font-family: 'Josefin Sans', sans-serif !important;
 }
 
@@ -21,4 +21,15 @@ ui.menu .item {
 body, html {
   height: 100%;
   margin: 0;
-} 
+}
+
+.ui.card {
+  font-family: 'Josefin Sans', sans-serif !important;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+}
+
+.ui.card:hover {
+  background-color: #eee;
+  transform: scale(1.025);
+}

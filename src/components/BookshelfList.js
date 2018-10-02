@@ -2,24 +2,28 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import BookshelfBook from './BookshelfBook'
 import { Grid, Message, Button, Header } from 'semantic-ui-react'
-import { setShelvedBooks, clearSelectedCover } from '../actions'
+import { setShelvedBooks, clearSelectedCover, clearSelectedBook } from '../actions'
 
 class BookshelfList extends Component {
 
   componentDidMount() {
-    let { setShelvedBooks, shelvedBooks } = this.props
+    let { setShelvedBooks, shelvedBooks, clearSelectedBook, selectedBook, clearSelectedCover, selectedCover } = this.props
     setShelvedBooks(shelvedBooks)
+    clearSelectedBook(selectedBook)
+    clearSelectedCover(selectedCover)
   }
 
   render() {
     // console.log("BookshelfList props:", this.props)
-    let { shelvedBooks, bookCovers, selectedBook, clearSelectedCover } = this.props
+    let { shelvedBooks, bookCovers, selectedBook, clearSelectedCover, selectedCover } = this.props
+    // debugger
     return (
       <div>
         <div>
           {bookCovers.length > 0 ? (
             <div>
-              <Message size='large' floating floated='left' content="Please note: The covers displayed here may not all match your book exactly; they are Google Books's best guess at covers for this work." />
+              <Message size='small' floating floated='middle' content="Please note: The covers displayed here may not all match your book exactly; they are Google Books's best guess at covers for this work." />
+              <Header as='h2' textAlign='center'>Select a New Cover for {selectedCover.title}</Header>
               <Button fluid onClick={clearSelectedCover}>Cancel Book Cover Change</Button>
               <br />
             </div>
@@ -56,7 +60,8 @@ class BookshelfList extends Component {
 const mapStateToProps = state => ({
   shelvedBooks: state.user.user.books,
   bookCovers: state.book.bookCovers,
-  selectedBook: state.book.selectedBook
+  selectedBook: state.book.selectedBook,
+  selectedCover: state.book.selectedCover
 })
 
-export default connect(mapStateToProps, { setShelvedBooks, clearSelectedCover })(BookshelfList)
+export default connect(mapStateToProps, { setShelvedBooks, clearSelectedCover, clearSelectedBook })(BookshelfList)
