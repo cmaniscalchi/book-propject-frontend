@@ -8,28 +8,29 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './store'
 
-// COMPONENT HIERARCHY:
-// App
-//   NavBar
-//   LoginForm
-//   Bookshelf
-//     BookshelfList
-//       Book
-//     BookDetail
-//   BookSearch
-//     SearchBar
-//     BookSearchList
-//       Book
-//     BookDetail
-
-const background = require('./assets/imgs/smooth_wall/smooth_wall_@2X.png')
-
 ReactDOM.render(
-
   <Provider store={store}>
     <Router>
-      <App style={{backgroundImage: `url(${background})` }}/>
+      <App />
     </Router>
   </Provider>, document.getElementById('root')
 )
 registerServiceWorker()
+
+
+// import Background from './assets/imgs/exclusive_paper/exclusive_paper_@2X.png'
+//
+// const style = {
+//   width: "100%",
+//   height: "800px",
+//   backgroundImage: `url(${Background})`
+// }
+//
+// ReactDOM.render(
+//   <Provider store={ store }>
+//     <Router>
+//       <App style={ style }/>
+//     </Router>
+//   </Provider>, document.getElementById('root')
+// )
+// registerServiceWorker()

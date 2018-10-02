@@ -17,3 +17,8 @@ h2.ui.center.aligned.header {
 ui.menu .item {
   padding: .5em 1em !important;
 }
+
+body, html {
+  height: 100%;
+  margin: 0;
+} 

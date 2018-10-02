@@ -12,12 +12,20 @@ const App = () => {
   return (
     <Fragment>
       <NavBar />
-      <Switch style={{ backgroundImage: `url(${background})` }}>
-        <Route exact path="/" render={() => <Redirect to="/bookshelf" />} />
-        <Route exact path="/login" component={LoginSignupForm} />
-        <Route exact path="/bookshelf" component={Bookshelf}/>
-        <Route exact path="/search" component={BookSearch}/>
-      </Switch>
+      <div style={{
+        backgroundImage: `url(${background})`,
+        minHeight: window.innerHeight,
+        minWidth: window.innerWidth,
+        height: "100%",
+        width: "100%"
+      }}>
+        <Switch>
+          <Route exact path="/" render={() => <Redirect to="/bookshelf" />} />
+          <Route exact path="/login" component={LoginSignupForm} />
+          <Route exact path="/bookshelf" component={Bookshelf}/>
+          <Route exact path="/search" component={BookSearch}/>
+        </Switch>
+      </div>
     </Fragment>
   )
 }

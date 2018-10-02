@@ -38,6 +38,7 @@ const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCove
   } else if (cover && selectedCover) {
     let { id, title } = selectedCover
     let newCover = cover.thumbnail.replace('&zoom=1&edge=curl', '&zoom=0')
+    debugger
     return (
       <Grid.Column>
         <Card>
