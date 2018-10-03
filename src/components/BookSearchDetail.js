@@ -41,7 +41,7 @@ class BookSearchDetail extends Component {
           <Modal size='large' open={modalOpen} onClose={clearSelectedBook}>
             <Modal.Header className='modal'>Explore Books To Shelve</Modal.Header>
             <Modal.Content image>
-              <Image size='medium' style={{maxWidth:'255px', maxHeight:'389px'}} src={book.image_url} />
+              <Image size='medium' style={{minWidth:'255px', minHeight:'191px', maxWidth:'255px', maxHeight:'389px'}} src={book.image_url} />
               <Modal.Description>
                 <Header as='h3'>{book.title} by {book.author}</Header>
                 { book.publication_year && details.publication_year ? <Header sub>Original Publication Year: { book.publication_year}<br />Edition Year: {details.publication_year}</Header> : <Header sub>Original Publication Year: {details.publication_year}</Header> }

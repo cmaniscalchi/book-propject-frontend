@@ -23,7 +23,7 @@ const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCove
     return (
       <Grid.Column>
         <Card>
-          <Image onClick={() => handleBookSelect(book)} src={image_url} alt={title} />
+          <Image onClick={() => handleBookSelect(book)} src={image_url} style={{minWidth:'236px', minHeight:'177px'}} alt={title} />
           <Card.Content>
             {publication_year ? (
               <div>
@@ -41,7 +41,7 @@ const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCove
     return (
       <Grid.Column>
         <Card>
-          <Modal trigger={<Image src={newCover} alt={title} />} >
+          <Modal trigger={<Image src={newCover} style={{minWidth:'255px', minHeight:'191px'}} alt={title} />} >
             <Header icon='book' content='Change a Book Cover' />
             <Modal.Content>
               <p>Are you positive you'd like to make this change?</p>

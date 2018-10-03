@@ -18,7 +18,7 @@ class SearchBar extends Component {
   }
 
   render() {
-    const searchImage = require('../assets/img/Winslow-Homer-The-New-Novel.jpg')
+    const searchImage = require('../assets/img/Winslow-Homer.jpg')
     let { searchResults } = this.props
 
     return (

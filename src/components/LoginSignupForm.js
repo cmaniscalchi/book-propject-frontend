@@ -46,8 +46,8 @@ class LoginSignupForm extends Component {
       />
     )
 
-    const loginImage = require('../assets/img/Maxfield-Parrish-Scribners-Aug-1897.jpg')
-    const signupImage = require('../assets/img/Joseph-Walter-West.jpg')
+    const loginImage = require('../assets/img/Maxfield-Parrish.jpg')
+    const signupImage = require('../assets/img/Isaac-Israels.jpg')
 
     const logInForm = (
       <div>
@@ -72,7 +72,7 @@ class LoginSignupForm extends Component {
       const signUpForm = (
         <div>
           <Header as='h2' textAlign='center'>Create a New Ex Libris Account</Header>
-          <Image src={signupImage} alt='Ex Libris' style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '90%' }}/>
+          <Image src={signupImage} alt='Ex Libris' style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '80%' }}/>
           <br />
           <Form size='large'
             onSubmit={this.handleSignUpSubmit}

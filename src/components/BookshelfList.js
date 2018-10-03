@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import BookshelfBook from './BookshelfBook'
-import { Grid, Button, Header, Segment } from 'semantic-ui-react'
+import { Grid, Button, Header, Segment, Image } from 'semantic-ui-react'
 import { setShelvedBooks, clearSelectedCover, clearSelectedBook } from '../actions'
 
 class BookshelfList extends Component {
@@ -17,6 +17,7 @@ class BookshelfList extends Component {
   render() {
     // console.log("BookshelfList props:", this.props)
     let { shelvedBooks, bookCovers, selectedBook, clearSelectedCover, selectedCover } = this.props
+    const newUserImage = require('../assets/img/Alexander-Deineka.jpg')
     // debugger
     return (
       <div>
@@ -37,10 +38,12 @@ class BookshelfList extends Component {
         <div>
           {shelvedBooks.length === 0 ? (
             <div>
-              <Segment>
+              <Segment style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', maxWidth: 800 }}>
                 <Header as='h2' textAlign='center'>My Bookshelf</Header>
-                <Header sub textAlign='center'>Welcome to Ex Libris, your virtual bookshelf!</Header>
-                <Header sub textAlign='center'>Begin by exploring books to add to your shelf.</Header>
+                <Header sub textAlign='center'>Welcome to Ex Libris, your virtual bookshelf!<br />
+                Begin by exploring books to add to your shelf.</Header>
+                <br />
+                <Image src={newUserImage} alt='Ex Libris' style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '80%' }}/>
                 <br />
                 <Link to="/search"><Button fluid>Go To Search</Button></Link>
               </Segment>

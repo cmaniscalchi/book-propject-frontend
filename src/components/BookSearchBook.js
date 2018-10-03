@@ -31,7 +31,7 @@ const BookSearchBook = ({ book, selectBook, getBookDetails }) => {
     return (
       <Grid.Column>
         <Card>
-          <Image onClick={() => handleBookSelect(formattedBook)} src={image_url} alt={title} />
+          <Image onClick={() => handleBookSelect(formattedBook)} src={image_url} style={{minWidth:'236px', minHeight:'177px'}} alt={title} />
           <Card.Content>
             {publication_year ? (
               <div>
@@ -43,7 +43,7 @@ const BookSearchBook = ({ book, selectBook, getBookDetails }) => {
         </Card>
       </Grid.Column>
     )
-  } else {
+  } else if (book) {
     let originalImage = book.image_url.replace("m/", "l/").replace("m/", "l/").replace("col/", "com/")
     let image_url
     if (originalImage.includes("nophoto")) {
@@ -60,7 +60,7 @@ const BookSearchBook = ({ book, selectBook, getBookDetails }) => {
     return (
       <Grid.Column>
         <Card>
-          <Image onClick={() => handleBookSelect(formattedBook)} src={image_url} alt={title} />
+          <Image onClick={() => handleBookSelect(formattedBook)} src={image_url} style={{minWidth:'236px', minHeight:'177px'}} alt={title} />
           <Card.Content>
             {publication_year ? (
               <div>
@@ -72,6 +72,8 @@ const BookSearchBook = ({ book, selectBook, getBookDetails }) => {
         </Card>
       </Grid.Column>
     )
+  } else {
+    return null
   }
 }
 
