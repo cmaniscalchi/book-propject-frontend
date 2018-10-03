@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router-dom'
-import { Button, Tab, Form, Message, Grid, Header } from 'semantic-ui-react'
+import { Button, Tab, Form, Message, Grid, Header, Image } from 'semantic-ui-react'
 import { loginUser, signUpUser, createBookshelf } from '../actions'
 
 class LoginSignupForm extends Component {
@@ -46,9 +46,13 @@ class LoginSignupForm extends Component {
       />
     )
 
+    const loginImage = require('../assets/img/Maxfield-Parrish-Scribners-Aug-1897.jpg')
+    const signupImage = require('../assets/img/Joseph-Walter-West.jpg')
+
     const logInForm = (
       <div>
         <Header as='h2' textAlign='center'>Log In to Your Account</Header>
+        <Image src={loginImage} alt='Ex Libris' style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '90%' }}/>
         <br />
         <Form size='large'
           onSubmit={this.handleLoginSubmit}
@@ -68,6 +72,7 @@ class LoginSignupForm extends Component {
       const signUpForm = (
         <div>
           <Header as='h2' textAlign='center'>Create a New Ex Libris Account</Header>
+          <Image src={signupImage} alt='Ex Libris' style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '90%' }}/>
           <br />
           <Form size='large'
             onSubmit={this.handleSignUpSubmit}
@@ -93,8 +98,8 @@ class LoginSignupForm extends Component {
           <div>
             <br />
             <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
-              <Grid.Column style={{ maxWidth: 600 }}>
-                <Tab style={{ width: 600 }} panes={panes} />
+              <Grid.Column style={{ maxWidth: 800 }}>
+                <Tab style={{ width: 800 }} panes={panes} />
               </Grid.Column>
             </Grid>
           </div>

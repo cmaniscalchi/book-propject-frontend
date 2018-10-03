@@ -16,8 +16,6 @@ class BookSearchList extends Component {
         return (
           <div>
             <br />
-            <Message size='large' floating floated='left' content="You'll have the ability to change a book's cover once it's been added to your shelf." />
-            <br />
             <Grid relaxed columns={4}>
               {searchResults.map(book => <BookSearchBook book={book} key={book.id} />)}
             </Grid>
@@ -27,7 +25,7 @@ class BookSearchList extends Component {
         return (
           <div>
             <br />
-            <Message size='large' floating floated='left' content="You'll have the ability to change your book covers once you've added a book to your shelf." />
+            <Message size='small' floating floated='left' content="You'll have the ability to change your book covers once you've added a book to your shelf." />
             <br />
             <Grid relaxed columns={4}>
               <BookSearchBook book={searchResults[0]} key={searchResults[0].id} />)

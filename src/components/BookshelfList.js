@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import BookshelfBook from './BookshelfBook'
-import { Grid, Message, Button, Header } from 'semantic-ui-react'
+import { Grid, Button, Header, Segment } from 'semantic-ui-react'
 import { setShelvedBooks, clearSelectedCover, clearSelectedBook } from '../actions'
 
 class BookshelfList extends Component {
@@ -22,9 +23,13 @@ class BookshelfList extends Component {
         <div>
           {bookCovers.length > 0 ? (
             <div>
-              <Message size='small' floating floated='middle' content="Please note: The covers displayed here may not all match your book exactly; they are Google Books's best guess at covers for this work." />
-              <Header as='h2' textAlign='center'>Select a New Cover for {selectedCover.title}</Header>
-              <Button fluid onClick={clearSelectedCover}>Cancel Book Cover Change</Button>
+              <Segment>
+                <Header as='h2' textAlign='center'>Select a New Cover for {selectedCover.title}</Header>
+                <Header sub textAlign='center'>Please note: The covers displayed here may not all match your book exactly;<br />
+                they are Google Books's best guess at covers for this work.</Header>
+                <br />
+                <Button fluid onClick={clearSelectedCover}>Cancel Book Cover Change</Button>
+              </Segment>
               <br />
             </div>
           ) : null}
@@ -32,9 +37,13 @@ class BookshelfList extends Component {
         <div>
           {shelvedBooks.length === 0 ? (
             <div>
-              <Header as='h2' textAlign='center'>My Bookshelf</Header>
-              <Header sub textAlign='center'>Welcome to Ex Libris, your virtual bookshelf!</Header>
-              <Header sub textAlign='center'>Begin by exploring books to add to your shelf.</Header>
+              <Segment>
+                <Header as='h2' textAlign='center'>My Bookshelf</Header>
+                <Header sub textAlign='center'>Welcome to Ex Libris, your virtual bookshelf!</Header>
+                <Header sub textAlign='center'>Begin by exploring books to add to your shelf.</Header>
+                <br />
+                <Link to="/search"><Button fluid>Go To Search</Button></Link>
+              </Segment>
               <br />
             </div>
           ) : null}
@@ -42,8 +51,10 @@ class BookshelfList extends Component {
         <div>
           {shelvedBooks.length > 0 && bookCovers.length === 0 ? (
             <div>
-              <Header as='h2' textAlign='center'>My Bookshelf</Header>
-              <Header sub textAlign='center'>Select a Book to View Its Details, Change the Display Cover, or Remove It From Your Shelf</Header>
+              <Segment>
+                <Header as='h2' textAlign='center'>My Bookshelf</Header>
+                <Header sub textAlign='center'>Select a Book to View Its Details, Change the Display Cover, or Remove It From Your Shelf</Header>
+              </Segment>
               <br />
             </div>
           ) : null}

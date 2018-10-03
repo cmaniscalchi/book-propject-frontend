@@ -7,8 +7,6 @@ import withAuth from '../hocs/withAuth'
 
 const BookSearch = () => {
 
-  const background = require('../assets/imgs/exclusive_paper/exclusive_paper_@2X.png')
-
   return (
     <Container style={{ padding: '2em 2em' }}>
       <SearchBar />

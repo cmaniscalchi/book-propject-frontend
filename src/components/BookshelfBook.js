@@ -57,10 +57,10 @@ const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCove
           </Modal>
         </Card>
       </Grid.Column>
-  )
-} else {
-  return null
-}
+    )
+  } else {
+    return null
+  }
 }
 
 const mapStateToProps = state => ({

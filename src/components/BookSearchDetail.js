@@ -39,7 +39,7 @@ class BookSearchDetail extends Component {
       return (
         <div>
           <Modal size='large' open={modalOpen} onClose={clearSelectedBook}>
-            <Modal.Header>My Shelved Books</Modal.Header>
+            <Modal.Header className='modal'>Explore Books To Shelve</Modal.Header>
             <Modal.Content image>
               <Image size='medium' style={{maxWidth:'255px', maxHeight:'389px'}} src={book.image_url} />
               <Modal.Description>

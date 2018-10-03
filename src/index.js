@@ -16,21 +16,3 @@ ReactDOM.render(
   </Provider>, document.getElementById('root')
 )
 registerServiceWorker()
-
-
-// import Background from './assets/imgs/exclusive_paper/exclusive_paper_@2X.png'
-//
-// const style = {
-//   width: "100%",
-//   height: "800px",
-//   backgroundImage: `url(${Background})`
-// }
-//
-// ReactDOM.render(
-//   <Provider store={ store }>
-//     <Router>
-//       <App style={ style }/>
-//     </Router>
-//   </Provider>, document.getElementById('root')
-// )
-// registerServiceWorker()

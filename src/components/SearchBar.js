@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { searchBook } from '../actions'
-import { Segment, Form, Button, Grid, Header } from 'semantic-ui-react'
+import { Segment, Form, Button, Grid, Header, Icon, Image } from 'semantic-ui-react'
 
 class SearchBar extends Component {
   state = { input: ''}
@@ -18,13 +18,17 @@ class SearchBar extends Component {
   }
 
   render() {
+    const searchImage = require('../assets/img/Winslow-Homer-The-New-Novel.jpg')
+    let { searchResults } = this.props
+
     return (
       <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
-        <Grid.Column style={{ maxWidth: 600 }}>
-          <Header as='h2' textAlign='center'>Search for Books to Add to Your Shelf</Header>
-          <br />
+        <Grid.Column style={{ maxWidth: 800 }}>
           <Form size='large' onSubmit={this.handleFormSubmit}>
-            <Segment style={{ width:600 }}>
+            <Segment style={{ width:800 }}>
+              <Header as='h2' textAlign='center'>Search for Books to Add to Your Shelf</Header>
+              <Header sub textAlign='center'>You'll have the ability to change a book's cover once it's been saved to your bookshelf.</Header>
+              <br />
               <Form.Input
                 icon='book'
                 iconPosition='left'
@@ -32,7 +36,9 @@ class SearchBar extends Component {
                 onChange={this.handleInputChange}
                 placeholder="Search by Title or Author"
               />
-              <Button type="submit">Search</Button>
+              { searchResults ? null : <Image src={searchImage} alt='Ex Libris' style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '90%' }}/> }
+              <br />
+              <Button icon type="submit"><Icon name='search' />  Search</Button>
             </Segment>
           </Form>
         </Grid.Column>
@@ -41,4 +47,6 @@ class SearchBar extends Component {
   }
 }
 
-export default connect(null, { searchBook })(SearchBar)
+const mapStateToProps = state => ({ searchResults: state.book.searchResults })
+
+export default connect(mapStateToProps, { searchBook })(SearchBar)

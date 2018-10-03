@@ -9,18 +9,9 @@ h1.item, ui.menu {
   margin-top: 14px;
 }
 
-h2.ui.center.aligned.header {
+h2.ui.center.aligned.header, .modal {
   font-family: 'Poiret One', cursive !important;
   font-weight: 700 !important;
-}
-
-ui.menu .item {
-  padding: .5em 1em !important;
-}
-
-body, html {
-  height: 100%;
-  margin: 0;
 }
 
 .ui.card {
@@ -31,5 +22,16 @@ body, html {
 
 .ui.card:hover {
   background-color: #eee;
+  transform: scale(1.025);
+}
+
+.ui.button {
+  font-family: 'Josefin Sans', sans-serif !important;
+  transition: all .2s ease-in-out;
+  margin-left: 7px !important;
+  margin-right: 7px !important;
+}
+
+.ui.button:hover {
   transform: scale(1.025);
 }
