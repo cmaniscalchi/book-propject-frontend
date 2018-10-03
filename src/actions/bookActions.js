@@ -79,7 +79,7 @@ export const searchBookCovers = (title, author) => {
   return dispatch => {
     fetch(`${BASE_URL}${urlSuffix}`, postConfig)
     .then(res => res.json())
-    .then(books => dispatch({ type: SEARCH_BOOK_COVER, payload: books }))
+    .then(books => dispatch({ type: SEARCH_BOOK_COVER, payload: [books, title] }))
   }
 }
 

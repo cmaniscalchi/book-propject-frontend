@@ -28,7 +28,7 @@ export default function bookReducer(state = initialBookState, action) {
     case SIMILAR_BOOKS:
     return { ...state, searchResults: action.payload.similar_books.book }
     case SEARCH_BOOK_COVER:
-    return { ...state, bookCovers: action.payload.items.map(book => book.volumeInfo.imageLinks).filter(book => book) }
+    return { ...state, bookCovers: action.payload[0].items.filter(book => book.volumeInfo.title == action.payload[1]).map(book => book.volumeInfo.imageLinks).filter(book => book) }
     case SELECT_BOOK_COVER:
     return { ...state, selectedCover: action.payload, modalOpen: true }
     case UNSELECT_BOOK_COVER:
