@@ -15,7 +15,7 @@ class BookshelfList extends Component {
   }
 
   render() {
-    console.log("BookshelfList props:", this.props)
+    // console.log("BookshelfList props:", this.props)
     let { shelvedBooks, bookCovers, selectedBook, clearSelectedCover, selectedCover } = this.props
     const newUserImage = require('../assets/img/Alexander-Deineka.jpg')
     // debugger
