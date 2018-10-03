@@ -4,14 +4,14 @@
 
 h1.item, ui.menu {
   font-family: 'Poiret One', cursive !important;
-  font-size: 35px;
-  font-weight: 700 !important;
-  margin-top: 14px;
+  font-size: 40px;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
 }
 
 h2.ui.center.aligned.header, .modal {
   font-family: 'Poiret One', cursive !important;
-  font-weight: 700 !important;
+  font-size: 30px;
 }
 
 .ui.card {

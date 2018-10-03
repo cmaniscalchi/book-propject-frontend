@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { NavLink, withRouter } from 'react-router-dom'
+import { NavLink, withRouter, Link } from 'react-router-dom'
 import { Segment, Menu, Container, Image } from 'semantic-ui-react'
 import { logoutUser, clearSelectedBook } from '../actions'
 
@@ -14,8 +14,8 @@ const NavBar = ({clearSelectedBook, logoutUser, location: { pathname }, user: { 
       <Menu size='large' borderless style={{ border: 'none', boxShadow: 'none' }}>
         {loggedIn ? (
           <Container>
-            <Image src={logo} style={{ width:'122px', height:'125px' }} />
-            <Menu.Item as='h1' name="Ex Libris" />
+            <Link to="/bookshelf"><Image src={logo} style={{ width:'122px', height:'125px' }} /></Link>
+            <Link to="/bookshelf"><Menu.Item as='h1' name="Ex Libris" /></Link>
             <Menu.Item as={NavLink} to="/bookshelf" name="Bookshelf" onClick={clearSelectedBook} active={pathname === '/bookshelf'} />
             <Menu.Item as={NavLink} to="/search" name="Search Books" onClick={clearSelectedBook} active={pathname === '/search'} />
             <Menu.Menu position="right">
