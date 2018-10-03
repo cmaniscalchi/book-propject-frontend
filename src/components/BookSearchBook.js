@@ -31,7 +31,7 @@ const BookSearchBook = ({ book, selectBook, getBookDetails }) => {
     return (
       <Grid.Column>
         <Card>
-          <Image onClick={() => handleBookSelect(formattedBook)} src={image_url} style={{minWidth:'236px', minHeight:'177px'}} alt={title} />
+          <Image onClick={() => handleBookSelect(formattedBook)} src={image_url} style={{minWidth: '135px', minHeight: '67px', display: 'block', width: '100%', height: 'auto'}} alt={title} />
           <Card.Content>
             {publication_year ? (
               <div>
@@ -60,7 +60,7 @@ const BookSearchBook = ({ book, selectBook, getBookDetails }) => {
     return (
       <Grid.Column>
         <Card>
-          <Image onClick={() => handleBookSelect(formattedBook)} src={image_url} style={{minWidth:'236px', minHeight:'177px'}} alt={title} />
+          <Image onClick={() => handleBookSelect(formattedBook)} src={image_url} style={{minWidth: '135px', minHeight: '67px', display: 'block', width: '100%', height: 'auto'}} alt={title} />
           <Card.Content>
             {publication_year ? (
               <div>
