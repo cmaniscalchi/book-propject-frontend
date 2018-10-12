@@ -48,20 +48,46 @@ class BookshelfList extends Component {
     )
   }
 
+  switchBookshelf = () => {
+    return (
+      <div></div>
+    )
+  }
+
+  renameBookshelf = () => {
+    return (
+      <div></div>
+    )
+  }
+
+  createBookshelf = () => {
+    return (
+      <div></div>
+    )
+  }
+
   bookshelfHeader = () => {
+    let { bookshelves } = this.props
     return (
       <div>
         <Segment>
           <Header as='h2' textAlign='center'>My Bookshelf</Header>
           <Header sub textAlign='center'>Select a Book to View Its Details, Change the Display Cover, or Remove It From Your Shelf</Header>
+          <br />
+          <div style={{display:'flex', justifyContent:'space-around'}}>
+            <Button onClick={this.renameBookshelf}>Rename This Bookshelf</Button>
+            {bookshelves.length > 1 ? <Button onClick={this.switchBookshelf}>Switch To Another Shelf</Button> : null}
+            <Button onClick={this.createBookshelf}>Create a New Shelf</Button>
+          </div>
         </Segment>
         <br />
       </div>
     )
   }
 
+
   render() {
-    // console.log("BookshelfList props:", this.props)
+    console.log("BookshelfList props:", this.props)
     let { shelvedBooks, bookCovers, selectedBook } = this.props
     return (
       <div>
@@ -82,6 +108,7 @@ class BookshelfList extends Component {
 }
 
 const mapStateToProps = state => ({
+  bookshelves: state.user.user.bookshelves,
   shelvedBooks: state.user.user.books,
   bookCovers: state.book.bookCovers,
   selectedBook: state.book.selectedBook,
