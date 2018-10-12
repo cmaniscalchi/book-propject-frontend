@@ -63,7 +63,7 @@ class BookshelfList extends Component {
           ) : null}
           <Grid relaxed columns={4}>
             {shelvedBooks.length > 0 && bookCovers.length === 0 ? shelvedBooks.map(book => <BookshelfBook book={book} key={book.goodreads_book_id} />).reverse() : null}
-            {shelvedBooks.length > 0 && bookCovers.length > 0 ? bookCovers.map(cover => <BookshelfBook book={selectedBook} cover={cover} key={cover.thumbnail} />).reverse() : null}
+            {shelvedBooks.length > 0 && bookCovers.length > 0 ? bookCovers.map(cover => <BookshelfBook book={selectedBook} cover={cover} key={cover.src} />).reverse() : null}
           </Grid>
         </div>
       </div>

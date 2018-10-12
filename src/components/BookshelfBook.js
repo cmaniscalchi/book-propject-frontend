@@ -37,11 +37,10 @@ const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCove
     )
   } else if (cover && selectedCover) {
     let { id, title } = selectedCover
-    let newCover = cover.thumbnail.replace('&zoom=1&edge=curl', '&zoom=0')
     return (
       <Grid.Column>
         <Card>
-          <Modal trigger={<Image src={newCover} style={{minWidth: '135px', minHeight: '67px', display: 'block', width: '100%', height: 'auto'}} alt={title} />} >
+          <Modal trigger={<Image src={cover.src} style={{minWidth: '135px', minHeight: '67px', display: 'block', width: '100%', height: 'auto'}} alt={title} />} >
             <Header icon='book' content='Change a Book Cover' />
             <Modal.Content>
               <p>Are you positive you'd like to make this change?</p>
@@ -50,7 +49,7 @@ const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCove
               <Button onClick={clearSelectedCover}>
                 <Icon name='remove' /> No, Please Take Me Back
               </Button>
-              <Button onClick={() => handleCoverSwap(newCover, id)}>
+              <Button onClick={() => handleCoverSwap(cover.src, id)}>
                 <Icon name='checkmark' /> Yes, Change It!
               </Button>
             </Modal.Actions>
