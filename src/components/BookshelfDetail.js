@@ -48,14 +48,12 @@ const BookshelfDetail = ({ details, modalOpen, book, cover, deleteUserBook, clea
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    book: state.book.selectedBook,
-    cover: state.book.selectedCover,
-    details: state.book.selectedBookDetails,
-    modalOpen: state.book.modalOpen,
-    bookCovers: state.book.bookCovers,
-  }
-}
+const mapStateToProps = state => ({
+  book: state.book.selectedBook,
+  cover: state.book.selectedCover,
+  details: state.book.selectedBookDetails,
+  modalOpen: state.book.modalOpen,
+  bookCovers: state.book.bookCovers
+})
 
 export default connect(mapStateToProps, { deleteUserBook, clearSelectedBook, searchBookCovers })(BookshelfDetail)
