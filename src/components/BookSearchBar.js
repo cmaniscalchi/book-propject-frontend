@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { searchBook } from '../actions'
 import { Segment, Form, Button, Grid, Header, Icon, Image } from 'semantic-ui-react'
 
-class SearchBar extends Component {
+class BookSearchBar extends Component {
   state = { input: ''}
 
   handleInputChange = event => {
@@ -49,4 +49,4 @@ class SearchBar extends Component {
 
 const mapStateToProps = state => ({ searchResults: state.book.searchResults })
 
-export default connect(mapStateToProps, { searchBook })(SearchBar)
+export default connect(mapStateToProps, { searchBook })(BookSearchBar)
