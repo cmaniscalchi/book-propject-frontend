@@ -2,12 +2,12 @@ import { AUTHENTICATING_USER, SAVE_BOOKSHELF } from '../types'
 
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 
-export const createBookshelf = userId => {
+export const createDefaultBookshelf = userId => {
   let urlSuffix = `bookshelves`
   let postConfig = {
     method: "POST",
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', Authorization: `Bearer ${localStorage.getItem('jwt')}` },
-    body: JSON.stringify({ 'bookshelf': { 'user_id': userId } })
+    body: JSON.stringify({ 'bookshelf': { 'user_id': userId, 'name': 'My Bookshelf' } })
   }
 
   return dispatch => {

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router-dom'
 import { Button, Tab, Form, Message, Grid, Header, Image } from 'semantic-ui-react'
-import { loginUser, signUpUser, createBookshelf } from '../actions'
+import { loginUser, signUpUser } from '../actions'
 
 class LoginSignupForm extends Component {
   state = { name: '', password: '' }
@@ -111,4 +111,4 @@ class LoginSignupForm extends Component {
       { authenticatingUser, failedLogin, error, loggedIn }
     )
 
-    export default withRouter(connect(mapStateToProps, { loginUser, signUpUser, createBookshelf })(LoginSignupForm))
+    export default withRouter(connect(mapStateToProps, { loginUser, signUpUser })(LoginSignupForm))
