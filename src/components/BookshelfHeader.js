@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import BookshelfBook from './BookshelfBook'
-import { Grid, Button, Header, Segment, Image } from 'semantic-ui-react'
-import { clearSelectedCover, clearSelectedBook } from '../actions'
+import { Button, Header, Segment, Image } from 'semantic-ui-react'
+import { clearSelectedCover } from '../actions'
 
 class BookshelfHeader extends Component {
 
