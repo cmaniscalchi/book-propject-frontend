@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, AUTHENTICATING_USER, AUTHENTICATED_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_SHELVED_BOOKS, SAVE_BOOK, REMOVE_BOOK, SAVE_BOOKSHELF, SWAP_COVER } from '../types'
+import { SET_CURRENT_USER, AUTHENTICATING_USER, AUTHENTICATED_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_SHELVED_BOOKS, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, SAVE_BOOKSHELF, SWAP_COVER } from '../types'
 
 const initialUserState = {
   user: null,
@@ -6,16 +6,19 @@ const initialUserState = {
   authenticatingUser: false,
   failedLogin: false,
   error: null,
-  shelvedBooks: []
+  shelvedBooks: [],
+  currentBookshelf: null
 }
 
 export default function userReducer(state = initialUserState, action) {
   // console.log("userReducer:", state, action)
   switch (action.type) {
     case SET_SHELVED_BOOKS:
-    return { ...state, shelvedBooks: state.user.books }
+      return { ...state, shelvedBooks: state.user.books }
     case SET_CURRENT_USER:
       return { ...state, user: action.payload, loggedIn: true, authenticatingUser: false }
+    case SET_DEFAULT_BOOKSHELF:
+      return { ...state, user: {...state.user, currentBookshelf: state.user.bookshelves[0]}}
     case AUTHENTICATING_USER:
       return { ...state, authenticatingUser: true }
     case AUTHENTICATED_USER:

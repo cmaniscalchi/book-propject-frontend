@@ -2,16 +2,22 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Button, Header, Segment, Image } from 'semantic-ui-react'
-import { clearSelectedCover } from '../actions'
+import { clearSelectedCover, setDefaultBookshelf } from '../actions'
 
 class BookshelfHeader extends Component {
 
+  componentDidMount() {
+    let { setDefaultBookshelf, currentBookshelf } = this.props
+    currentBookshelf ? setDefaultBookshelf() : null
+  }
+
   newUserHeader = () => {
     const newUserImage = require('../assets/img/Alexander-Deineka.jpg')
+    let { currentBookshelf } = this.props
     return (
       <div>
         <Segment style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', maxWidth: 800 }}>
-          <Header as='h2' textAlign='center'>My Bookshelf</Header>
+          <Header as='h2' textAlign='center'>{currentBookshelf.name}</Header>
           <Header sub textAlign='center'>Welcome to Ex Libris, your virtual bookshelf!<br />
           Begin by exploring books to add to your shelf.</Header>
           <br />
@@ -59,11 +65,11 @@ class BookshelfHeader extends Component {
   }
 
   bookshelfHeader = () => {
-    let { bookshelves } = this.props
+    let { bookshelves, currentBookshelf } = this.props
     return (
       <div>
         <Segment>
-          <Header as='h2' textAlign='center'>My Bookshelf</Header>
+          <Header as='h2' textAlign='center'>{currentBookshelf.name}</Header>
           <Header sub textAlign='center'>Select a Book to View Its Details, Change the Display Cover, or Remove It From Your Shelf</Header>
           <br />
           <div style={{display:'flex', justifyContent:'space-around'}}>
@@ -80,22 +86,24 @@ class BookshelfHeader extends Component {
 
   render() {
     console.log("BookshelfHeader props:", this.props)
-    let { shelvedBooks, bookCovers } = this.props
+    let { shelvedBooks, bookCovers, currentBookshelf } = this.props
     return (
         <div>
           {bookCovers.length > 0 ? this.changeCoverHeader() : null}
-          {shelvedBooks.length === 0 ? this.newUserHeader() : null}
-          {shelvedBooks.length > 0 && bookCovers.length === 0 ? this.bookshelfHeader() : null}
+          {shelvedBooks.length === 0 && currentBookshelf ? this.newUserHeader() : null}
+          {shelvedBooks.length > 0 && bookCovers.length === 0 && currentBookshelf ? this.bookshelfHeader() : null}
         </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
+  user: state.user.user,
+  currentBookshelf: state.user.user.currentBookshelf,
   bookshelves: state.user.user.bookshelves,
   selectedCover: state.book.selectedCover,
   shelvedBooks: state.user.user.books,
   bookCovers: state.book.bookCovers,
 })
 
-export default connect(mapStateToProps, { clearSelectedCover })(BookshelfHeader)
+export default connect(mapStateToProps, { clearSelectedCover, setDefaultBookshelf })(BookshelfHeader)

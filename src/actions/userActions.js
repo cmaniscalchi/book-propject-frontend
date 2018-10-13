@@ -1,20 +1,20 @@
-import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_SHELVED_BOOKS, SAVE_BOOK, REMOVE_BOOK, SWAP_COVER } from '../types'
+import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_SHELVED_BOOKS, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, SWAP_COVER } from '../types'
 
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 
-export const setCurrentUser = userData => ({
-  type: SET_CURRENT_USER,
-  payload: userData
-})
+export const setCurrentUser = userData => {
+  return { type: SET_CURRENT_USER, payload: userData }
+}
 
 export const setShelvedBooks = userBooks => {
   return { type: SET_SHELVED_BOOKS, payload: userBooks }
 }
 
-export const failedLogin = error => ({
-  type: FAILED_LOGIN,
-  payload: error
-})
+export const setDefaultBookshelf = () => ({ type: SET_DEFAULT_BOOKSHELF })
+
+export const failedLogin = error => {
+  return { type: FAILED_LOGIN, payload: error }
+}
 
 export const authenticatingUser = () => ({ type: AUTHENTICATING_USER })
 
