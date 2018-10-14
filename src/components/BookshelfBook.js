@@ -36,8 +36,8 @@ const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCove
       </Grid.Column>
     )
   } else if (cover && selectedCover) {
-    // debugger;
     let { id, title } = selectedCover
+
     return (
       <Grid.Column>
         <Card>
