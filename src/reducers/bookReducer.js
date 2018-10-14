@@ -10,7 +10,7 @@ const initialBookState = {
 }
 
 export default function bookReducer(state = initialBookState, action) {
-  console.log("bookReducer:", state, action)
+  // console.log("bookReducer:", state, action)
 
   switch (action.type) {
     case SEARCH_BOOK:
@@ -28,8 +28,7 @@ export default function bookReducer(state = initialBookState, action) {
     case SIMILAR_BOOKS:
     return { ...state, searchResults: action.payload.similar_books.book }
     case SEARCH_BOOK_COVER:
-    let validCovers = action.payload[0].items.filter(book => book.pagemap.cse_image && book.pagemap.cse_thumbnail).filter(book => book.pagemap.cse_thumbnail[0].height > book.pagemap.cse_thumbnail[0].width)
-    return { ...state, bookCovers: validCovers.map(book => book.pagemap.cse_image[0]) }
+    return { ...state, bookCovers: action.payload[0].value }
     case SELECT_BOOK_COVER:
     return { ...state, selectedCover: action.payload, modalOpen: true }
     case UNSELECT_BOOK_COVER:

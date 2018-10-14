@@ -8,7 +8,11 @@ class BookshelfHeader extends Component {
 
   componentDidMount() {
     let { setDefaultBookshelf, currentBookshelf } = this.props
-    currentBookshelf ? setDefaultBookshelf() : null
+    if (currentBookshelf) {
+      return setDefaultBookshelf()
+    } else {
+      return null
+    }
   }
 
   newUserHeader = () => {
@@ -85,14 +89,14 @@ class BookshelfHeader extends Component {
 
 
   render() {
-    console.log("BookshelfHeader props:", this.props)
+    // console.log("BookshelfHeader props:", this.props)
     let { shelvedBooks, bookCovers, currentBookshelf } = this.props
     return (
-        <div>
-          {bookCovers.length > 0 ? this.changeCoverHeader() : null}
-          {shelvedBooks.length === 0 && currentBookshelf ? this.newUserHeader() : null}
-          {shelvedBooks.length > 0 && bookCovers.length === 0 && currentBookshelf ? this.bookshelfHeader() : null}
-        </div>
+      <div>
+        {bookCovers.length > 0 ? this.changeCoverHeader() : null}
+        {shelvedBooks.length === 0 && currentBookshelf ? this.newUserHeader() : null}
+        {shelvedBooks.length > 0 && bookCovers.length === 0 && currentBookshelf ? this.bookshelfHeader() : null}
+      </div>
     )
   }
 }

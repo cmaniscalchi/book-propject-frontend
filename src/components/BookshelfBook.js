@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { selectBook, selectCover, clearSelectedCover, swapUserBookCover, getBookDetails } from '../actions'
 import { Grid, Image, Card, Modal, Header, Button, Icon } from 'semantic-ui-react'
 
-const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCover, swapUserBookCover, getBookDetails, bookCovers, selectedBook, selectedCover, modalOpen }) => {
+const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCover, swapUserBookCover, getBookDetails, bookCovers, selectedBook, selectedCover }) => {
   // console.log("BookshelfBook props:", book, cover, bookCovers, selectedBook, selectedCover)
 
   const handleBookSelect = book => {
@@ -36,11 +36,12 @@ const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCove
       </Grid.Column>
     )
   } else if (cover && selectedCover) {
+    // debugger;
     let { id, title } = selectedCover
     return (
       <Grid.Column>
         <Card>
-          <Modal trigger={<Image src={cover.src} style={{minWidth: '135px', minHeight: '67px', display: 'block', width: '100%', height: 'auto'}} alt={title} />} >
+          <Modal trigger={<Image src={cover.contentUrl} style={{minWidth: '135px', minHeight: '67px', display: 'block', width: '100%', height: 'auto'}} alt={title} />} closeIcon >
             <Header icon='book' content='Change a Book Cover' />
             <Modal.Content>
               <p>Are you positive you'd like to make this change?</p>
@@ -49,7 +50,7 @@ const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCove
               <Button onClick={clearSelectedCover}>
                 <Icon name='remove' /> No, Please Take Me Back
               </Button>
-              <Button onClick={() => handleCoverSwap(cover.src, id)}>
+              <Button onClick={() => handleCoverSwap(cover.contentUrl, id)}>
                 <Icon name='checkmark' /> Yes, Change It!
               </Button>
             </Modal.Actions>
@@ -66,7 +67,6 @@ const mapStateToProps = state => ({
   bookCovers: state.book.bookCovers,
   selectedBook: state.book.selectedBook,
   selectedCover: state.book.selectedCover,
-  modalOpen: state.book.modalOpen
 })
 
 export default connect(mapStateToProps, { selectBook, selectCover, clearSelectedCover, getBookDetails, swapUserBookCover })(BookshelfBook)

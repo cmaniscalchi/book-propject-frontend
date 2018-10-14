@@ -22,7 +22,7 @@ const BookshelfDetail = ({ details, modalOpen, book, cover, deleteUserBook, clea
 
     return (
       <div>
-        <Modal size='large' open={modalOpen} onClose={clearSelectedBook}>
+        <Modal size='large' open={modalOpen} onClose={clearSelectedBook} closeIcon >
           <Modal.Header className='modal'>My Shelved Books</Modal.Header>
           <Modal.Content image>
             <Image size='medium' style={{minWidth:'255px', minHeight:'191px', maxWidth:'255px', maxHeight:'389px'}} src={image_url} />
