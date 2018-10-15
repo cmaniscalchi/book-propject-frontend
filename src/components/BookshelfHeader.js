@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Button, Header, Segment, Image } from 'semantic-ui-react'
+import { Button, Header, Segment, Image, Modal, Icon, Form } from 'semantic-ui-react'
 import { clearSelectedCover, setDefaultBookshelf, renameUserBookshelf } from '../actions'
 
 class BookshelfHeader extends Component {
+
+  state = { input: ''}
 
   componentDidMount() {
     let { setDefaultBookshelf, currentBookshelf } = this.props
@@ -12,6 +14,19 @@ class BookshelfHeader extends Component {
       return null
     } else {
       return setDefaultBookshelf()
+    }
+  }
+
+  handleInputChange = event => {
+    this.setState({ input: event.target.value })
+  }
+
+  handleFormSubmit = () => {
+    let { currentBookshelf, renameUserBookshelf } = this.props
+    let { input } = this.state
+    if (input !== '') {
+      renameUserBookshelf(input, currentBookshelf.id)
+      this.setState({ input: '' })
     }
   }
 
@@ -64,6 +79,8 @@ class BookshelfHeader extends Component {
 
   bookshelfHeader = () => {
     let { bookshelves, currentBookshelf, renameUserBookshelf } = this.props
+    let {input} = this.state
+    console.log(input)
     return (
       <div>
         <Segment>
@@ -71,7 +88,28 @@ class BookshelfHeader extends Component {
           <Header sub textAlign='center'>Select a Book to View Its Details, Change the Display Cover, or Remove It From Your Shelf</Header>
           <br />
           <div style={{display:'flex', justifyContent:'space-around'}}>
-            <Button onClick={() => renameUserBookshelf("A Bookshelf", currentBookshelf.id)}>Rename This Bookshelf</Button>
+            <Modal trigger={<Button>Rename This Bookshelf</Button>} closeIcon >
+              <Header icon='book' content={currentBookshelf.name} />
+              <Modal.Content>
+                <p>Choose a new name for this bookshelf:</p>
+                <br />
+                <Form.Input
+                  icon='book'
+                  iconPosition='left'
+                  value={input}
+                  onChange={this.handleInputChange}
+                  placeholder="Choose a name"
+                />
+              </Modal.Content>
+              <Modal.Actions>
+                <Button>
+                  <Icon name='remove' /> Cancel
+                </Button>
+                <Button onClick={this.handleFormSubmit}>
+                  <Icon name='checkmark' /> Rename
+                </Button>
+              </Modal.Actions>
+            </Modal>
             {bookshelves.length > 1 ? <Button onClick={this.switchBookshelf}>Switch To Another Shelf</Button> : null}
             <Button onClick={this.createBookshelf}>Create a New Shelf</Button>
           </div>
