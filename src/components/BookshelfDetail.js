@@ -1,9 +1,9 @@
 import React from "react"
 import { connect } from 'react-redux'
 import { Button, Header, Image, Modal, Rating } from 'semantic-ui-react'
-import { deleteUserBook, clearSelectedBook, searchBookCovers } from '../actions'
+import { deleteUserBook, clearSelectedBook, clearSelectedCover, searchBookCovers } from '../actions'
 
-const BookshelfDetail = ({ details, modalOpen, book, cover, deleteUserBook, clearSelectedBook, searchBookCovers, bookCovers }) => {
+const BookshelfDetail = ({ details, modalOpen, book, cover, deleteUserBook, clearSelectedBook, clearSelectedCover, searchBookCovers, bookCovers }) => {
   // console.log("BookshelfDetail:", details, modalOpen, book, cover)
 
   const handleBookRemoveOnClick = bookId => {
@@ -16,19 +16,24 @@ const BookshelfDetail = ({ details, modalOpen, book, cover, deleteUserBook, clea
     clearSelectedBook()
   }
 
+  const handleModalClose = () => {
+    clearSelectedBook()
+    clearSelectedCover()
+  }
+
   if (book && details) {
     let striptags = require('striptags')
     let { author, image_url, publication_year, title, id } = book
 
     return (
       <div>
-        <Modal size='large' open={modalOpen} onClose={clearSelectedBook} closeIcon >
+        <Modal size='large' open={modalOpen} onClose={handleModalClose} closeIcon >
           <Modal.Header className='modal'>My Shelved Books</Modal.Header>
           <Modal.Content image>
             <Image size='medium' style={{minWidth:'255px', minHeight:'191px', maxWidth:'255px', maxHeight:'389px'}} src={image_url} />
             <Modal.Description>
               <Header as='h3'>{title} by {author}</Header>
-              { publication_year ? <Header sub>Original Publication Year: {publication_year}</Header> : null }
+              {publication_year ? <Header sub>Original Publication Year: {publication_year}</Header> : null}
               <br />
               <p>{striptags(details.description)}</p>
               <h5>Average Goodreads User Rating (out of {details.work.ratings_count.toString().split( /(?=(?:\d{3})+(?:\.|$))/g ).join( "," )})</h5>
@@ -56,4 +61,4 @@ const mapStateToProps = state => ({
   bookCovers: state.book.bookCovers
 })
 
-export default connect(mapStateToProps, { deleteUserBook, clearSelectedBook, searchBookCovers })(BookshelfDetail)
+export default connect(mapStateToProps, { deleteUserBook, clearSelectedBook, clearSelectedCover, searchBookCovers })(BookshelfDetail)

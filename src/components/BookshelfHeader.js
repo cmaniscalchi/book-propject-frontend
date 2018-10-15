@@ -132,11 +132,11 @@ class BookshelfHeader extends Component {
   }
 
   render() {
-    console.log("BookshelfHeader props:", this.props)
-    let { shelvedBooks, bookCovers, currentBookshelf, modalOpen } = this.props
+    // console.log("BookshelfHeader props:", this.props)
+    let { shelvedBooks, bookCovers, selectedCover, currentBookshelf, modalOpen } = this.props
     return (
       <div>
-        {modalOpen ? this.renameBookshelfModal() : null}
+        {modalOpen && !selectedCover ? this.renameBookshelfModal() : null}
         {shelvedBooks.length > 0 && bookCovers.length === 0 && currentBookshelf ? this.bookshelfHeader() : null}
         {shelvedBooks.length === 0 && currentBookshelf ? this.newUserHeader() : null}
         {bookCovers.length > 0 ? this.changeCoverHeader() : null}
