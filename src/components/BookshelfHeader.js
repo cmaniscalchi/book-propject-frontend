@@ -2,16 +2,16 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Button, Header, Segment, Image } from 'semantic-ui-react'
-import { clearSelectedCover, setDefaultBookshelf } from '../actions'
+import { clearSelectedCover, setDefaultBookshelf, renameUserBookshelf } from '../actions'
 
 class BookshelfHeader extends Component {
 
   componentDidMount() {
     let { setDefaultBookshelf, currentBookshelf } = this.props
     if (currentBookshelf) {
-      return setDefaultBookshelf()
-    } else {
       return null
+    } else {
+      return setDefaultBookshelf()
     }
   }
 
@@ -56,12 +56,6 @@ class BookshelfHeader extends Component {
     )
   }
 
-  renameBookshelf = () => {
-    return (
-      <div></div>
-    )
-  }
-
   createBookshelf = () => {
     return (
       <div></div>
@@ -69,7 +63,7 @@ class BookshelfHeader extends Component {
   }
 
   bookshelfHeader = () => {
-    let { bookshelves, currentBookshelf } = this.props
+    let { bookshelves, currentBookshelf, renameUserBookshelf } = this.props
     return (
       <div>
         <Segment>
@@ -77,7 +71,7 @@ class BookshelfHeader extends Component {
           <Header sub textAlign='center'>Select a Book to View Its Details, Change the Display Cover, or Remove It From Your Shelf</Header>
           <br />
           <div style={{display:'flex', justifyContent:'space-around'}}>
-            <Button onClick={this.renameBookshelf}>Rename This Bookshelf</Button>
+            <Button onClick={() => renameUserBookshelf("A Bookshelf", currentBookshelf.id)}>Rename This Bookshelf</Button>
             {bookshelves.length > 1 ? <Button onClick={this.switchBookshelf}>Switch To Another Shelf</Button> : null}
             <Button onClick={this.createBookshelf}>Create a New Shelf</Button>
           </div>
@@ -87,9 +81,8 @@ class BookshelfHeader extends Component {
     )
   }
 
-
   render() {
-    // console.log("BookshelfHeader props:", this.props)
+    console.log("BookshelfHeader props:", this.props)
     let { shelvedBooks, bookCovers, currentBookshelf } = this.props
     return (
       <div>
@@ -110,4 +103,4 @@ const mapStateToProps = state => ({
   bookCovers: state.book.bookCovers,
 })
 
-export default connect(mapStateToProps, { clearSelectedCover, setDefaultBookshelf })(BookshelfHeader)
+export default connect(mapStateToProps, { clearSelectedCover, setDefaultBookshelf, renameUserBookshelf })(BookshelfHeader)

@@ -1,4 +1,4 @@
-import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_SHELVED_BOOKS, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, SWAP_COVER } from '../types'
+import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_SHELVED_BOOKS, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, SWAP_COVER, UPDATE_BOOKSHELF } from '../types'
 
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 
@@ -148,7 +148,7 @@ export const saveUserBook = (book, userId) => {
 
 export const swapUserBookCover = (newCover, bookId) => {
   let urlSuffix = `books/${bookId}`
-  let postConfig = {
+  let patchConfig = {
     method: "PATCH",
     headers: {
       'Content-Type': 'application/json',
@@ -158,8 +158,28 @@ export const swapUserBookCover = (newCover, bookId) => {
     body: JSON.stringify({ image_url: newCover })
   }
   return dispatch => {
-    fetch(`${BASE_URL}${urlSuffix}`, postConfig)
+    fetch(`${BASE_URL}${urlSuffix}`, patchConfig)
     .then(res => res.json())
     .then(book => dispatch({ type: SWAP_COVER, payload: [book, bookId] }))
+  }
+}
+
+export const renameUserBookshelf = (input, bookshelfId) => {
+  console.log(input, bookshelfId)
+  let urlSuffix = `bookshelves/${bookshelfId}`
+  let patchConfig = {
+    method: "PATCH",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({ 'name': input })
+  }
+
+  return dispatch => {
+    fetch(`${BASE_URL}${urlSuffix}`, patchConfig)
+    .then(res => res.json())
+    .then(bookshelf => dispatch({ type: UPDATE_BOOKSHELF, payload: [bookshelf, bookshelfId] }))
   }
 }

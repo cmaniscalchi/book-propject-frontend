@@ -1,9 +1,5 @@
 // import { SELECT_BOOKSHELF, UNSELECT_BOOKSHELF } from '../types'
 //
-// const initialBookshelfState = {
-//   selectedBookshelf: null
-// }
-//
 // export default function bookshelfReducer(state = initialBookshelfState, action) {
 //   console.log("bookshelfReducer:", state, action)
 //

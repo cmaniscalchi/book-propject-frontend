@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, AUTHENTICATING_USER, AUTHENTICATED_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_SHELVED_BOOKS, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, SAVE_BOOKSHELF, SWAP_COVER } from '../types'
+import { SET_CURRENT_USER, AUTHENTICATING_USER, AUTHENTICATED_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_SHELVED_BOOKS, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, SAVE_BOOKSHELF, SWAP_COVER, UPDATE_BOOKSHELF } from '../types'
 
 const initialUserState = {
   user: null,
@@ -34,9 +34,13 @@ export default function userReducer(state = initialUserState, action) {
     case SAVE_BOOKSHELF:
       return { ...state, user: {...state.user, bookshelves: state.user.bookshelves.concat(action.payload)}}
     case SWAP_COVER:
-      let index = state.user.books.findIndex(book => book.id === action.payload[1])
-      return { ...state, user: {...state.user, books: state.user.books.slice(0, index).concat(action.payload[0])
-      .concat(state.user.books.slice(index + 1)) } }
+      let bookIndex = state.user.books.findIndex(book => book.id === action.payload[1])
+      return { ...state, user: {...state.user, books: state.user.books.slice(0, bookIndex).concat(action.payload[0])
+      .concat(state.user.books.slice(bookIndex + 1)) } }
+    case UPDATE_BOOKSHELF:
+      let bookshelfIndex = state.user.bookshelves.findIndex(bookshelf => bookshelf.id === action.payload[1])
+      return { ...state, user: {...state.user, bookshelves: state.user.bookshelves.slice(0, bookshelfIndex).concat(action.payload[0])
+      .concat(state.user.bookshelves.slice(bookshelfIndex + 1)), currentBookshelf: action.payload[0]} }
     default:
       return state
   }
