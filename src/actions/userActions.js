@@ -121,7 +121,8 @@ export const deleteUserBook = bookId => {
   }
 }
 
-export const saveUserBook = (book, userId) => {
+export const saveUserBook = (book, bookshelfId) => {
+  debugger;
   let urlSuffix = `books`
   let postConfig = {
     method: "POST",
@@ -133,7 +134,7 @@ export const saveUserBook = (book, userId) => {
       goodreads_author_id: book["goodreads_author_id"],
       publication_year: book["publication_year"],
       image_url: book["image_url"],
-      bookshelf_id: userId
+      bookshelf_id: bookshelfId
     })
   }
   return dispatch => {
@@ -158,7 +159,6 @@ export const swapUserBookCover = (newCover, bookId) => {
 }
 
 export const renameUserBookshelf = (input, bookshelfId) => {
-  console.log(input, bookshelfId)
   let urlSuffix = `bookshelves/${bookshelfId}`
   let patchConfig = {
     method: "PATCH",

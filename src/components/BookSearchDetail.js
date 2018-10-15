@@ -1,14 +1,21 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { Button, Header, Image, Modal, Rating } from 'semantic-ui-react'
-import { setShelvedBooks, saveUserBook, searchAuthorBooks, clearSelectedBook, createDefaultBookshelf, viewSimilarBooks } from '../actions'
+import { setShelvedBooks, saveUserBook, searchAuthorBooks, clearSelectedBook, createDefaultBookshelf, setDefaultBookshelf, viewSimilarBooks } from '../actions'
 
 class BookSearchDetail extends Component {
 
   componentDidMount() {
-    let { user, setShelvedBooks, shelvedBooks, createDefaultBookshelf } = this.props
-    if (user.bookshelves.length === 0) {createDefaultBookshelf(user.id)}
-    setShelvedBooks(shelvedBooks)
+    let { user, currentBookshelf, setShelvedBooks, shelvedBooks, createDefaultBookshelf, setDefaultBookshelf } = this.props
+    if (user.bookshelves.length === 0) {
+      createDefaultBookshelf(user.id)
+    } else if (!currentBookshelf) {
+      setDefaultBookshelf()
+    } else if (shelvedBooks.length === 0) {
+      setShelvedBooks(shelvedBooks)
+    } else {
+      return null
+    }
   }
 
   handleAuthorBookSearch = authorId => {
@@ -17,9 +24,9 @@ class BookSearchDetail extends Component {
     clearSelectedBook()
   }
 
-  handleBookSaveOnClick = (book, user) => {
+  handleBookSave = (book, currentBookshelf) => {
     let { saveUserBook, clearSelectedBook } = this.props
-    saveUserBook(book, user.bookshelves[0].id)
+    saveUserBook(book, currentBookshelf.id)
     clearSelectedBook()
   }
 
@@ -30,10 +37,10 @@ class BookSearchDetail extends Component {
   }
 
   render() {
-    // console.log("BookSearchDetail:", this.props)
+    console.log("BookSearchDetail:", this.props)
     if (this.props.book && this.props.details) {
 
-      let { book, details, modalOpen, shelvedBooks, clearSelectedBook, user } = this.props
+      let { book, details, modalOpen, shelvedBooks, clearSelectedBook, user, currentBookshelf } = this.props
       let striptags = require('striptags')
 
       return (
@@ -55,7 +62,7 @@ class BookSearchDetail extends Component {
               <Button onClick={() => this.handleAuthorBookSearch(book.goodreads_author_id)}>Other Works by {book.author}</Button>
               { details.similar_books ? <Button onClick={() => this.handleViewSimilarBooks(details)}>View Similar Books</Button> : null }
               <a href={ details.link } target='_blank'><Button>View Book on Goodreads</Button></a>
-              { shelvedBooks.some(shelvedBook => shelvedBook.goodreads_book_id === book.goodreads_book_id) ? null : <Button onClick={() => this.handleBookSaveOnClick(this.props.book, user)}>Save Book to Bookshelf</Button> }
+              { shelvedBooks.some(shelvedBook => shelvedBook.goodreads_book_id === book.goodreads_book_id) ? null : <Button onClick={() => this.handleBookSave(book, currentBookshelf)}>Save Book to Bookshelf</Button> }
             </Modal.Actions>
           </Modal>
         </div>
@@ -71,7 +78,8 @@ const mapStateToProps = state => ({
   details: state.book.selectedBookDetails,
   modalOpen: state.book.modalOpen,
   shelvedBooks: state.user.user.books,
+  currentBookshelf: state.user.user.currentBookshelf,
   user: state.user.user,
 })
 
-export default connect(mapStateToProps, { setShelvedBooks, saveUserBook, clearSelectedBook, createDefaultBookshelf, searchAuthorBooks, viewSimilarBooks })(BookSearchDetail)
+export default connect(mapStateToProps, { setShelvedBooks, saveUserBook, clearSelectedBook, createDefaultBookshelf, searchAuthorBooks, viewSimilarBooks, setDefaultBookshelf })(BookSearchDetail)
