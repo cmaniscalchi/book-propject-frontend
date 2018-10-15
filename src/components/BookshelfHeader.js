@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Button, Header, Segment, Image, Modal, Icon, Form } from 'semantic-ui-react'
-import { clearSelectedCover, setDefaultBookshelf, renameUserBookshelf } from '../actions'
+import { clearSelectedCover, setDefaultBookshelf, renameUserBookshelf, openModal, closeModal } from '../actions'
 
 class BookshelfHeader extends Component {
 
@@ -22,12 +22,78 @@ class BookshelfHeader extends Component {
   }
 
   handleFormSubmit = () => {
-    let { currentBookshelf, renameUserBookshelf } = this.props
+    let { currentBookshelf, renameUserBookshelf, closeModal } = this.props
     let { input } = this.state
     if (input !== '') {
       renameUserBookshelf(input, currentBookshelf.id)
       this.setState({ input: '' })
+      closeModal()
     }
+  }
+
+  renameBookshelfModal = () => {
+    let { currentBookshelf, modalOpen, closeModal } = this.props
+    let {input} = this.state
+
+    return (
+      <div>
+        <Modal open={modalOpen} onClose={closeModal} closeIcon >
+          <Modal.Header className='modal'>{currentBookshelf.name}</Modal.Header>
+          <Modal.Content>
+            <Modal.Description>
+              <Header as='h3'>Choose a new name for this bookshelf:</Header>
+            </Modal.Description>
+            <br />
+            <Form.Input
+              icon='book'
+              iconPosition='left'
+              value={input}
+              onChange={this.handleInputChange}
+              placeholder="Choose a name"
+            />
+          </Modal.Content>
+          <Modal.Actions>
+            <Button>
+              <Icon onClick={closeModal} name='remove' /> Cancel
+            </Button>
+            <Button onClick={this.handleFormSubmit}>
+              <Icon name='checkmark' /> Rename
+            </Button>
+          </Modal.Actions>
+        </Modal>
+      </div>
+    )
+  }
+
+  // switchBookshelf = () => {
+  //   return (
+  //     <div></div>
+  //   )
+  // }
+  //
+  // createBookshelf = () => {
+  //   return (
+  //     <div></div>
+  //   )
+  // }
+
+  bookshelfHeader = () => {
+    let { bookshelves, currentBookshelf, openModal } = this.props
+    return (
+      <div>
+        <Segment>
+          <Header as='h2' textAlign='center'>{currentBookshelf.name}</Header>
+          <Header sub textAlign='center'>Select a Book to View Its Details, Change the Display Cover, or Remove It From Your Shelf</Header>
+          <br />
+          <div style={{display:'flex', justifyContent:'space-around'}}>
+            <Button onClick={openModal}>Rename This Bookshelf</Button>
+            {bookshelves.length > 1 ? <Button onClick={this.switchBookshelf}>Switch To Another Shelf</Button> : null}
+            <Button onClick={this.createBookshelf}>Create a New Shelf</Button>
+          </div>
+        </Segment>
+        <br />
+      </div>
+    )
   }
 
   newUserHeader = () => {
@@ -65,68 +131,15 @@ class BookshelfHeader extends Component {
     )
   }
 
-  switchBookshelf = () => {
-    return (
-      <div></div>
-    )
-  }
-
-  createBookshelf = () => {
-    return (
-      <div></div>
-    )
-  }
-
-  bookshelfHeader = () => {
-    let { bookshelves, currentBookshelf, renameUserBookshelf } = this.props
-    let {input} = this.state
-    console.log(input)
-    return (
-      <div>
-        <Segment>
-          <Header as='h2' textAlign='center'>{currentBookshelf.name}</Header>
-          <Header sub textAlign='center'>Select a Book to View Its Details, Change the Display Cover, or Remove It From Your Shelf</Header>
-          <br />
-          <div style={{display:'flex', justifyContent:'space-around'}}>
-            <Modal trigger={<Button>Rename This Bookshelf</Button>} closeIcon >
-              <Header icon='book' content={currentBookshelf.name} />
-              <Modal.Content>
-                <p>Choose a new name for this bookshelf:</p>
-                <br />
-                <Form.Input
-                  icon='book'
-                  iconPosition='left'
-                  value={input}
-                  onChange={this.handleInputChange}
-                  placeholder="Choose a name"
-                />
-              </Modal.Content>
-              <Modal.Actions>
-                <Button>
-                  <Icon name='remove' /> Cancel
-                </Button>
-                <Button onClick={this.handleFormSubmit}>
-                  <Icon name='checkmark' /> Rename
-                </Button>
-              </Modal.Actions>
-            </Modal>
-            {bookshelves.length > 1 ? <Button onClick={this.switchBookshelf}>Switch To Another Shelf</Button> : null}
-            <Button onClick={this.createBookshelf}>Create a New Shelf</Button>
-          </div>
-        </Segment>
-        <br />
-      </div>
-    )
-  }
-
   render() {
     console.log("BookshelfHeader props:", this.props)
-    let { shelvedBooks, bookCovers, currentBookshelf } = this.props
+    let { shelvedBooks, bookCovers, currentBookshelf, modalOpen } = this.props
     return (
       <div>
-        {bookCovers.length > 0 ? this.changeCoverHeader() : null}
-        {shelvedBooks.length === 0 && currentBookshelf ? this.newUserHeader() : null}
+        {modalOpen ? this.renameBookshelfModal() : null}
         {shelvedBooks.length > 0 && bookCovers.length === 0 && currentBookshelf ? this.bookshelfHeader() : null}
+        {shelvedBooks.length === 0 && currentBookshelf ? this.newUserHeader() : null}
+        {bookCovers.length > 0 ? this.changeCoverHeader() : null}
       </div>
     )
   }
@@ -136,9 +149,10 @@ const mapStateToProps = state => ({
   user: state.user.user,
   currentBookshelf: state.user.user.currentBookshelf,
   bookshelves: state.user.user.bookshelves,
-  selectedCover: state.book.selectedCover,
   shelvedBooks: state.user.user.books,
+  selectedCover: state.book.selectedCover,
+  modalOpen: state.book.modalOpen,
   bookCovers: state.book.bookCovers,
 })
 
-export default connect(mapStateToProps, { clearSelectedCover, setDefaultBookshelf, renameUserBookshelf })(BookshelfHeader)
+export default connect(mapStateToProps, { clearSelectedCover, setDefaultBookshelf, renameUserBookshelf, openModal, closeModal })(BookshelfHeader)

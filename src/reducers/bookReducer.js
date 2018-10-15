@@ -1,4 +1,4 @@
-import { SEARCH_BOOK, SELECT_BOOK, UNSELECT_BOOK, CLEAR_SEARCH, SET_BOOK_DETAILS, SEARCH_AUTHOR_BOOKS, SIMILAR_BOOKS, SEARCH_BOOK_COVER, SELECT_BOOK_COVER, UNSELECT_BOOK_COVER } from '../types'
+import { SEARCH_BOOK, SELECT_BOOK, UNSELECT_BOOK, CLEAR_SEARCH, SET_BOOK_DETAILS, SEARCH_AUTHOR_BOOKS, SIMILAR_BOOKS, SEARCH_BOOK_COVER, SELECT_BOOK_COVER, UNSELECT_BOOK_COVER, OPEN_MODAL, CLOSE_MODAL } from '../types'
 
 const initialBookState = {
   searchResults: [],
@@ -21,6 +21,10 @@ export default function bookReducer(state = initialBookState, action) {
     return { ...state, selectedBook: action.payload, modalOpen: true }
     case UNSELECT_BOOK:
     return { ...state, selectedBook: null, modalOpen: false, selectedBookDetails: null }
+    case OPEN_MODAL:
+    return { ...state, modalOpen: true }
+    case CLOSE_MODAL:
+    return { ...state, modalOpen: false }
     case CLEAR_SEARCH:
     return { ...state, searchResults: null }
     case SET_BOOK_DETAILS:

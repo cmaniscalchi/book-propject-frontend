@@ -1,4 +1,4 @@
-import { SEARCH_BOOK, SELECT_BOOK, UNSELECT_BOOK, CLEAR_SEARCH, SET_BOOK_DETAILS, SEARCH_AUTHOR_BOOKS, SIMILAR_BOOKS, SEARCH_BOOK_COVER, SELECT_BOOK_COVER, UNSELECT_BOOK_COVER } from '../types'
+import { SEARCH_BOOK, SELECT_BOOK, UNSELECT_BOOK, CLEAR_SEARCH, SET_BOOK_DETAILS, SEARCH_AUTHOR_BOOKS, SIMILAR_BOOKS, SEARCH_BOOK_COVER, SELECT_BOOK_COVER, UNSELECT_BOOK_COVER, OPEN_MODAL, CLOSE_MODAL } from '../types'
 
 export const selectBook = book => {
   return { type: SELECT_BOOK, payload: book }
@@ -24,10 +24,18 @@ export const viewSimilarBooks = book => {
   return { type: SIMILAR_BOOKS, payload: book }
 }
 
+export const openModal = () => {
+  return { type: OPEN_MODAL }
+}
+
+export const closeModal = () => {
+  return { type: CLOSE_MODAL }
+}
+
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 const HEADERS = {
   'Content-Type': 'application/json',
-  'Accepts': 'application/json',
+  'Accept': 'application/json',
   'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
 }
 

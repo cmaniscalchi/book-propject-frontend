@@ -1,12 +1,17 @@
 import { AUTHENTICATING_USER, SAVE_BOOKSHELF } from '../types'
 
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
+const HEADERS = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+}
 
 export const createDefaultBookshelf = userId => {
   let urlSuffix = `bookshelves`
   let postConfig = {
     method: "POST",
-    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', Authorization: `Bearer ${localStorage.getItem('jwt')}` },
+    headers: HEADERS,
     body: JSON.stringify({ 'bookshelf': { 'user_id': userId, 'name': 'My Bookshelf' } })
   }
 

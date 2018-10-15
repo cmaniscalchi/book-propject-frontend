@@ -14,7 +14,7 @@ class BookshelfList extends Component {
   }
 
   render() {
-    console.log("BookshelfList props:", this.props)
+    // console.log("BookshelfList props:", this.props)
     let { shelvedBooks, bookCovers, selectedBook } = this.props
     return (
         <div>

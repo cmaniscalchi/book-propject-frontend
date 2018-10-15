@@ -1,6 +1,11 @@
 import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_SHELVED_BOOKS, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, SWAP_COVER, UPDATE_BOOKSHELF } from '../types'
 
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
+const HEADERS = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+}
 
 export const setCurrentUser = userData => {
   return { type: SET_CURRENT_USER, payload: userData }
@@ -107,11 +112,7 @@ export const deleteUserBook = bookId => {
   let urlSuffix = `books/${bookId}`
   let postConfig = {
     method: "DELETE",
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-      'Accept': 'application/json'
-    },
+    headers: HEADERS,
     body: JSON.stringify({ bookId })
   }
   return dispatch => {
@@ -124,11 +125,7 @@ export const saveUserBook = (book, userId) => {
   let urlSuffix = `books`
   let postConfig = {
     method: "POST",
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-      'Accept': 'application/json'
-    },
+    headers: HEADERS,
     body: JSON.stringify({
       title: book["title"],
       author: book["author"],
@@ -150,11 +147,7 @@ export const swapUserBookCover = (newCover, bookId) => {
   let urlSuffix = `books/${bookId}`
   let patchConfig = {
     method: "PATCH",
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-      'Accept': 'application/json'
-    },
+    headers: HEADERS,
     body: JSON.stringify({ image_url: newCover })
   }
   return dispatch => {
@@ -169,11 +162,7 @@ export const renameUserBookshelf = (input, bookshelfId) => {
   let urlSuffix = `bookshelves/${bookshelfId}`
   let patchConfig = {
     method: "PATCH",
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-      'Accept': 'application/json'
-    },
+    headers: HEADERS,
     body: JSON.stringify({ 'name': input })
   }
 

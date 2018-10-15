@@ -69,9 +69,9 @@ class BookSearchDetail extends Component {
 const mapStateToProps = state => ({
   book: state.book.selectedBook,
   details: state.book.selectedBookDetails,
+  modalOpen: state.book.modalOpen,
   shelvedBooks: state.user.user.books,
   user: state.user.user,
-  modalOpen: state.book.modalOpen
 })
 
 export default connect(mapStateToProps, { setShelvedBooks, saveUserBook, clearSelectedBook, createDefaultBookshelf, searchAuthorBooks, viewSimilarBooks })(BookSearchDetail)
