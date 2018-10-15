@@ -1,7 +1,5 @@
 import { SEARCH_BOOK, SELECT_BOOK, UNSELECT_BOOK, CLEAR_SEARCH, SET_BOOK_DETAILS, SEARCH_AUTHOR_BOOKS, SIMILAR_BOOKS, SEARCH_BOOK_COVER, SELECT_BOOK_COVER, UNSELECT_BOOK_COVER } from '../types'
 
-const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
-
 export const selectBook = book => {
   return { type: SELECT_BOOK, payload: book }
 }
@@ -26,15 +24,18 @@ export const viewSimilarBooks = book => {
   return { type: SIMILAR_BOOKS, payload: book }
 }
 
+const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
+const HEADERS = {
+  'Content-Type': 'application/json',
+  'Accepts': 'application/json',
+  'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+}
+
 export const searchBook = input => {
   let urlSuffix = `book_search`
   let postConfig = {
     method: "POST",
-    headers: {
-      'Content-Type': 'application/json',
-      'Accepts': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-    },
+    headers: HEADERS,
     body: JSON.stringify({ input })
   }
 
@@ -49,11 +50,7 @@ export const getBookDetails = id => {
   let urlSuffix = `book_details`
   let postConfig = {
     method: "POST",
-    headers: {
-      'Content-Type': 'application/json',
-      'Accepts': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-    },
+    headers: HEADERS,
     body: JSON.stringify({ id })
   }
 
@@ -68,11 +65,7 @@ export const searchBookCovers = (title, author) => {
   let urlSuffix = `book_cover_search`
   let postConfig = {
     method: "POST",
-    headers: {
-      'Content-Type': 'application/json',
-      'Accepts': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-    },
+    headers: HEADERS,
     body: JSON.stringify({ title, author })
   }
 
@@ -87,11 +80,7 @@ export const searchAuthorBooks = authorId => {
   let urlSuffix = `author_book_search`
   let postConfig = {
     method: "POST",
-    headers: {
-      'Content-Type': 'application/json',
-      'Accepts': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-    },
+    headers: HEADERS,
     body: JSON.stringify({ authorId })
   }
 
