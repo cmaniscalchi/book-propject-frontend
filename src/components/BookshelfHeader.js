@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import BookshelfDetail from './BookshelfDetail'
 import { Button, Header, Segment, Image } from 'semantic-ui-react'
 import { clearSelectedCover, setDefaultBookshelf, openModal, clearCoverResults } from '../actions'
 
@@ -17,7 +16,7 @@ class BookshelfHeader extends Component {
   }
 
   bookshelfHeader = () => {
-    let { bookshelves, currentBookshelf, openModal, modalOpen, selectedCover } = this.props
+    let { bookshelves, currentBookshelf, openModal } = this.props
     return (
       <div>
         <Segment>
@@ -29,7 +28,6 @@ class BookshelfHeader extends Component {
             {bookshelves.length > 1 ? <Button onClick={this.switchBookshelf}>Switch To Another Shelf</Button> : null}
             <Button onClick={this.createBookshelf}>Create a New Shelf</Button>
           </div>
-          {modalOpen && !selectedCover ? <BookshelfDetail /> : null}
         </Segment>
         <br />
       </div>
@@ -68,7 +66,7 @@ class BookshelfHeader extends Component {
         <Segment>
           <Header as='h2' textAlign='center'>Select a New Cover for {selectedBook.title}</Header>
           <Header sub textAlign='center'>Please note: The covers displayed here may not all match your book exactly;<br />
-          they are Google Books's best guess at covers for this work.</Header>
+          they are our best guess at covers for this work.</Header>
           <br />
           <Button fluid onClick={this.handleCoverClear}>Cancel Book Cover Change</Button>
         </Segment>

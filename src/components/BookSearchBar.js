@@ -34,7 +34,7 @@ class BookSearchBar extends Component {
               ) : (
                 <div>
                   <Header as='h2' textAlign='center'>Search for Books to Add to Your Shelf</Header>
-                  <Header sub textAlign='center'>NB: You'll have the ability to change a book's cover once it's been saved to your bookshelf.</Header>
+                  <Header sub textAlign='center'>You'll have the ability to change a book's cover once it's been saved to your bookshelf.</Header>
                 </div>
               ) }
               <br />
@@ -45,7 +45,7 @@ class BookSearchBar extends Component {
                 onChange={this.handleInputChange}
                 placeholder="Search by Title or Author"
               />
-              { searchResults ? null : <Image src={searchImage} alt='Ex Libris' style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '90%' }}/> }
+              { searchResults.length > 0 ? null : <Image src={searchImage} alt='Ex Libris' style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '90%' }}/> }
               <br />
               <Button icon type="submit"><Icon name='search' />  Search</Button>
             </Segment>

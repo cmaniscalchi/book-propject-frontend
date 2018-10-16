@@ -6,6 +6,8 @@ import { Grid, Image, Card } from 'semantic-ui-react'
 const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCover, swapUserBookCover, getBookDetails, bookCovers, selectedBook, selectedCover, openModal }) => {
   // console.log("BookshelfBook props:", book, cover, bookCovers, selectedBook, selectedCover)
 
+  let placeholderImage = 'https://image.ibb.co/fzKNz9/Placeholder_Cover_Resize.png'
+
   const handleBookSelect = book => {
     selectBook(book)
     getBookDetails(book.goodreads_book_id)
@@ -42,7 +44,7 @@ const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCove
     return (
       <Grid.Column>
         <Card>
-          <Image onClick={() => handleCoverSelect(cover)} src={cover.contentUrl} style={{minWidth: '135px', minHeight: '67px', display: 'block', width: '100%', height: 'auto'}} alt={title} />
+          <Image onClick={() => handleCoverSelect(cover)} src={cover.contentUrl} onError={event => event.target.src = placeholderImage} style={{minWidth: '135px', minHeight: '67px', display: 'block', width: '100%', height: 'auto'}} alt={title} />
         </Card>
       </Grid.Column>
     )

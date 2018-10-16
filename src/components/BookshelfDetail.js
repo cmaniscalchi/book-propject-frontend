@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
-import { Button, Header, Image, Modal, Rating, Form, Icon } from 'semantic-ui-react'
+import { Button, Header, Image, Modal, Rating, Form, Icon, Loader } from 'semantic-ui-react'
 import { closeModal, renameUserBookshelf, selectCover, clearSelectedCover, clearSelectedBook, deleteUserBook, searchBookCovers, swapUserBookCover, clearCoverResults } from '../actions'
 
 class BookshelfDetail extends Component {
@@ -37,9 +37,11 @@ class BookshelfDetail extends Component {
   }
 
   handleBookCoverSearch = ({ title, author }) => {
-    let { searchBookCovers, closeModal } = this.props
+    let { searchBookCovers, closeModal, bookCovers } = this.props
     searchBookCovers(title, author)
-    closeModal()
+    if (bookCovers.length > 10) {
+      closeModal()
+    }
   }
 
   handleModalClose = () => {
