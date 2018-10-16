@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from 'react-redux'
 import { selectBook, selectCover, clearSelectedCover, swapUserBookCover, getBookDetails } from '../actions'
-import { Grid, Image, Card, Modal, Header, Button, Icon } from 'semantic-ui-react'
+import { Grid, Image, Card } from 'semantic-ui-react'
 
 const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCover, swapUserBookCover, getBookDetails, bookCovers, selectedBook, selectedCover }) => {
   // console.log("BookshelfBook props:", book, cover, bookCovers, selectedBook, selectedCover)
@@ -10,11 +10,6 @@ const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCove
     selectBook(book)
     selectCover(book)
     getBookDetails(book.goodreads_book_id)
-  }
-
-  const handleCoverSwap = (newCover, id) => {
-    swapUserBookCover(newCover, id)
-    clearSelectedCover()
   }
 
   if (book) {
@@ -41,20 +36,7 @@ const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCove
     return (
       <Grid.Column>
         <Card>
-          <Modal trigger={<Image src={cover.contentUrl} style={{minWidth: '135px', minHeight: '67px', display: 'block', width: '100%', height: 'auto'}} alt={title} />} closeIcon >
-            <Header icon='book' content='Change a Book Cover' />
-            <Modal.Content>
-              <p>Are you positive you'd like to make this change?</p>
-            </Modal.Content>
-            <Modal.Actions>
-              <Button onClick={clearSelectedCover}>
-                <Icon name='remove' /> No, Please Take Me Back
-              </Button>
-              <Button onClick={() => handleCoverSwap(cover.contentUrl, id)}>
-                <Icon name='checkmark' /> Yes, Change It!
-              </Button>
-            </Modal.Actions>
-          </Modal>
+          <Image src={cover.contentUrl} style={{minWidth: '135px', minHeight: '67px', display: 'block', width: '100%', height: 'auto'}} alt={title} />
         </Card>
       </Grid.Column>
     )

@@ -19,15 +19,24 @@ class BookSearchBar extends Component {
 
   render() {
     const searchImage = require('../assets/img/Winslow-Homer.jpg')
-    let { searchResults } = this.props
+    let { searchResults, shelvedBooks } = this.props
 
     return (
       <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 800 }}>
           <Form size='large' onSubmit={this.handleFormSubmit}>
             <Segment style={{ width:800 }}>
-              <Header as='h2' textAlign='center'>Search for Books to Add to Your Shelf</Header>
-              <Header sub textAlign='center'>You'll have the ability to change a book's cover once it's been saved to your bookshelf.</Header>
+              { shelvedBooks.length === 0 ? (
+                <div>
+                  <Header as='h2' textAlign='center'>Welcome to Ex Libris, your virtual bookshelf!</Header>
+                  <Header sub textAlign='center'> Begin by exploring books to add to your shelf.</Header>
+                </div>
+              ) : (
+                <div>
+                  <Header as='h2' textAlign='center'>Search for Books to Add to Your Shelf</Header>
+                  <Header sub textAlign='center'>NB: You'll have the ability to change a book's cover once it's been saved to your bookshelf.</Header>
+                </div>
+              ) }
               <br />
               <Form.Input
                 icon='book'
@@ -47,6 +56,9 @@ class BookSearchBar extends Component {
   }
 }
 
-const mapStateToProps = state => ({ searchResults: state.book.searchResults })
+const mapStateToProps = state => ({
+  searchResults: state.book.searchResults,
+  shelvedBooks: state.user.user.books
+})
 
 export default connect(mapStateToProps, { searchBook })(BookSearchBar)

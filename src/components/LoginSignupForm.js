@@ -22,7 +22,9 @@ class LoginSignupForm extends Component {
   }
 
   render() {
-    let { authenticatingUser, failedLogin, error, loggedIn } = this.props
+    console.log(this.props)
+
+    let { authenticatingUser, failedLogin, error, loggedIn, shelvedBooks } = this.props
     let { name, password } = this.state
 
     const nameInput = (
@@ -67,48 +69,54 @@ class LoginSignupForm extends Component {
           <Button type="submit">Log In</Button>
         </Form>
       </div>
-      )
+    )
 
-      const signUpForm = (
+    const signUpForm = (
+      <div>
+        <Header as='h2' textAlign='center'>Create a New Ex Libris Account</Header>
+        <Image src={signupImage} alt='Ex Libris' style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '80%' }}/>
+        <br />
+        <Form size='large'
+          onSubmit={this.handleSignUpSubmit}
+          loading={authenticatingUser}
+          error={failedLogin}
+        >
+          <Message error header={failedLogin ? error : null} />
+          <Form.Group widths="equal">
+            {nameInput}
+            {passwordInput}
+          </Form.Group>
+          <Button type="submit">Sign Up</Button>
+        </Form>
+      </div>
+    )
+
+    const panes = [
+      { menuItem: 'Log In', render: () => <Tab.Pane>{logInForm}</Tab.Pane> },
+      { menuItem: 'Sign Up', render: () => <Tab.Pane>{signUpForm}</Tab.Pane> }
+    ]
+
+    if (loggedIn && shelvedBooks.length > 0) {
+      return <Redirect to="/bookshelf" />
+    } else if (loggedIn && shelvedBooks.length === 0) {
+      return <Redirect to="/search" />
+    } else {
+      return (
         <div>
-          <Header as='h2' textAlign='center'>Create a New Ex Libris Account</Header>
-          <Image src={signupImage} alt='Ex Libris' style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '80%' }}/>
           <br />
-          <Form size='large'
-            onSubmit={this.handleSignUpSubmit}
-            loading={authenticatingUser}
-            error={failedLogin}
-          >
-            <Message error header={failedLogin ? error : null} />
-            <Form.Group widths="equal">
-              {nameInput}
-              {passwordInput}
-            </Form.Group>
-            <Button type="submit">Sign Up</Button>
-          </Form>
+          <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+            <Grid.Column style={{ maxWidth: 800 }}>
+              <Tab style={{ width: 800 }} panes={panes} />
+            </Grid.Column>
+          </Grid>
         </div>
-        )
-
-        const panes = [
-          { menuItem: 'Log In', render: () => <Tab.Pane>{logInForm}</Tab.Pane> },
-          { menuItem: 'Sign Up', render: () => <Tab.Pane>{signUpForm}</Tab.Pane> }
-        ]
-
-        return loggedIn ? <Redirect to="/bookshelf" /> : (
-          <div>
-            <br />
-            <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
-              <Grid.Column style={{ maxWidth: 800 }}>
-                <Tab style={{ width: 800 }} panes={panes} />
-              </Grid.Column>
-            </Grid>
-          </div>
-        )
-      }
+      )
     }
+  }
+}
 
-    const mapStateToProps = ({ user: { authenticatingUser, failedLogin, error, loggedIn } }) => (
-      { authenticatingUser, failedLogin, error, loggedIn }
+    const mapStateToProps = ({ user: { authenticatingUser, failedLogin, error, loggedIn, shelvedBooks } }) => (
+      { authenticatingUser, failedLogin, error, loggedIn, shelvedBooks }
     )
 
     export default withRouter(connect(mapStateToProps, { loginUser, signUpUser })(LoginSignupForm))

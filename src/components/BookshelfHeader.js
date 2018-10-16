@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Button, Header, Segment, Image, Modal, Icon, Form } from 'semantic-ui-react'
-import { clearSelectedCover, setDefaultBookshelf, renameUserBookshelf, openModal, closeModal } from '../actions'
+import BookshelfModal from './BookshelfModal'
+import { Button, Header, Segment, Image } from 'semantic-ui-react'
+import { clearSelectedCover, setDefaultBookshelf, openModal } from '../actions'
 
 class BookshelfHeader extends Component {
-
-  state = { input: ''}
 
   componentDidMount() {
     let { setDefaultBookshelf, currentBookshelf } = this.props
@@ -17,68 +16,8 @@ class BookshelfHeader extends Component {
     }
   }
 
-  handleInputChange = event => {
-    this.setState({ input: event.target.value })
-  }
-
-  handleFormSubmit = () => {
-    let { currentBookshelf, renameUserBookshelf, closeModal } = this.props
-    let { input } = this.state
-    if (input !== '') {
-      renameUserBookshelf(input, currentBookshelf.id)
-      this.setState({ input: '' })
-      closeModal()
-    }
-  }
-
-  renameBookshelfModal = () => {
-    let { currentBookshelf, modalOpen, closeModal } = this.props
-    let {input} = this.state
-
-    return (
-      <div>
-        <Modal open={modalOpen} onClose={closeModal} closeIcon >
-          <Modal.Header className='modal'>{currentBookshelf.name}</Modal.Header>
-          <Modal.Content>
-            <Modal.Description>
-              <Header as='h3'>Choose a new name for this bookshelf:</Header>
-            </Modal.Description>
-            <br />
-            <Form.Input
-              icon='book'
-              iconPosition='left'
-              value={input}
-              onChange={this.handleInputChange}
-              placeholder="Choose a name"
-            />
-          </Modal.Content>
-          <Modal.Actions>
-            <Button>
-              <Icon onClick={closeModal} name='remove' /> Cancel
-            </Button>
-            <Button onClick={this.handleFormSubmit}>
-              <Icon name='checkmark' /> Rename
-            </Button>
-          </Modal.Actions>
-        </Modal>
-      </div>
-    )
-  }
-
-  // switchBookshelf = () => {
-  //   return (
-  //     <div></div>
-  //   )
-  // }
-  //
-  // createBookshelf = () => {
-  //   return (
-  //     <div></div>
-  //   )
-  // }
-
   bookshelfHeader = () => {
-    let { bookshelves, currentBookshelf, openModal } = this.props
+    let { bookshelves, currentBookshelf, openModal, modalOpen, selectedCover } = this.props
     return (
       <div>
         <Segment>
@@ -90,6 +29,7 @@ class BookshelfHeader extends Component {
             {bookshelves.length > 1 ? <Button onClick={this.switchBookshelf}>Switch To Another Shelf</Button> : null}
             <Button onClick={this.createBookshelf}>Create a New Shelf</Button>
           </div>
+          {modalOpen && !selectedCover ? <BookshelfModal /> : null}
         </Segment>
         <br />
       </div>
@@ -103,10 +43,10 @@ class BookshelfHeader extends Component {
       <div>
         <Segment style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', maxWidth: 800 }}>
           <Header as='h2' textAlign='center'>{currentBookshelf.name}</Header>
-          <Header sub textAlign='center'>Welcome to Ex Libris, your virtual bookshelf!<br />
-          Begin by exploring books to add to your shelf.</Header>
+          <Header sub textAlign='center'>Sorry, no books here yet!<br />
+          Head on over to search to add to your shelf.</Header>
           <br />
-          <Image src={newUserImage} alt='Ex Libris' style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '80%' }}/>
+          <Image src={newUserImage} alt='Ex Libris' style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '75%' }}/>
           <br />
           <Link to="/search"><Button fluid>Go To Search</Button></Link>
         </Segment>
@@ -133,10 +73,9 @@ class BookshelfHeader extends Component {
 
   render() {
     // console.log("BookshelfHeader props:", this.props)
-    let { shelvedBooks, bookCovers, selectedCover, currentBookshelf, modalOpen } = this.props
+    let { shelvedBooks, bookCovers, currentBookshelf } = this.props
     return (
       <div>
-        {modalOpen && !selectedCover ? this.renameBookshelfModal() : null}
         {shelvedBooks.length > 0 && bookCovers.length === 0 && currentBookshelf ? this.bookshelfHeader() : null}
         {shelvedBooks.length === 0 && currentBookshelf ? this.newUserHeader() : null}
         {bookCovers.length > 0 ? this.changeCoverHeader() : null}
@@ -155,4 +94,4 @@ const mapStateToProps = state => ({
   bookCovers: state.book.bookCovers,
 })
 
-export default connect(mapStateToProps, { clearSelectedCover, setDefaultBookshelf, renameUserBookshelf, openModal, closeModal })(BookshelfHeader)
+export default connect(mapStateToProps, { clearSelectedCover, setDefaultBookshelf, openModal })(BookshelfHeader)

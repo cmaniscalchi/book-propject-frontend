@@ -40,7 +40,7 @@ class BookSearchDetail extends Component {
     console.log("BookSearchDetail:", this.props)
     if (this.props.book && this.props.details) {
 
-      let { book, details, modalOpen, shelvedBooks, clearSelectedBook, user, currentBookshelf } = this.props
+      let { book, details, modalOpen, shelvedBooks, clearSelectedBook, currentBookshelf } = this.props
       let striptags = require('striptags')
 
       return (

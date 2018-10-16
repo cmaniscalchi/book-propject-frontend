@@ -10,7 +10,7 @@ const initialBookState = {
 }
 
 export default function bookReducer(state = initialBookState, action) {
-  // console.log("bookReducer:", state, action)
+  console.log("bookReducer:", state, action)
 
   switch (action.type) {
     case SEARCH_BOOK:
