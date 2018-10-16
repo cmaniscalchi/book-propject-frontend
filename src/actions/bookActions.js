@@ -25,6 +25,7 @@ export const viewSimilarBooks = book => {
 }
 
 export const openModal = () => {
+  console.log("open modal")
   return { type: OPEN_MODAL }
 }
 

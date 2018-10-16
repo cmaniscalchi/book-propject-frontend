@@ -32,7 +32,7 @@ export default function bookReducer(state = initialBookState, action) {
     case SIMILAR_BOOKS:
     return { ...state, searchResults: action.payload.similar_books.book }
     case SEARCH_BOOK_COVER:
-    return { ...state, bookCovers: action.payload[0].value }
+    return { ...state, bookCovers: action.payload[0].value, selectedBookDetails: null }
     case SELECT_BOOK_COVER:
     return { ...state, selectedCover: action.payload, modalOpen: true }
     case UNSELECT_BOOK_COVER:

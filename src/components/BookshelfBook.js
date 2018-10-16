@@ -1,17 +1,22 @@
 import React from "react"
 import { connect } from 'react-redux'
-import { selectBook, selectCover, clearSelectedCover, swapUserBookCover, getBookDetails } from '../actions'
+import { selectBook, selectCover, clearSelectedCover, swapUserBookCover, getBookDetails, openModal } from '../actions'
 import { Grid, Image, Card } from 'semantic-ui-react'
 
-const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCover, swapUserBookCover, getBookDetails, bookCovers, selectedBook, selectedCover }) => {
+const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCover, swapUserBookCover, getBookDetails, bookCovers, selectedBook, selectedCover, openModal }) => {
   // console.log("BookshelfBook props:", book, cover, bookCovers, selectedBook, selectedCover)
 
   const handleBookSelect = book => {
     selectBook(book)
-    selectCover(book)
     getBookDetails(book.goodreads_book_id)
   }
 
+  const handleCoverSelect = cover => {
+    selectCover(cover)
+    openModal()
+  }
+
+  // the book prop, inherited from BookshelfList, indicates a shelved book
   if (book) {
     let {author, image_url, publication_year, title} = book
 
@@ -30,13 +35,14 @@ const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCove
         </Card>
       </Grid.Column>
     )
-  } else if (cover && selectedCover) {
-    let { id, title } = selectedCover
+    // the cover prop, inherited from BookshelfList, indicates an alternate cover search result
+  } else if (cover && selectedBook) {
+    let { title } = selectedBook
 
     return (
       <Grid.Column>
         <Card>
-          <Image src={cover.contentUrl} style={{minWidth: '135px', minHeight: '67px', display: 'block', width: '100%', height: 'auto'}} alt={title} />
+          <Image onClick={() => handleCoverSelect(cover)} src={cover.contentUrl} style={{minWidth: '135px', minHeight: '67px', display: 'block', width: '100%', height: 'auto'}} alt={title} />
         </Card>
       </Grid.Column>
     )
@@ -51,4 +57,4 @@ const mapStateToProps = state => ({
   selectedCover: state.book.selectedCover,
 })
 
-export default connect(mapStateToProps, { selectBook, selectCover, clearSelectedCover, getBookDetails, swapUserBookCover })(BookshelfBook)
+export default connect(mapStateToProps, { selectBook, selectCover, clearSelectedCover, getBookDetails, swapUserBookCover, openModal })(BookshelfBook)

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import BookshelfModal from './BookshelfModal'
+import BookshelfDetail from './BookshelfDetail'
 import { Button, Header, Segment, Image } from 'semantic-ui-react'
 import { clearSelectedCover, setDefaultBookshelf, openModal } from '../actions'
 
@@ -9,10 +9,10 @@ class BookshelfHeader extends Component {
 
   componentDidMount() {
     let { setDefaultBookshelf, currentBookshelf } = this.props
-    if (currentBookshelf) {
-      return null
-    } else {
+    if (!currentBookshelf) {
       return setDefaultBookshelf()
+    } else {
+      return null
     }
   }
 
@@ -21,7 +21,7 @@ class BookshelfHeader extends Component {
     return (
       <div>
         <Segment>
-          <Header as='h2' textAlign='center'>{currentBookshelf.name}</Header>
+          {/* <Header as='h2' textAlign='center'>{currentBookshelf.name}</Header> */}
           <Header sub textAlign='center'>Select a Book to View Its Details, Change the Display Cover, or Remove It From Your Shelf</Header>
           <br />
           <div style={{display:'flex', justifyContent:'space-around'}}>
@@ -29,7 +29,7 @@ class BookshelfHeader extends Component {
             {bookshelves.length > 1 ? <Button onClick={this.switchBookshelf}>Switch To Another Shelf</Button> : null}
             <Button onClick={this.createBookshelf}>Create a New Shelf</Button>
           </div>
-          {modalOpen && !selectedCover ? <BookshelfModal /> : null}
+          {modalOpen && !selectedCover ? <BookshelfDetail /> : null}
         </Segment>
         <br />
       </div>
@@ -42,7 +42,7 @@ class BookshelfHeader extends Component {
     return (
       <div>
         <Segment style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', maxWidth: 800 }}>
-          <Header as='h2' textAlign='center'>{currentBookshelf.name}</Header>
+          {/* <Header as='h2' textAlign='center'>{currentBookshelf.name}</Header> */}
           <Header sub textAlign='center'>Sorry, no books here yet!<br />
           Head on over to search to add to your shelf.</Header>
           <br />
@@ -60,7 +60,7 @@ class BookshelfHeader extends Component {
     return (
       <div>
         <Segment>
-          <Header as='h2' textAlign='center'>Select a New Cover for {selectedCover.title}</Header>
+          {/* <Header as='h2' textAlign='center'>Select a New Cover for {selectedCover.title}</Header> */}
           <Header sub textAlign='center'>Please note: The covers displayed here may not all match your book exactly;<br />
           they are Google Books's best guess at covers for this work.</Header>
           <br />
@@ -78,7 +78,7 @@ class BookshelfHeader extends Component {
       <div>
         {shelvedBooks.length > 0 && bookCovers.length === 0 && currentBookshelf ? this.bookshelfHeader() : null}
         {shelvedBooks.length === 0 && currentBookshelf ? this.newUserHeader() : null}
-        {bookCovers.length > 0 ? this.changeCoverHeader() : null}
+        {bookCovers.length > 0 && currentBookshelf ? this.changeCoverHeader() : null}
       </div>
     )
   }
