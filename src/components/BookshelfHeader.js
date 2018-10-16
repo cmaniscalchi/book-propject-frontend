@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import BookshelfDetail from './BookshelfDetail'
 import { Button, Header, Segment, Image } from 'semantic-ui-react'
-import { clearSelectedCover, setDefaultBookshelf, openModal } from '../actions'
+import { clearSelectedCover, setDefaultBookshelf, openModal, clearCoverResults } from '../actions'
 
 class BookshelfHeader extends Component {
 
@@ -21,7 +21,7 @@ class BookshelfHeader extends Component {
     return (
       <div>
         <Segment>
-          {/* <Header as='h2' textAlign='center'>{currentBookshelf.name}</Header> */}
+          <Header as='h2' textAlign='center'>{currentBookshelf.name}</Header>
           <Header sub textAlign='center'>Select a Book to View Its Details, Change the Display Cover, or Remove It From Your Shelf</Header>
           <br />
           <div style={{display:'flex', justifyContent:'space-around'}}>
@@ -42,7 +42,7 @@ class BookshelfHeader extends Component {
     return (
       <div>
         <Segment style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', maxWidth: 800 }}>
-          {/* <Header as='h2' textAlign='center'>{currentBookshelf.name}</Header> */}
+          <Header as='h2' textAlign='center'>{currentBookshelf.name}</Header>
           <Header sub textAlign='center'>Sorry, no books here yet!<br />
           Head on over to search to add to your shelf.</Header>
           <br />
@@ -55,16 +55,22 @@ class BookshelfHeader extends Component {
     )
   }
 
+  handleCoverClear = () => {
+    let { clearCoverResults, clearSelectedCover } = this.props
+    clearCoverResults()
+    clearSelectedCover()
+  }
+
   changeCoverHeader = () => {
-    let { clearSelectedCover, selectedCover } = this.props
+    let { selectedBook } = this.props
     return (
       <div>
         <Segment>
-          {/* <Header as='h2' textAlign='center'>Select a New Cover for {selectedCover.title}</Header> */}
+          <Header as='h2' textAlign='center'>Select a New Cover for {selectedBook.title}</Header>
           <Header sub textAlign='center'>Please note: The covers displayed here may not all match your book exactly;<br />
           they are Google Books's best guess at covers for this work.</Header>
           <br />
-          <Button fluid onClick={clearSelectedCover}>Cancel Book Cover Change</Button>
+          <Button fluid onClick={this.handleCoverClear}>Cancel Book Cover Change</Button>
         </Segment>
         <br />
       </div>
@@ -90,8 +96,9 @@ const mapStateToProps = state => ({
   bookshelves: state.user.user.bookshelves,
   shelvedBooks: state.user.user.books,
   selectedCover: state.book.selectedCover,
+  selectedBook: state.book.selectedBook,
   modalOpen: state.book.modalOpen,
   bookCovers: state.book.bookCovers,
 })
 
-export default connect(mapStateToProps, { clearSelectedCover, setDefaultBookshelf, openModal })(BookshelfHeader)
+export default connect(mapStateToProps, { clearSelectedCover, setDefaultBookshelf, clearCoverResults, openModal })(BookshelfHeader)

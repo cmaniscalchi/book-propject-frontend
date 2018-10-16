@@ -1,19 +1,23 @@
-import { SEARCH_BOOK, SELECT_BOOK, UNSELECT_BOOK, CLEAR_SEARCH, SET_BOOK_DETAILS, SEARCH_AUTHOR_BOOKS, SIMILAR_BOOKS, SEARCH_BOOK_COVER, SELECT_BOOK_COVER, UNSELECT_BOOK_COVER, OPEN_MODAL, CLOSE_MODAL } from '../types'
+import { SEARCH_BOOK, SELECT_BOOK, UNSELECT_BOOK, CLEAR_SEARCH, SET_BOOK_DETAILS, SEARCH_AUTHOR_BOOKS, SIMILAR_BOOKS, SEARCH_BOOK_COVER, SELECT_BOOK_COVER, UNSELECT_BOOK_COVER, OPEN_MODAL, CLOSE_MODAL, CLEAR_COVERS } from '../types'
 
 export const selectBook = book => {
   return { type: SELECT_BOOK, payload: book }
-}
-
-export const selectCover = book => {
-  return { type: SELECT_BOOK_COVER, payload: book }
 }
 
 export const clearSelectedBook = () => {
   return { type: UNSELECT_BOOK }
 }
 
+export const selectCover = book => {
+  return { type: SELECT_BOOK_COVER, payload: book }
+}
+
 export const clearSelectedCover = () => {
   return { type: UNSELECT_BOOK_COVER }
+}
+
+export const clearCoverResults = () => {
+  return { type: CLEAR_COVERS }
 }
 
 export const clearSearchResults = () => {
@@ -25,7 +29,6 @@ export const viewSimilarBooks = book => {
 }
 
 export const openModal = () => {
-  console.log("open modal")
   return { type: OPEN_MODAL }
 }
 

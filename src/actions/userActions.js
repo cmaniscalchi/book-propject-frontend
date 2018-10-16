@@ -122,7 +122,6 @@ export const deleteUserBook = bookId => {
 }
 
 export const saveUserBook = (book, bookshelfId) => {
-  debugger;
   let urlSuffix = `books`
   let postConfig = {
     method: "POST",

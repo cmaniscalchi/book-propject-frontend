@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { Button, Header, Image, Modal, Rating, Form, Icon } from 'semantic-ui-react'
-import { closeModal, renameUserBookshelf, selectCover, clearSelectedCover, clearSelectedBook, deleteUserBook, searchBookCovers, swapUserBookCover } from '../actions'
+import { closeModal, renameUserBookshelf, selectCover, clearSelectedCover, clearSelectedBook, deleteUserBook, searchBookCovers, swapUserBookCover, clearCoverResults } from '../actions'
 
 class BookshelfDetail extends Component {
 
@@ -40,13 +40,13 @@ class BookshelfDetail extends Component {
     let { searchBookCovers, closeModal } = this.props
     searchBookCovers(title, author)
     closeModal()
-    // clearSelectedBook()
   }
 
   handleModalClose = () => {
-    let { clearSelectedBook, clearSelectedCover } = this.props
+    let { clearSelectedBook, clearSelectedCover, clearCoverResults, closeModal } = this.props
     clearSelectedBook()
     clearSelectedCover()
+    clearCoverResults()
     closeModal()
   }
 
@@ -153,4 +153,4 @@ const mapStateToProps = state => ({
   selectedCover: state.book.selectedCover
 })
 
-export default connect(mapStateToProps, { closeModal, renameUserBookshelf, deleteUserBook, clearSelectedBook, selectCover, clearSelectedCover, searchBookCovers, swapUserBookCover })(BookshelfDetail)
+export default connect(mapStateToProps, { closeModal, renameUserBookshelf, deleteUserBook, clearSelectedBook, selectCover, clearSelectedCover, searchBookCovers, swapUserBookCover, clearCoverResults })(BookshelfDetail)
