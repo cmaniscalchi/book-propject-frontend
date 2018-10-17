@@ -2,7 +2,7 @@
 
 Ex Libris is a virtual shelf for curating, organizing, and displaying your favorite books, utilizing both the [Goodreads](https://www.goodreads.com/api) and [Bing Image Search](https://azure.microsoft.com/en-us/services/cognitive-services/bing-image-search-api/) APIs for a highly customizable user experience.
 
-![Ex Libris](./app/assets/ex-libris.png)
+![Ex Libris](./public/img/ex-libris.png)
 
 Using a [Ruby on Rails backend](https://github.com/cmaniscalchi/ex-libris-backend) and a React frontend, users are able to search and explore books by author, title, or similar works, save books to specified bookshelves, and select the specific cover art they would like to display.
 
