@@ -2,10 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink, withRouter, Link } from 'react-router-dom'
 import { Segment, Menu, Container, Image } from 'semantic-ui-react'
-import { logoutUser, clearSelectedBook } from '../actions'
+import { clearSelectedBook, logoutUser } from '../actions'
 
 
-const NavBar = ({clearSelectedBook, logoutUser, location: { pathname }, user: { loggedIn, user }}) => {
+const NavBar = ({ clearSelectedBook, loggedIn, logoutUser, user, location: { pathname } }) => {
 
   const logo = require('../assets/img/ex-libris.png')
 
@@ -36,6 +36,6 @@ const NavBar = ({clearSelectedBook, logoutUser, location: { pathname }, user: { 
   )
 }
 
-const mapStateToProps = ({ user }) => ({ user })
+const mapStateToProps = ({ user: { loggedIn, user } }) => ({ loggedIn, user })
 
-export default withRouter(connect(mapStateToProps, { logoutUser, clearSelectedBook })(NavBar))
+export default withRouter(connect(mapStateToProps, { clearSelectedBook, logoutUser })(NavBar))

@@ -115,8 +115,6 @@ class LoginSignupForm extends Component {
   }
 }
 
-    const mapStateToProps = ({ user: { authenticatingUser, failedLogin, error, loggedIn, shelvedBooks } }) => (
-      { authenticatingUser, failedLogin, error, loggedIn, shelvedBooks }
-    )
+const mapStateToProps = ({ user: { authenticatingUser, error, failedLogin, loggedIn, shelvedBooks } }) => ({ authenticatingUser, error, failedLogin, loggedIn, shelvedBooks })
 
-    export default withRouter(connect(mapStateToProps, { loginUser, signUpUser })(LoginSignupForm))
+export default withRouter(connect(mapStateToProps, { loginUser, signUpUser })(LoginSignupForm))

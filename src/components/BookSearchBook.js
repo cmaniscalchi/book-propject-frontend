@@ -1,10 +1,10 @@
 import React from "react"
 import { connect } from 'react-redux'
-import { selectBook, getBookDetails } from '../actions'
 import { Grid, Image, Card } from 'semantic-ui-react'
+import { selectBook, getBookDetails } from '../actions'
 
 const BookSearchBook = ({ book, selectBook, getBookDetails }) => {
-  // console.log("BookSearchBook props:", book, selectBook)
+  // console.log("BookSearchBook props:", book)
 
   const handleBookSelect = book => {
     selectBook(book)

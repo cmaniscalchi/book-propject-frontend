@@ -7,7 +7,7 @@ import { Container, Header, Image, Segment, Button } from 'semantic-ui-react'
 const NotFound = ({ loggedIn }) => {
 
   const notFoundImage = require('../assets/img/Albert-Reuss.jpg')
-  console.log(loggedIn ? "true" : "false")
+  // console.log(loggedIn ? "true" : "false")
 
   return (
     <Container style={{ padding: '2em 2em' }}>

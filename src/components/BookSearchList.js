@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import BookSearchBook from './BookSearchBook'
-import { Grid, Message } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 import { clearSearchResults } from '../actions'
 
 class BookSearchList extends Component {
@@ -27,8 +27,6 @@ class BookSearchList extends Component {
     return (
       <div>
         <br />
-        <Message size='small' floating content="You'll have the ability to change your book covers once you've added a book to your shelf." />
-        <br />
         <Grid relaxed columns={4}>
           <BookSearchBook book={searchResults[0]} key={searchResults[0].id} />)
         </Grid>
@@ -37,15 +35,16 @@ class BookSearchList extends Component {
   }
 
   render() {
-    return this.props.searchResults ? (
+    let { searchResults } = this.props
+    return searchResults ? (
       <div>
-        {this.props.searchResults.length > 1 ? this.multiSearchResults() : null}
-        {this.props.searchResults.length === 1 ? this.singleSearchResult() : null}
+        {searchResults.length > 1 ? this.multiSearchResults() : null}
+        {searchResults.length === 1 ? this.singleSearchResult() : null}
       </div>
     ) : null
   }
 }
 
-const mapStateToProps = state => ({ searchResults: state.book.searchResults })
+const mapStateToProps = ({ book: { searchResults } }) => ({ searchResults })
 
 export default connect(mapStateToProps, { clearSearchResults })(BookSearchList)

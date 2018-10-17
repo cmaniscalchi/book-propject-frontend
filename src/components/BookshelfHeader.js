@@ -26,7 +26,7 @@ class BookshelfHeader extends Component {
           <div style={{display:'flex', justifyContent:'space-around'}}>
             <Button onClick={openModal}>Rename This Bookshelf</Button>
             {bookshelves.length > 1 ? <Button onClick={this.switchBookshelf}>Switch To Another Shelf</Button> : null}
-            <Button onClick={this.createBookshelf}>Create a New Shelf</Button>
+            <Button onClick={openModal}>Create a New Shelf</Button>
           </div>
         </Segment>
         <br />

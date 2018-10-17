@@ -2,36 +2,31 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import BookshelfBook from './BookshelfBook'
 import { Grid } from 'semantic-ui-react'
-import { setShelvedBooks, clearSelectedCover, clearSelectedBook } from '../actions'
+import { clearSelectedBook, clearSelectedCover, setShelvedBooks } from '../actions'
 
 class BookshelfList extends Component {
 
   componentDidMount() {
-    let { setShelvedBooks, shelvedBooks, clearSelectedBook, selectedBook, clearSelectedCover, selectedCover } = this.props
-    setShelvedBooks(shelvedBooks)
-    clearSelectedBook(selectedBook)
-    clearSelectedCover(selectedCover)
+    let { books, clearSelectedBook, clearSelectedCover, setShelvedBooks } = this.props
+    setShelvedBooks(books)
+    clearSelectedBook()
+    clearSelectedCover()
   }
 
   render() {
     // console.log("BookshelfList props:", this.props)
-    let { shelvedBooks, bookCovers } = this.props
+    let { books, bookCovers } = this.props
     return (
         <div>
           <Grid relaxed columns={4}>
-            {shelvedBooks.length > 0 && bookCovers.length === 0 ? shelvedBooks.map(book => <BookshelfBook book={book} key={book.goodreads_book_id} />).reverse() : null}
-            {shelvedBooks.length > 0 && bookCovers.length > 0 ? bookCovers.map(cover => <BookshelfBook cover={cover} key={cover.imageId} />) : null}
+            {books.length > 0 && bookCovers.length === 0 ? books.map(book => <BookshelfBook book={book} key={book.goodreads_book_id} />).reverse() : null}
+            {books.length > 0 && bookCovers.length > 0 ? bookCovers.map(cover => <BookshelfBook cover={cover} key={cover.imageId} />) : null}
           </Grid>
         </div>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  shelvedBooks: state.user.user.books,
-  bookCovers: state.book.bookCovers,
-  selectedBook: state.book.selectedBook,
-  selectedCover: state.book.selectedCover
-})
+const mapStateToProps = ({ book: { bookCovers }, user: { user: { books } } }) => ({ bookCovers, books })
 
-export default connect(mapStateToProps, { setShelvedBooks, clearSelectedCover, clearSelectedBook })(BookshelfList)
+export default connect(mapStateToProps, { clearSelectedBook, clearSelectedCover, setShelvedBooks })(BookshelfList)

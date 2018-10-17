@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { searchBook } from '../actions'
 import { Segment, Form, Button, Grid, Header, Icon, Image } from 'semantic-ui-react'
+import { searchBook } from '../actions'
 
 class BookSearchBar extends Component {
   state = { input: ''}
@@ -19,14 +19,14 @@ class BookSearchBar extends Component {
 
   render() {
     const searchImage = require('../assets/img/Winslow-Homer.jpg')
-    let { searchResults, shelvedBooks } = this.props
+    let { searchResults, books } = this.props
 
     return (
       <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 800 }}>
           <Form size='large' onSubmit={this.handleFormSubmit}>
             <Segment style={{ width:800 }}>
-              { shelvedBooks.length === 0 ? (
+              { books.length === 0 ? (
                 <div>
                   <Header as='h2' textAlign='center'>Welcome to Ex Libris, your virtual bookshelf!</Header>
                   <Header sub textAlign='center'> Begin by exploring books to add to your shelf.</Header>
@@ -56,9 +56,6 @@ class BookSearchBar extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  searchResults: state.book.searchResults,
-  shelvedBooks: state.user.user.books
-})
+const mapStateToProps = ({ book: { searchResults }, user: { user: { books } } }) => ({ searchResults, books })
 
 export default connect(mapStateToProps, { searchBook })(BookSearchBar)

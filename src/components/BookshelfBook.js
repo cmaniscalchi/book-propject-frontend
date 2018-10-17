@@ -1,9 +1,9 @@
 import React from "react"
 import { connect } from 'react-redux'
-import { selectBook, selectCover, clearSelectedCover, swapUserBookCover, getBookDetails, openModal } from '../actions'
+import { clearSelectedCover, getBookDetails, openModal, selectBook, selectCover, swapUserBookCover } from '../actions'
 import { Grid, Image, Card } from 'semantic-ui-react'
 
-const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCover, swapUserBookCover, getBookDetails, bookCovers, selectedBook, selectedCover, openModal }) => {
+const BookshelfBook = ({ book, bookCovers, clearSelectedCover, cover, getBookDetails, openModal, selectBook, selectedBook, selectCover, selectedCover, swapUserBookCover }) => {
   // console.log("BookshelfBook props:", book, cover, bookCovers, selectedBook, selectedCover)
 
   let placeholderImage = 'https://image.ibb.co/fzKNz9/Placeholder_Cover_Resize.png'
@@ -53,10 +53,6 @@ const BookshelfBook = ({ book, cover, selectBook, selectCover, clearSelectedCove
   }
 }
 
-const mapStateToProps = state => ({
-  bookCovers: state.book.bookCovers,
-  selectedBook: state.book.selectedBook,
-  selectedCover: state.book.selectedCover,
-})
+const mapStateToProps = ({ book: { bookCovers, selectedBook, selectedCover } }) => ({ bookCovers, selectedBook, selectedCover })
 
-export default connect(mapStateToProps, { selectBook, selectCover, clearSelectedCover, getBookDetails, swapUserBookCover, openModal })(BookshelfBook)
+export default connect(mapStateToProps, { clearSelectedCover, getBookDetails, openModal, selectBook, selectCover, swapUserBookCover })(BookshelfBook)
