@@ -22,7 +22,7 @@ class LoginSignupForm extends Component {
   }
 
   render() {
-    console.log(this.props)
+    // console.log(this.props)
 
     let { authenticatingUser, failedLogin, error, loggedIn, shelvedBooks } = this.props
     let { name, password } = this.state
