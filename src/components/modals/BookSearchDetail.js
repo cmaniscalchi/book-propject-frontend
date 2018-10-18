@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { Button, Header, Image, Modal, Rating } from 'semantic-ui-react'
-import { clearSelectedBook, createDefaultBookshelf, saveUserBook, searchAuthorBooks, setDefaultBookshelf, setShelvedBooks, viewSimilarBooks } from '../actions'
+import { clearSelectedBook, createDefaultBookshelf, saveUserBook, searchAuthorBooks, setDefaultBookshelf, setShelvedBooks, viewSimilarBooks } from '../../actions'
 
 class BookSearchDetail extends Component {
 

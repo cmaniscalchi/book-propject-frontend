@@ -19,6 +19,7 @@ export default function userReducer(state = initialUserState, action) {
       return { ...state, user: action.payload, loggedIn: true, authenticatingUser: false }
     case SET_DEFAULT_BOOKSHELF:
       return { ...state, currentBookshelf: state.user.bookshelves[0] }
+
     case AUTHENTICATING_USER:
       return { ...state, authenticatingUser: true }
     case AUTHENTICATED_USER:

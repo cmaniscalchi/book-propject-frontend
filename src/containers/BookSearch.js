@@ -1,7 +1,7 @@
 import React from 'react'
 import BookSearchBar from '../components/BookSearchBar'
 import BookSearchList from '../components/BookSearchList'
-import BookSearchDetail from '../components/BookSearchDetail'
+import BookSearchDetail from '../components/modals/BookSearchDetail'
 import { Container } from 'semantic-ui-react'
 import withAuth from '../hocs/withAuth'
 

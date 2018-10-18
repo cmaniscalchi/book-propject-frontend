@@ -1,7 +1,7 @@
 import React from 'react'
 import BookshelfHeader from '../components/BookshelfHeader'
 import BookshelfList from '../components/BookshelfList'
-import BookshelfDetail from '../components/BookshelfDetail'
+import BookshelfDetail from '../components/modals/BookshelfDetail'
 import { Container } from 'semantic-ui-react'
 import withAuth from '../hocs/withAuth'
 
