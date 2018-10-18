@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Button, Header, Image, Modal, Rating } from 'semantic-ui-react'
 import { clearSelectedBook, createDefaultBookshelf, saveUserBook, searchAuthorBooks, setDefaultBookshelf, setShelvedBooks, viewSimilarBooks } from '../../actions'
 
-class BookSearchDetail extends Component {
+class BookSearchDetailModal extends Component {
 
   componentDidMount() {
     let { books, bookshelves, createDefaultBookshelf, currentBookshelf, id, setDefaultBookshelf, setShelvedBooks } = this.props
@@ -37,7 +37,7 @@ class BookSearchDetail extends Component {
   }
 
   render() {
-    // console.log("BookSearchDetail:", this.props)
+    // console.log("BookSearchDetailModal:", this.props)
     if (this.props.selectedBook && this.props.selectedBookDetails) {
 
       let { books, clearSelectedBook, currentBookshelf, modalOpen, selectedBook, selectedBookDetails } = this.props
@@ -77,4 +77,4 @@ class BookSearchDetail extends Component {
 
 const mapStateToProps = ({ book: { modalOpen, selectedBook, selectedBookDetails }, user: { currentBookshelf, user: { books, bookshelves, id } } }) => ({ books, bookshelves, currentBookshelf, id, modalOpen, selectedBook, selectedBookDetails })
 
-export default connect(mapStateToProps, { clearSelectedBook, createDefaultBookshelf, saveUserBook, searchAuthorBooks, setDefaultBookshelf, setShelvedBooks, viewSimilarBooks })(BookSearchDetail)
+export default connect(mapStateToProps, { clearSelectedBook, createDefaultBookshelf, saveUserBook, searchAuthorBooks, setDefaultBookshelf, setShelvedBooks, viewSimilarBooks })(BookSearchDetailModal)
