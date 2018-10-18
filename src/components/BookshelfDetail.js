@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { Button, Header, Image, Modal, Rating, Form, Icon } from 'semantic-ui-react'
-import { clearCoverResults, clearSelectedBook, clearSelectedCover, closeModal, deleteUserBook, renameUserBookshelf, searchBookCovers, selectCover, swapUserBookCover } from '../actions'
+import { clearCoverResults, clearSelectedBook, clearSelectedCover, closeModal, createNewBookshelf, deleteUserBook, renameUserBookshelf, searchBookCovers, selectCover, swapUserBookCover } from '../actions'
 
 class BookshelfDetail extends Component {
 
@@ -11,11 +11,21 @@ class BookshelfDetail extends Component {
     this.setState({ input: event.target.value })
   }
 
-  handleFormSubmit = () => {
+  handleRenameFormSubmit = () => {
     let { closeModal, currentBookshelf, renameUserBookshelf } = this.props
     let { input } = this.state
     if (input !== '') {
       renameUserBookshelf(input, currentBookshelf.id)
+      this.setState({ input: '' })
+      closeModal()
+    }
+  }
+
+  handleBookshelfCreateFormSubmit = () => {
+    let { closeModal, createNewBookshelf, id } = this.props
+    let { input } = this.state
+    if (input !== '') {
+      createNewBookshelf(id, input)
       this.setState({ input: '' })
       closeModal()
     }
@@ -39,7 +49,7 @@ class BookshelfDetail extends Component {
   handleBookCoverSearch = ({ author, title }) => {
     let { bookCovers, closeModal, searchBookCovers } = this.props
     searchBookCovers(title, author)
-    if (bookCovers.length > 10) {
+    if (bookCovers.length > 20) {
       closeModal()
     }
   }
@@ -112,6 +122,40 @@ class BookshelfDetail extends Component {
     )
   }
 
+  // createBookshelfModal = () => {
+  //   let { currentBookshelf, modalOpen, closeModal } = this.props
+  //     let { input } = this.state
+  //     return (
+  //       <div>
+  //         <Modal open={modalOpen} onClose={closeModal} closeIcon >
+  //           <Modal.Header className='modal'>Create a New Bookshelf</Modal.Header>
+  //           <Modal.Content>
+  //             <Modal.Description>
+  //               <Header as='h3'>Choose a name for your book:</Header>
+  //             </Modal.Description>
+  //             <br />
+  //             <Form.Input
+  //               icon='book'
+  //               iconPosition='left'
+  //               value={input}
+  //               onChange={this.handleInputChange}
+  //               placeholder="Choose a name"
+  //             />
+  //           </Modal.Content>
+  //           <Modal.Actions>
+  //             <Button onClick={closeModal}>
+  //               <Icon name='remove' /> Cancel
+  //             </Button>
+  //             <Button onClick={this.handleBookshelfCreateFormSubmit}>
+  //               <Icon name='checkmark' /> Rename
+  //             </Button>
+  //           </Modal.Actions>
+  //         </Modal>
+  //       </div>
+  //     )
+  //   }
+  // }
+
   bookDetailModal = () => {
     let striptags = require('striptags')
     let { selectedBookDetails, modalOpen, selectedBook } = this.props
@@ -156,6 +200,6 @@ class BookshelfDetail extends Component {
   }
 }
 
-const mapStateToProps = ({ book: { bookCovers, selectedBook, selectedBookDetails, selectedCover, modalOpen }, user: { user: { currentBookshelf } } }) => ({ bookCovers, currentBookshelf, selectedBook, selectedBookDetails, selectedCover, modalOpen })
+const mapStateToProps = ({ book: { bookCovers, selectedBook, selectedBookDetails, selectedCover, modalOpen }, user: { currentBookshelf } }) => ({ bookCovers, currentBookshelf, selectedBook, selectedBookDetails, selectedCover, modalOpen })
 
-export default connect(mapStateToProps, { clearCoverResults, clearSelectedBook, clearSelectedCover, closeModal, deleteUserBook, renameUserBookshelf, searchBookCovers, selectCover, swapUserBookCover })(BookshelfDetail)
+export default connect(mapStateToProps, { clearCoverResults, clearSelectedBook, clearSelectedCover, closeModal, createNewBookshelf, deleteUserBook, renameUserBookshelf, searchBookCovers, selectCover, swapUserBookCover })(BookshelfDetail)

@@ -18,7 +18,7 @@ export default function userReducer(state = initialUserState, action) {
     case SET_CURRENT_USER:
       return { ...state, user: action.payload, loggedIn: true, authenticatingUser: false }
     case SET_DEFAULT_BOOKSHELF:
-      return { ...state, user: {...state.user, currentBookshelf: state.user.bookshelves[0]}}
+      return { ...state, currentBookshelf: state.user.bookshelves[0] }
     case AUTHENTICATING_USER:
       return { ...state, authenticatingUser: true }
     case AUTHENTICATED_USER:
@@ -39,8 +39,8 @@ export default function userReducer(state = initialUserState, action) {
       .concat(state.user.books.slice(bookIndex + 1)) } }
     case UPDATE_BOOKSHELF:
       let bookshelfIndex = state.user.bookshelves.findIndex(bookshelf => bookshelf.id === action.payload[1])
-      return { ...state, user: {...state.user, bookshelves: state.user.bookshelves.slice(0, bookshelfIndex).concat(action.payload[0])
-      .concat(state.user.bookshelves.slice(bookshelfIndex + 1)), currentBookshelf: action.payload[0]} }
+      return { ...state, currentBookshelf: action.payload[0], user: {...state.user, bookshelves: state.user.bookshelves.slice(0, bookshelfIndex).concat(action.payload[0])
+      .concat(state.user.bookshelves.slice(bookshelfIndex + 1))} }
     default:
       return state
   }

@@ -75,6 +75,6 @@ class BookSearchDetail extends Component {
   }
 }
 
-const mapStateToProps = ({ book: { modalOpen, selectedBook, selectedBookDetails }, user: { user: { books, bookshelves, currentBookshelf, id } } }) => ({ books, bookshelves, currentBookshelf, id, modalOpen, selectedBook, selectedBookDetails })
+const mapStateToProps = ({ book: { modalOpen, selectedBook, selectedBookDetails }, user: { currentBookshelf, user: { books, bookshelves, id } } }) => ({ books, bookshelves, currentBookshelf, id, modalOpen, selectedBook, selectedBookDetails })
 
 export default connect(mapStateToProps, { clearSelectedBook, createDefaultBookshelf, saveUserBook, searchAuthorBooks, setDefaultBookshelf, setShelvedBooks, viewSimilarBooks })(BookSearchDetail)

@@ -2,15 +2,21 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import BookshelfBook from './BookshelfBook'
 import { Grid } from 'semantic-ui-react'
-import { clearSelectedBook, clearSelectedCover, setShelvedBooks } from '../actions'
+import { clearSelectedBook, clearSelectedCover, setDefaultBookshelf, setShelvedBooks } from '../actions'
 
 class BookshelfList extends Component {
 
   componentDidMount() {
-    let { books, clearSelectedBook, clearSelectedCover, setShelvedBooks } = this.props
-    setShelvedBooks(books)
-    clearSelectedBook()
-    clearSelectedCover()
+    let { books, clearSelectedBook, clearSelectedCover, currentBookshelf, setDefaultBookshelf, setShelvedBooks } = this.props
+    if (!currentBookshelf) {
+      setDefaultBookshelf()
+      setShelvedBooks(books)
+      clearSelectedBook()
+      clearSelectedCover()
+    } else {
+      clearSelectedBook()
+      clearSelectedCover()
+    }
   }
 
   render() {
@@ -27,6 +33,6 @@ class BookshelfList extends Component {
   }
 }
 
-const mapStateToProps = ({ book: { bookCovers }, user: { user: { books } } }) => ({ bookCovers, books })
+const mapStateToProps = ({ book: { bookCovers }, user: { currentBookshelf, user: { books } } }) => ({ bookCovers, books, currentBookshelf })
 
-export default connect(mapStateToProps, { clearSelectedBook, clearSelectedCover, setShelvedBooks })(BookshelfList)
+export default connect(mapStateToProps, { clearSelectedBook, clearSelectedCover, setDefaultBookshelf, setShelvedBooks })(BookshelfList)
