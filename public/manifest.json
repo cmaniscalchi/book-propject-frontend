@@ -3,7 +3,7 @@
   "name": "Ex Libris: A Virtual Bookshelf",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "./img/ex-libris.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     }

@@ -22,39 +22,44 @@ class BookshelfRenameModal extends Component {
   }
 
   render() {
-    let { modalOpen, closeModal, currentBookshelf } = this.props
+    let { modalOpen, closeModal, currentBookshelf, managingBookshelves } = this.props
     let { input } = this.state
-    return (
-      <div>
-        <Modal open={modalOpen} onClose={closeModal} closeIcon >
-          <Modal.Header className='modal'>{currentBookshelf.name}</Modal.Header>
-          <Modal.Content>
-            <Modal.Description>
-              <Header as='h3'>Choose a new name for this bookshelf:</Header>
-            </Modal.Description>
-            <br />
-            <Form.Input
-              icon='book'
-              iconPosition='left'
-              value={input}
-              onChange={this.handleInputChange}
-              placeholder="Choose a name"
-            />
-          </Modal.Content>
-          <Modal.Actions>
-            <Button onClick={closeModal}>
-              <Icon name='remove' /> Cancel
-            </Button>
-            <Button onClick={this.handleFormSubmit}>
-              <Icon name='checkmark' /> Rename
-            </Button>
-          </Modal.Actions>
-        </Modal>
-      </div>
-    )
+    if (!managingBookshelves) {
+
+      return (
+        <div>
+          <Modal open={modalOpen} onClose={closeModal} closeIcon >
+            <Modal.Header className='modal'>{currentBookshelf.name}</Modal.Header>
+            <Modal.Content>
+              <Modal.Description>
+                <Header as='h3'>Choose a new name for this bookshelf:</Header>
+              </Modal.Description>
+              <br />
+              <Form.Input
+                icon='book'
+                iconPosition='left'
+                value={input}
+                onChange={this.handleInputChange}
+                placeholder="Choose a name"
+              />
+            </Modal.Content>
+            <Modal.Actions>
+              <Button onClick={closeModal}>
+                <Icon name='remove' /> Cancel
+              </Button>
+              <Button onClick={this.handleFormSubmit}>
+                <Icon name='checkmark' /> Rename
+              </Button>
+            </Modal.Actions>
+          </Modal>
+        </div>
+      )
+    } else {
+      return null
+    }
   }
 }
 
-const mapStateToProps = ({ book: { modalOpen }, user: { currentBookshelf } }) => ({ currentBookshelf, modalOpen })
+const mapStateToProps = ({ book: { modalOpen }, user: { currentBookshelf, managingBookshelves } }) => ({ currentBookshelf, managingBookshelves, modalOpen })
 
 export default connect(mapStateToProps, { closeModal, renameUserBookshelf })(BookshelfRenameModal)

@@ -2,18 +2,18 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Button, Header, Segment, Image } from 'semantic-ui-react'
-import { clearCoverResults, clearSelectedCover, openModal } from '../actions'
+import { clearCoverResults, clearSelectedCover, manageUserBookshelves, openModal } from '../actions'
 
-const BookshelfHeader = ({ bookCovers, books, bookshelves, clearCoverResults, clearSelectedCover, currentBookshelf, openModal, selectedBook }) => {
+const BookshelfHeader = ({ bookCovers, books, bookshelves, clearCoverResults, clearSelectedCover, currentBookshelf, manageUserBookshelves, modalOpen, openModal, selectedBook, selectedCover }) => {
+
+  const handleCreateBookshelfModalOpen = () => {
+    manageUserBookshelves()
+    openModal()
+  }
 
   const handleCoverClear = () => {
     clearCoverResults()
     clearSelectedCover()
-  }
-
-  const handleNewShelfModalOpen = () => {
-    console.log("make a new shelf modal")
-
   }
 
   const bookshelfHeader = () => {
@@ -26,7 +26,7 @@ const BookshelfHeader = ({ bookCovers, books, bookshelves, clearCoverResults, cl
           <div style={{display:'flex', justifyContent:'space-around'}}>
             <Button onClick={openModal}>Rename This Bookshelf</Button>
             {bookshelves.length > 1 ? <Button>Switch To Another Shelf</Button> : null}
-            <Button onClick={handleNewShelfModalOpen}>Create a New Shelf</Button>
+            <Button onClick={handleCreateBookshelfModalOpen}>Create a New Shelf</Button>
           </div>
         </Segment>
         <br />
@@ -76,6 +76,6 @@ const BookshelfHeader = ({ bookCovers, books, bookshelves, clearCoverResults, cl
   )
 }
 
-const mapStateToProps = ({ user: { currentBookshelf, user: { books, bookshelves } }, book: { bookCovers, selectedBook } }) => ({bookCovers, books, bookshelves, currentBookshelf, selectedBook })
+const mapStateToProps = ({ user: { currentBookshelf, user: { books, bookshelves } }, book: { bookCovers, modalOpen, selectedBook, selectedCover } }) => ({bookCovers, books, bookshelves, currentBookshelf, modalOpen, selectedBook })
 
-export default connect(mapStateToProps, { clearCoverResults, clearSelectedCover, openModal })(BookshelfHeader)
+export default connect(mapStateToProps, { clearCoverResults, clearSelectedCover, manageUserBookshelves, openModal })(BookshelfHeader)

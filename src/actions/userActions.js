@@ -1,4 +1,4 @@
-import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_SHELVED_BOOKS, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, SWAP_COVER, UPDATE_BOOKSHELF } from '../types'
+import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_SHELVED_BOOKS, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, SWAP_COVER, UPDATE_BOOKSHELF, MANAGE_BOOKSHELF, CANCEL_MANAGE_BOOKSHELF } from '../types'
 
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 const HEADERS = {
@@ -22,6 +22,10 @@ export const failedLogin = error => {
 }
 
 export const authenticatingUser = () => ({ type: AUTHENTICATING_USER })
+
+export const manageUserBookshelves = () => ({ type: MANAGE_BOOKSHELF })
+
+export const cancelManageUserBookshelves = () => ({ type: CANCEL_MANAGE_BOOKSHELF })
 
 export const loginUser = (name, password) => {
   let urlSuffix = `login`
