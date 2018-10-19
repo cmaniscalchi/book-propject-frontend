@@ -13,7 +13,6 @@ class CreateBookshelfModal extends Component {
 
   handleFormSubmit = () => {
     let { bookshelves, closeModal, id, createNewBookshelf } = this.props
-    debugger;
     let { input } = this.state
     if (input !== '' && !bookshelves.includes(bookshelf => bookshelf.name === input)) {
       createNewBookshelf(id, input)

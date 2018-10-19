@@ -30,8 +30,7 @@ export default function userReducer(state = initialUserState, action) {
     case REMOVE_BOOK:
       return { ...state, user: {...state.user, books: state.user.books.filter(book => book.id !== action.payload)} }
     case REMOVE_BOOKSHELF:
-    debugger;
-      return { ...state, user: {...state.user, bookshelves: state.user.bookshelves.filter(bookshelf => bookshelf.id !== action.payload), books: state.user.books.filter(book => book.bookshelf_id !== action.payload)} }
+      return { ...state, currentBookshelf: state.user.bookshelves[0], user: {...state.user, bookshelves: state.user.bookshelves.filter(bookshelf => bookshelf.id !== action.payload), books: state.user.books.filter(book => book.bookshelf_id !== action.payload)} }
     case SAVE_BOOKSHELF:
       return { ...state, managingBookshelves: false, currentBookshelf: action.payload, user: {...state.user, bookshelves: state.user.bookshelves.concat(action.payload)} }
     case MANAGE_BOOKSHELF:
@@ -41,7 +40,6 @@ export default function userReducer(state = initialUserState, action) {
     case SWITCH_CURRENT_BOOKSHELF:
       return { ...state, currentBookshelf: state.user.bookshelves.filter(bookshelf => bookshelf.id === action.payload)[0]}
     case UPDATE_BOOK:
-    debugger;
       let bookIndex = state.user.books.findIndex(book => book.id === action.payload[1])
       return { ...state, user: {...state.user, books: state.user.books.slice(0, bookIndex).concat(action.payload[0])
       .concat(state.user.books.slice(bookIndex + 1)) } }
