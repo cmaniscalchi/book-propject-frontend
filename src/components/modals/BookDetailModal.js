@@ -1,38 +1,53 @@
-import React from "react"
+import React, { Component } from "react"
 import { connect } from 'react-redux'
-import { Button, Header, Image, Modal, Rating } from 'semantic-ui-react'
-import { clearCoverResults, clearSelectedBook, clearSelectedCover, closeModal, deleteUserBook, searchBookCovers } from '../../actions'
+import { Button, Header, Image, Modal, Rating, Dropdown } from 'semantic-ui-react'
+import { clearCoverResults, clearSelectedBook, clearSelectedCover, closeModal, deleteUserBook, searchBookCovers, moveUserBook } from '../../actions'
 
-const BookDetailModal = ({ bookCovers, closeModal, clearCoverResults, clearSelectedBook, clearSelectedCover, deleteUserBook, modalOpen, searchBookCovers, selectedBook, selectedBookDetails }) => {
+class BookDetailModal extends Component {
 
-  let striptags = require('striptags')
-  let { author, image_url, publication_year, title, id } = selectedBook
-  let { average_rating, description, link, work } = selectedBookDetails
+  state = {}
 
-  const handleBookRemove = bookId => {
+  handleBookRemove = bookId => {
+    let { clearSelectedBook, clearSelectedCover, closeModal, deleteUserBook } = this.props
     deleteUserBook(bookId)
     clearSelectedBook()
     clearSelectedCover()
     closeModal()
   }
 
-  const handleBookCoverSearch = ({ author, title }) => {
+  handleBookCoverSearch = ({ author, title }) => {
+    let { bookCovers, closeModal, searchBookCovers } = this.props
     searchBookCovers(title, author)
     if (bookCovers.length > 20) {
       closeModal()
     }
   }
 
-  const handleModalClose = () => {
+  handleBookshelfChange = (event, { value }) => {
+    let { closeModal, moveUserBook, selectedBook } = this.props
+    this.setState({ value })
+    moveUserBook(value, selectedBook.id)
+    closeModal()
+  }
+
+  handleModalClose = () => {
+    let { clearCoverResults, clearSelectedBook, clearSelectedCover, closeModal } = this.props
     clearSelectedBook()
     clearSelectedCover()
     clearCoverResults()
     closeModal()
   }
 
+  render() {
+    let striptags = require('striptags')
+    let { bookshelves, currentBookshelf, modalOpen, selectedBook, selectedBookDetails } = this.props
+    let bookshelvesArray = bookshelves.filter(bookshelf => bookshelf.id !== currentBookshelf.id).map(bookshelf => ({ key: bookshelf.name, text: bookshelf.name, value: bookshelf.id }))
+    let { author, image_url, publication_year, title, id } = selectedBook
+    let { average_rating, description, link, work } = selectedBookDetails
+    const { value } = this.state
     return (
       <div>
-        <Modal size='large' open={modalOpen} onClose={handleModalClose} closeIcon >
+        <Modal size='large' open={modalOpen} onClose={this.handleModalClose} closeIcon >
           <Modal.Header className='modal'>My Shelved Books</Modal.Header>
           <Modal.Content image>
             <Image size='medium' style={{minWidth:'255px', minHeight:'191px', maxWidth:'255px', maxHeight:'389px'}} src={image_url} />
@@ -46,15 +61,17 @@ const BookDetailModal = ({ bookCovers, closeModal, clearCoverResults, clearSelec
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
-            <Button onClick={() => handleBookCoverSearch(selectedBook)}>Display an Alternate Cover</Button>
-            <Button onClick={() => handleBookRemove(id)}>Remove Book from Shelf</Button>
+            {bookshelves.length > 1 ? (<Dropdown button className='icon' labeled icon='angle down' options={bookshelvesArray} value={value} text='Move To A Different Shelf' onChange={this.handleBookshelfChange}/>) : null}
+            <Button onClick={() => this.handleBookCoverSearch(selectedBook)}>Display an Alternate Cover</Button>
+            <Button onClick={() => this.handleBookRemove(id)}>Remove Book from Shelf</Button>
             <a href={ link } target='_blank'><Button>View Book on Goodreads</Button></a>
           </Modal.Actions>
         </Modal>
       </div>
     )
   }
+}
 
-const mapStateToProps = ({ book: { bookCovers, modalOpen, selectedBook, selectedBookDetails } }) => ({ bookCovers, modalOpen, selectedBook, selectedBookDetails })
+const mapStateToProps = ({ book: { bookCovers, modalOpen, selectedBook, selectedBookDetails }, user: { currentBookshelf, user: { bookshelves } } }) => ({ bookCovers, bookshelves, currentBookshelf, modalOpen, selectedBook, selectedBookDetails })
 
-export default connect(mapStateToProps, { clearCoverResults, clearSelectedBook, clearSelectedCover, closeModal, deleteUserBook, searchBookCovers })(BookDetailModal)
+export default connect(mapStateToProps, { clearCoverResults, clearSelectedBook, clearSelectedCover, closeModal, deleteUserBook, searchBookCovers, moveUserBook })(BookDetailModal)
