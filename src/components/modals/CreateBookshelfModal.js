@@ -31,12 +31,12 @@ class CreateBookshelfModal extends Component {
 
   render() {
     // console.log("CreateBookshelfModal:", this.props)
-    let { closeModal, managingBookshelves, modalOpen } = this.props
+    let { managingBookshelves, modalOpen } = this.props
     let { input } = this.state
     if (managingBookshelves) {
       return (
         <div>
-          <Modal open={modalOpen} onClose={closeModal} closeIcon >
+          <Modal open={modalOpen} onClose={this.handleModalClose} closeIcon >
             <Modal.Header className='modal'>Create a New Bookshelf</Modal.Header>
             <Modal.Content>
               <Modal.Description>

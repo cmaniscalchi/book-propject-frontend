@@ -1,18 +1,16 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { Button, Header, Image, Modal, Rating } from 'semantic-ui-react'
-import { clearSelectedBook, createDefaultBookshelf, saveUserBook, searchAuthorBooks, setDefaultBookshelf, setShelvedBooks, viewSimilarBooks } from '../../actions'
+import { clearSelectedBook, createDefaultBookshelf, saveUserBook, searchAuthorBooks, setDefaultBookshelf, viewSimilarBooks } from '../../actions'
 
 class BookSearchDetailModal extends Component {
 
   componentDidMount() {
-    let { books, bookshelves, createDefaultBookshelf, currentBookshelf, id, setDefaultBookshelf, setShelvedBooks } = this.props
+    let { bookshelves, createDefaultBookshelf, currentBookshelf, id, setDefaultBookshelf } = this.props
     if (bookshelves.length === 0) {
       createDefaultBookshelf(id)
     } else if (!currentBookshelf) {
       setDefaultBookshelf()
-    } else if (books.length === 0) {
-      setShelvedBooks(books)
     } else {
       return null
     }
@@ -77,4 +75,4 @@ class BookSearchDetailModal extends Component {
 
 const mapStateToProps = ({ book: { modalOpen, selectedBook, selectedBookDetails }, user: { currentBookshelf, user: { books, bookshelves, id } } }) => ({ books, bookshelves, currentBookshelf, id, modalOpen, selectedBook, selectedBookDetails })
 
-export default connect(mapStateToProps, { clearSelectedBook, createDefaultBookshelf, saveUserBook, searchAuthorBooks, setDefaultBookshelf, setShelvedBooks, viewSimilarBooks })(BookSearchDetailModal)
+export default connect(mapStateToProps, { clearSelectedBook, createDefaultBookshelf, saveUserBook, searchAuthorBooks, setDefaultBookshelf, viewSimilarBooks })(BookSearchDetailModal)

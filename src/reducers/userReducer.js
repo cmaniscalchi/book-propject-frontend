@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, AUTHENTICATING_USER, AUTHENTICATED_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_SHELVED_BOOKS, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, SAVE_BOOKSHELF, SWAP_COVER, UPDATE_BOOKSHELF, MANAGE_BOOKSHELF, CANCEL_MANAGE_BOOKSHELF } from '../types'
+import { SET_CURRENT_USER, AUTHENTICATING_USER, AUTHENTICATED_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, SAVE_BOOKSHELF, SWAP_COVER, UPDATE_BOOKSHELF, MANAGE_BOOKSHELF, CANCEL_MANAGE_BOOKSHELF } from '../types'
 
 const initialUserState = {
   user: null,
@@ -6,7 +6,6 @@ const initialUserState = {
   authenticatingUser: false,
   failedLogin: false,
   error: null,
-  shelvedBooks: [],
   currentBookshelf: null,
   managingBookshelves: false
 }
@@ -14,8 +13,6 @@ const initialUserState = {
 export default function userReducer(state = initialUserState, action) {
   // console.log("userReducer:", state, action)
   switch (action.type) {
-    case SET_SHELVED_BOOKS:
-      return { ...state, shelvedBooks: state.user.books }
     case SET_CURRENT_USER:
       return { ...state, user: action.payload, loggedIn: true, authenticatingUser: false }
     case SET_DEFAULT_BOOKSHELF:
@@ -33,8 +30,7 @@ export default function userReducer(state = initialUserState, action) {
     case REMOVE_BOOK:
       return { ...state, user: {...state.user, books: state.user.books.filter(book => book.id !== action.payload)}}
     case SAVE_BOOKSHELF:
-    debugger;
-      return { ...state, managingBookshelves: false, user: {...state.user, bookshelves: state.user.bookshelves.concat(action.payload)}}
+      return { ...state, managingBookshelves: false, currentBookshelf: action.payload, user: {...state.user, bookshelves: state.user.bookshelves.concat(action.payload)}}
     case MANAGE_BOOKSHELF:
       return { ...state, managingBookshelves: true}
     case CANCEL_MANAGE_BOOKSHELF:

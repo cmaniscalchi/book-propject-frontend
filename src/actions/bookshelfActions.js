@@ -27,7 +27,6 @@ export const createDefaultBookshelf = userId => {
 }
 
 export const createNewBookshelf = (userId, input) => {
-  debugger;
   let urlSuffix = `bookshelves`
   let postConfig = {
     method: "POST",
