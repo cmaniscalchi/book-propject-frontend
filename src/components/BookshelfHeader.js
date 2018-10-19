@@ -48,8 +48,10 @@ class BookshelfHeader extends Component {
     )
   }
 
-  newUserHeader = () => {
-    let { currentBookshelf } = this.props
+  emptyShelfHeader = () => {
+    let { bookshelves, currentBookshelf } = this.props
+    let bookshelvesArray = bookshelves.filter(bookshelf => bookshelf.id !== currentBookshelf.id).map(bookshelf => ({ key: bookshelf.name, text: bookshelf.name, value: bookshelf.id }))
+    const { value } = this.state
     const newUserImage = require('../assets/img/Alexander-Deineka.jpg')
     return (
       <div>
@@ -60,7 +62,10 @@ class BookshelfHeader extends Component {
           <br />
           <Image src={newUserImage} alt='Ex Libris' style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '75%' }}/>
           <br />
-          <Link to="/search"><Button fluid>Go To Search</Button></Link>
+          <div style={{display:'flex', justifyContent:'space-around'}}>
+            {bookshelves.length > 1 ? (<Dropdown button className='icon' labeled icon='angle down' options={bookshelvesArray} value={value} text='Switch Bookshelves' onChange={this.handleBookshelfChange}/>) : null}
+            <Link to="/search"><Button style={{width:'197px'}}>Go To Search</Button></Link>
+          </div>
         </Segment>
         <br />
       </div>
@@ -85,10 +90,12 @@ class BookshelfHeader extends Component {
   render() {
     let { bookCovers, books, currentBookshelf } = this.props
     if (currentBookshelf) {
+      let shelvedBooks = books.filter(book => book.bookshelf_id === currentBookshelf.id)
+    // debugger
       return (
         <div>
-          {books.length > 0 && bookCovers.length === 0 ? this.bookshelfHeader() : null}
-          {books.length === 0 ? this.newUserHeader() : null}
+          {shelvedBooks.length > 0 && bookCovers.length === 0 ? this.bookshelfHeader() : null}
+          {shelvedBooks.length === 0 ? this.emptyShelfHeader() : null}
           {bookCovers.length > 0 ? this.changeCoverHeader() : null}
         </div>
       )
