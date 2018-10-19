@@ -1,24 +1,35 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Button, Header, Segment, Image, Dropdown } from 'semantic-ui-react'
-import { clearCoverResults, clearSelectedCover, manageUserBookshelves, openModal } from '../actions'
+import { clearCoverResults, clearSelectedCover, manageUserBookshelves, openModal, switchUserBookshelf } from '../actions'
 
-const BookshelfHeader = ({ bookCovers, books, bookshelves, clearCoverResults, clearSelectedCover, currentBookshelf, manageUserBookshelves, modalOpen, openModal, selectedBook, selectedCover }) => {
+class BookshelfHeader extends Component {
 
-  const handleCreateBookshelfModalOpen = () => {
+  state = {}
+
+  handleBookshelfChange = (event, { value }) => {
+    let { switchUserBookshelf } = this.props
+    this.setState({ value })
+    switchUserBookshelf(value)
+  }
+
+  handleCreateBookshelfModalOpen = () => {
+    let { manageUserBookshelves, openModal } = this.props
     manageUserBookshelves()
     openModal()
   }
 
-  const handleCoverClear = () => {
+  handleCoverClear = () => {
+    let { clearCoverResults, clearSelectedCover } = this.props
     clearCoverResults()
     clearSelectedCover()
   }
 
-
-  const bookshelfHeader = () => {
-    let bookshelvesArray = bookshelves.filter(bookshelf => bookshelf !== currentBookshelf).map(bookshelf => ({ text: bookshelf.name, value: bookshelf.name }))
+  bookshelfHeader = () => {
+    let { bookshelves, currentBookshelf, openModal } = this.props
+    let bookshelvesArray = bookshelves.filter(bookshelf => bookshelf.id !== currentBookshelf.id).map(bookshelf => ({ key: bookshelf.name, text: bookshelf.name, value: bookshelf.id }))
+    const { value } = this.state
 
     return (
       <div>
@@ -27,9 +38,9 @@ const BookshelfHeader = ({ bookCovers, books, bookshelves, clearCoverResults, cl
           <Header sub textAlign='center'>Select a Book to View Its Details, Change the Display Cover, or Remove It From Your Shelf</Header>
           <br />
           <div style={{display:'flex', justifyContent:'space-around'}}>
-            {bookshelves.length > 1 ? (<Dropdown button className='icon' labeled icon='angle down' options={bookshelvesArray} style={{position: 'absolute', zIndex: 1}} text='Switch Bookshelves' onChange={event => console.log(event.target.value)}/>) : null}
+            {bookshelves.length > 1 ? (<Dropdown button className='icon' labeled icon='angle down' options={bookshelvesArray} value={value} style={{position: 'absolute', zIndex: 1}} text='Switch Bookshelves' onChange={this.handleBookshelfChange}/>) : null}
             <Button onClick={openModal}>Rename This Bookshelf</Button>
-            <Button onClick={handleCreateBookshelfModalOpen}>Create a New Shelf</Button>
+            <Button onClick={this.handleCreateBookshelfModalOpen}>Create a New Shelf</Button>
           </div>
         </Segment>
         <br />
@@ -37,7 +48,8 @@ const BookshelfHeader = ({ bookCovers, books, bookshelves, clearCoverResults, cl
     )
   }
 
-  const newUserHeader = () => {
+  newUserHeader = () => {
+    let { currentBookshelf } = this.props
     const newUserImage = require('../assets/img/Alexander-Deineka.jpg')
     return (
       <div>
@@ -55,7 +67,8 @@ const BookshelfHeader = ({ bookCovers, books, bookshelves, clearCoverResults, cl
     )
   }
 
-  const changeCoverHeader = () => {
+  changeCoverHeader = () => {
+    let { selectedBook } = this.props
     return (
       <div>
         <Segment>
@@ -63,22 +76,28 @@ const BookshelfHeader = ({ bookCovers, books, bookshelves, clearCoverResults, cl
           <Header sub textAlign='center'>Please note: The covers displayed here may not all match your book exactly;<br />
           they are our best guess at covers for this work.</Header>
           <br />
-          <Button fluid onClick={handleCoverClear}>Cancel Book Cover Change</Button>
+          <Button fluid onClick={this.handleCoverClear}>Cancel Book Cover Change</Button>
         </Segment>
         <br />
       </div>
     )
   }
-
-  return (
-    <div>
-      {books.length > 0 && bookCovers.length === 0 && currentBookshelf ? bookshelfHeader() : null}
-      {books.length === 0 && currentBookshelf ? newUserHeader() : null}
-      {bookCovers.length > 0 && currentBookshelf ? changeCoverHeader() : null}
-    </div>
-  )
+  render() {
+    let { bookCovers, books, currentBookshelf } = this.props
+    if (currentBookshelf) {
+      return (
+        <div>
+          {books.length > 0 && bookCovers.length === 0 ? this.bookshelfHeader() : null}
+          {books.length === 0 ? this.newUserHeader() : null}
+          {bookCovers.length > 0 ? this.changeCoverHeader() : null}
+        </div>
+      )
+    } else {
+      return null
+    }
+  }
 }
 
 const mapStateToProps = ({ user: { currentBookshelf, user: { books, bookshelves } }, book: { bookCovers, modalOpen, selectedBook, selectedCover } }) => ({bookCovers, books, bookshelves, currentBookshelf, modalOpen, selectedBook })
 
-export default connect(mapStateToProps, { clearCoverResults, clearSelectedCover, manageUserBookshelves, openModal })(BookshelfHeader)
+export default connect(mapStateToProps, { clearCoverResults, clearSelectedCover, manageUserBookshelves, openModal, switchUserBookshelf })(BookshelfHeader)

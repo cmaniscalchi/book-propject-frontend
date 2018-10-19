@@ -1,4 +1,4 @@
-import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, SWAP_COVER, UPDATE_BOOKSHELF, MANAGE_BOOKSHELF, CANCEL_MANAGE_BOOKSHELF } from '../types'
+import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, SWAP_COVER, UPDATE_BOOKSHELF, MANAGE_BOOKSHELF, CANCEL_MANAGE_BOOKSHELF, SWITCH_CURRENT_BOOKSHELF } from '../types'
 
 export const setCurrentUser = userData => ({ type: SET_CURRENT_USER, payload: userData })
 
@@ -7,6 +7,8 @@ export const setDefaultBookshelf = () => ({ type: SET_DEFAULT_BOOKSHELF })
 export const failedLogin = error => ({ type: FAILED_LOGIN, payload: error })
 
 export const authenticatingUser = () => ({ type: AUTHENTICATING_USER })
+
+export const switchUserBookshelf = bookshelfId => ({ type: SWITCH_CURRENT_BOOKSHELF, payload: bookshelfId })
 
 export const manageUserBookshelves = () => ({ type: MANAGE_BOOKSHELF })
 

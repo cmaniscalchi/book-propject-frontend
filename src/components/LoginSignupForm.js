@@ -22,10 +22,9 @@ class LoginSignupForm extends Component {
   }
 
   render() {
-    // console.log(this.props)
-
-    let { authenticatingUser, failedLogin, error, loggedIn, shelvedBooks } = this.props
+    let { authenticatingUser, failedLogin, error, loggedIn, user } = this.props
     let { name, password } = this.state
+    // console.log(authenticatingUser, failedLogin, error, loggedIn, user)
 
     const nameInput = (
       <Form.Input
@@ -96,10 +95,14 @@ class LoginSignupForm extends Component {
       { menuItem: 'Sign Up', render: () => <Tab.Pane>{signUpForm}</Tab.Pane> }
     ]
 
-    if (loggedIn && shelvedBooks.length > 0) {
-      return <Redirect to="/bookshelf" />
-    } else if (loggedIn && shelvedBooks.length === 0) {
-      return <Redirect to="/search" />
+    if (loggedIn && user.books) {
+      if (user.books.length > 0) {
+        return <Redirect to="/bookshelf" />
+      } else if (user.books.length === 0) {
+        return <Redirect to="/search" />
+      } else {
+        return null
+      }
     } else {
       return (
         <div>
@@ -115,6 +118,6 @@ class LoginSignupForm extends Component {
   }
 }
 
-const mapStateToProps = ({ user: { authenticatingUser, error, failedLogin, loggedIn, shelvedBooks } }) => ({ authenticatingUser, error, failedLogin, loggedIn, shelvedBooks })
+const mapStateToProps = ({ user: { authenticatingUser, error, failedLogin, loggedIn, user } }) => ({ authenticatingUser, error, failedLogin, loggedIn, user })
 
 export default withRouter(connect(mapStateToProps, { loginUser, signUpUser })(LoginSignupForm))
