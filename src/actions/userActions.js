@@ -1,4 +1,4 @@
-import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, UPDATE_BOOK, UPDATE_BOOKSHELF, MANAGE_BOOKSHELF, CANCEL_MANAGE_BOOKSHELF, SWITCH_CURRENT_BOOKSHELF } from '../types'
+import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, UPDATE_BOOK, UPDATE_BOOKSHELF, MANAGE_BOOKSHELF, CANCEL_MANAGE_BOOKSHELF, SWITCH_CURRENT_BOOKSHELF, REMOVE_BOOKSHELF } from '../types'
 
 export const setCurrentUser = userData => ({ type: SET_CURRENT_USER, payload: userData })
 
@@ -14,8 +14,8 @@ export const manageUserBookshelves = () => ({ type: MANAGE_BOOKSHELF })
 
 export const cancelManageUserBookshelves = () => ({ type: CANCEL_MANAGE_BOOKSHELF })
 
-const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
-// const BASE_URL = `http://localhost:3000/api/v1/`
+// const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
+const BASE_URL = `http://localhost:3000/api/v1/`
 const HEADERS = {
   'Content-Type': 'application/json',
   'Accept': 'application/json',
@@ -182,5 +182,19 @@ export const renameUserBookshelf = (input, bookshelfId) => {
     fetch(`${BASE_URL}${urlSuffix}`, patchConfig)
     .then(res => res.json())
     .then(bookshelf => dispatch({ type: UPDATE_BOOKSHELF, payload: [bookshelf, bookshelfId] }))
+  }
+}
+
+export const deleteUserBookshelf = bookshelfId => {
+  debugger;
+  let urlSuffix = `bookshelves/${bookshelfId}`
+  let postConfig = {
+    method: "DELETE",
+    headers: HEADERS,
+    body: JSON.stringify({ bookshelfId })
+  }
+  return dispatch => {
+    fetch(`${BASE_URL}${urlSuffix}`, postConfig)
+    .then(dispatch({ type: REMOVE_BOOKSHELF, payload: bookshelfId }))
   }
 }

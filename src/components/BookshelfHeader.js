@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Button, Header, Segment, Image, Dropdown } from 'semantic-ui-react'
-import { clearCoverResults, clearSelectedCover, manageUserBookshelves, openModal, switchUserBookshelf } from '../actions'
+import { clearCoverResults, clearSelectedCover, deleteUserBookshelf, manageUserBookshelves, openModal, switchUserBookshelf } from '../actions'
 
 class BookshelfHeader extends Component {
 
@@ -27,7 +27,7 @@ class BookshelfHeader extends Component {
   }
 
   bookshelfHeader = () => {
-    let { bookshelves, currentBookshelf, openModal } = this.props
+    let { bookshelves, currentBookshelf, deleteUserBookshelf, openModal } = this.props
     let bookshelvesArray = bookshelves.filter(bookshelf => bookshelf.id !== currentBookshelf.id).map(bookshelf => ({ key: bookshelf.name, text: bookshelf.name, value: bookshelf.id }))
     const { value } = this.state
 
@@ -37,11 +37,12 @@ class BookshelfHeader extends Component {
           <Header as='h2' textAlign='center'>{currentBookshelf.name}</Header>
           <Header sub textAlign='center'>Select a Book to View Its Details, Change the Display Cover, or Remove It From Your Shelf</Header>
           <br />
-          <div style={{display:'flex', justifyContent:'space-around'}}>
-            {bookshelves.length > 1 ? (<Dropdown button className='icon' labeled icon='angle down' options={bookshelvesArray} value={value} style={{position: 'absolute', zIndex: 1}} text='Switch Bookshelves' onChange={this.handleBookshelfChange}/>) : null}
-            <Button onClick={openModal}>Rename This Bookshelf</Button>
-            <Button onClick={this.handleCreateBookshelfModalOpen}>Create a New Shelf</Button>
-          </div>
+          {/* <div style={{display:'flex', justifyContent:'space-around'}}> */}
+          {bookshelves.length > 1 ? (<Dropdown button className='icon' labeled icon='angle down' options={bookshelvesArray} value={value} style={{position: 'absolute', zIndex: 1}} text='Switch Bookshelves' onChange={this.handleBookshelfChange}/>) : null}
+          <Button onClick={openModal}>Rename This Bookshelf</Button>
+          <Button style={{width:'auto'}}onClick={this.handleCreateBookshelfModalOpen}>Create a New Shelf</Button>
+          <Button onClick={() => deleteUserBookshelf(currentBookshelf.id)}>Delete This Bookshelf</Button>
+          {/* </div> */}
         </Segment>
         <br />
       </div>
@@ -107,4 +108,4 @@ class BookshelfHeader extends Component {
 
 const mapStateToProps = ({ user: { currentBookshelf, user: { books, bookshelves } }, book: { bookCovers, modalOpen, selectedBook, selectedCover } }) => ({bookCovers, books, bookshelves, currentBookshelf, modalOpen, selectedBook })
 
-export default connect(mapStateToProps, { clearCoverResults, clearSelectedCover, manageUserBookshelves, openModal, switchUserBookshelf })(BookshelfHeader)
+export default connect(mapStateToProps, { clearCoverResults, clearSelectedCover, deleteUserBookshelf, manageUserBookshelves, openModal, switchUserBookshelf })(BookshelfHeader)

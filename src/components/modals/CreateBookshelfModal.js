@@ -12,10 +12,10 @@ class CreateBookshelfModal extends Component {
   }
 
   handleFormSubmit = () => {
-    let { closeModal, id, createNewBookshelf } = this.props
-    // debugger;
+    let { bookshelves, closeModal, id, createNewBookshelf } = this.props
+    debugger;
     let { input } = this.state
-    if (input !== '') {
+    if (input !== '' && !bookshelves.includes(bookshelf => bookshelf.name === input)) {
       createNewBookshelf(id, input)
       this.setState({ input: '' })
       closeModal()
@@ -67,6 +67,6 @@ class CreateBookshelfModal extends Component {
   }
 }
 
-const mapStateToProps = ({ book: { modalOpen }, user: { managingBookshelves, user: { id } } }) => ({ id, managingBookshelves, modalOpen })
+const mapStateToProps = ({ book: { modalOpen }, user: { managingBookshelves, user: { bookshelves, id } } }) => ({ bookshelves, id, managingBookshelves, modalOpen })
 
 export default connect(mapStateToProps, { cancelManageUserBookshelves, closeModal, createNewBookshelf })(CreateBookshelfModal)

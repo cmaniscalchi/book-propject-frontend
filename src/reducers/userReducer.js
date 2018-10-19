@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, AUTHENTICATING_USER, AUTHENTICATED_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, SAVE_BOOKSHELF, UPDATE_BOOK, UPDATE_BOOKSHELF, MANAGE_BOOKSHELF, CANCEL_MANAGE_BOOKSHELF, SWITCH_CURRENT_BOOKSHELF } from '../types'
+import { SET_CURRENT_USER, AUTHENTICATING_USER, AUTHENTICATED_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, SAVE_BOOKSHELF, UPDATE_BOOK, UPDATE_BOOKSHELF, MANAGE_BOOKSHELF, CANCEL_MANAGE_BOOKSHELF, SWITCH_CURRENT_BOOKSHELF, REMOVE_BOOKSHELF } from '../types'
 
 const initialUserState = {
   user: null,
@@ -26,15 +26,18 @@ export default function userReducer(state = initialUserState, action) {
     case REMOVE_CURRENT_USER:
       return initialUserState
     case SAVE_BOOK:
-      return { ...state, user: {...state.user, books: state.user.books.concat(action.payload)}}
+      return { ...state, user: {...state.user, books: state.user.books.concat(action.payload)} }
     case REMOVE_BOOK:
-      return { ...state, user: {...state.user, books: state.user.books.filter(book => book.id !== action.payload)}}
+      return { ...state, user: {...state.user, books: state.user.books.filter(book => book.id !== action.payload)} }
+    case REMOVE_BOOKSHELF:
+    debugger;
+      return { ...state, user: {...state.user, bookshelves: state.user.bookshelves.filter(bookshelf => bookshelf.id !== action.payload), books: state.user.books.filter(book => book.bookshelf_id !== action.payload)} }
     case SAVE_BOOKSHELF:
-      return { ...state, managingBookshelves: false, currentBookshelf: action.payload, user: {...state.user, bookshelves: state.user.bookshelves.concat(action.payload)}}
+      return { ...state, managingBookshelves: false, currentBookshelf: action.payload, user: {...state.user, bookshelves: state.user.bookshelves.concat(action.payload)} }
     case MANAGE_BOOKSHELF:
-      return { ...state, managingBookshelves: true}
+      return { ...state, managingBookshelves: true }
     case CANCEL_MANAGE_BOOKSHELF:
-      return { ...state, managingBookshelves: false}
+      return { ...state, managingBookshelves: false }
     case SWITCH_CURRENT_BOOKSHELF:
       return { ...state, currentBookshelf: state.user.bookshelves.filter(bookshelf => bookshelf.id === action.payload)[0]}
     case UPDATE_BOOK:
@@ -44,8 +47,7 @@ export default function userReducer(state = initialUserState, action) {
       .concat(state.user.books.slice(bookIndex + 1)) } }
     case UPDATE_BOOKSHELF:
       let bookshelfIndex = state.user.bookshelves.findIndex(bookshelf => bookshelf.id === action.payload[1])
-      return { ...state, currentBookshelf: action.payload[0], user: {...state.user, bookshelves: state.user.bookshelves.slice(0, bookshelfIndex).concat(action.payload[0])
-      .concat(state.user.bookshelves.slice(bookshelfIndex + 1))} }
+      return { ...state, currentBookshelf: action.payload[0], user: {...state.user, bookshelves: state.user.bookshelves.slice(0, bookshelfIndex).concat(action.payload[0]).concat(state.user.bookshelves.slice(bookshelfIndex + 1))} }
     default:
       return state
   }
