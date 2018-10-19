@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Button, Header, Segment, Image } from 'semantic-ui-react'
+import { Button, Header, Segment, Image, Dropdown } from 'semantic-ui-react'
 import { clearCoverResults, clearSelectedCover, manageUserBookshelves, openModal } from '../actions'
 
 const BookshelfHeader = ({ bookCovers, books, bookshelves, clearCoverResults, clearSelectedCover, currentBookshelf, manageUserBookshelves, modalOpen, openModal, selectedBook, selectedCover }) => {
@@ -16,7 +16,10 @@ const BookshelfHeader = ({ bookCovers, books, bookshelves, clearCoverResults, cl
     clearSelectedCover()
   }
 
+
   const bookshelfHeader = () => {
+    let bookshelvesArray = bookshelves.filter(bookshelf => bookshelf !== currentBookshelf).map(bookshelf => ({ text: bookshelf.name, value: bookshelf.name }))
+
     return (
       <div>
         <Segment>
@@ -24,8 +27,8 @@ const BookshelfHeader = ({ bookCovers, books, bookshelves, clearCoverResults, cl
           <Header sub textAlign='center'>Select a Book to View Its Details, Change the Display Cover, or Remove It From Your Shelf</Header>
           <br />
           <div style={{display:'flex', justifyContent:'space-around'}}>
+            {bookshelves.length > 1 ? (<Dropdown button className='icon' labeled icon='angle down' options={bookshelvesArray} style={{position: 'absolute', zIndex: 1}} text='Switch Bookshelves' onChange={event => console.log(event.target.value)}/>) : null}
             <Button onClick={openModal}>Rename This Bookshelf</Button>
-            {bookshelves.length > 1 ? <Button>Switch To Another Shelf</Button> : null}
             <Button onClick={handleCreateBookshelfModalOpen}>Create a New Shelf</Button>
           </div>
         </Segment>

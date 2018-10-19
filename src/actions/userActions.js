@@ -1,27 +1,23 @@
 import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, SWAP_COVER, UPDATE_BOOKSHELF, MANAGE_BOOKSHELF, CANCEL_MANAGE_BOOKSHELF } from '../types'
 
-const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
-const HEADERS = {
-  'Content-Type': 'application/json',
-  'Accept': 'application/json',
-  'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-}
-
-export const setCurrentUser = userData => {
-  return { type: SET_CURRENT_USER, payload: userData }
-}
+export const setCurrentUser = userData => ({ type: SET_CURRENT_USER, payload: userData })
 
 export const setDefaultBookshelf = () => ({ type: SET_DEFAULT_BOOKSHELF })
 
-export const failedLogin = error => {
-  return { type: FAILED_LOGIN, payload: error }
-}
+export const failedLogin = error => ({ type: FAILED_LOGIN, payload: error })
 
 export const authenticatingUser = () => ({ type: AUTHENTICATING_USER })
 
 export const manageUserBookshelves = () => ({ type: MANAGE_BOOKSHELF })
 
 export const cancelManageUserBookshelves = () => ({ type: CANCEL_MANAGE_BOOKSHELF })
+
+const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
+const HEADERS = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+}
 
 export const loginUser = (name, password) => {
   let urlSuffix = `login`

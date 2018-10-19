@@ -25,7 +25,6 @@ class CreateBookshelfModal extends Component {
   handleModalClose = () => {
     let { cancelManageUserBookshelves, closeModal } = this.props
     cancelManageUserBookshelves()
-    this.setState({ input: '' })
     closeModal()
   }
 
