@@ -1,4 +1,4 @@
-import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, UPDATE_BOOK, UPDATE_BOOKSHELF, MANAGE_BOOKSHELF, CANCEL_MANAGE_BOOKSHELF, SWITCH_CURRENT_BOOKSHELF, REMOVE_BOOKSHELF } from '../types'
+import { AUTHENTICATING_USER, SET_CURRENT_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_DEFAULT_BOOKSHELF, SAVE_BOOK, REMOVE_BOOK, UPDATE_BOOK, UPDATE_BOOKSHELF, DELETE_BOOKSHELF, CANCEL_DELETE_BOOKSHELF, MANAGE_BOOKSHELF, CANCEL_MANAGE_BOOKSHELF, SWITCH_CURRENT_BOOKSHELF, REMOVE_BOOKSHELF } from '../types'
 
 export const setCurrentUser = userData => ({ type: SET_CURRENT_USER, payload: userData })
 
@@ -10,9 +10,13 @@ export const authenticatingUser = () => ({ type: AUTHENTICATING_USER })
 
 export const switchUserBookshelf = bookshelfId => ({ type: SWITCH_CURRENT_BOOKSHELF, payload: bookshelfId })
 
-export const manageUserBookshelves = () => ({ type: MANAGE_BOOKSHELF })
+export const deletingUserBookshelves = () => ({ type: DELETE_BOOKSHELF })
 
-export const cancelManageUserBookshelves = () => ({ type: CANCEL_MANAGE_BOOKSHELF })
+export const cancelDeletingUserBookshelves = () => ({ type: CANCEL_DELETE_BOOKSHELF })
+
+export const managingUserBookshelves = () => ({ type: MANAGE_BOOKSHELF })
+
+export const cancelManagingUserBookshelves = () => ({ type: CANCEL_MANAGE_BOOKSHELF })
 
 const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 // const BASE_URL = `http://localhost:3000/api/v1/`

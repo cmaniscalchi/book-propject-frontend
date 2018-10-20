@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { Button, Header, Modal, Form, Icon } from 'semantic-ui-react'
-import { cancelManageUserBookshelves, closeModal, createNewBookshelf } from '../../actions'
+import { cancelManagingUserBookshelves, closeModal, createNewBookshelf } from '../../actions'
 
 class CreateBookshelfModal extends Component {
 
@@ -22,16 +22,16 @@ class CreateBookshelfModal extends Component {
   }
 
   handleModalClose = () => {
-    let { cancelManageUserBookshelves, closeModal } = this.props
-    cancelManageUserBookshelves()
+    let { cancelManagingUserBookshelves, closeModal } = this.props
+    cancelManagingUserBookshelves()
     closeModal()
   }
 
   render() {
     // console.log("CreateBookshelfModal:", this.props)
-    let { managingBookshelves, modalOpen } = this.props
+    let { managingBookshelf, modalOpen } = this.props
     let { input } = this.state
-    if (managingBookshelves) {
+    if (managingBookshelf) {
       return (
         <div>
           <Modal open={modalOpen} onClose={this.handleModalClose} closeIcon >
@@ -66,6 +66,6 @@ class CreateBookshelfModal extends Component {
   }
 }
 
-const mapStateToProps = ({ book: { modalOpen }, user: { managingBookshelves, user: { bookshelves, id } } }) => ({ bookshelves, id, managingBookshelves, modalOpen })
+const mapStateToProps = ({ book: { modalOpen }, user: { managingBookshelf, user: { bookshelves, id } } }) => ({ bookshelves, id, managingBookshelf, modalOpen })
 
-export default connect(mapStateToProps, { cancelManageUserBookshelves, closeModal, createNewBookshelf })(CreateBookshelfModal)
+export default connect(mapStateToProps, { cancelManagingUserBookshelves, closeModal, createNewBookshelf })(CreateBookshelfModal)

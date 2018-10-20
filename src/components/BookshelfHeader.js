@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Button, Header, Segment, Image, Dropdown } from 'semantic-ui-react'
-import { clearCoverResults, clearSelectedCover, deleteUserBookshelf, manageUserBookshelves, openModal, switchUserBookshelf } from '../actions'
+import { clearCoverResults, clearSelectedCover, deletingUserBookshelves, managingUserBookshelves, openModal, switchUserBookshelf } from '../actions'
 
 class BookshelfHeader extends Component {
 
@@ -15,8 +15,14 @@ class BookshelfHeader extends Component {
   }
 
   handleCreateBookshelfModalOpen = () => {
-    let { manageUserBookshelves, openModal } = this.props
-    manageUserBookshelves()
+    let { managingUserBookshelves, openModal } = this.props
+    managingUserBookshelves()
+    openModal()
+  }
+
+  handleBookshelfDeleteModalOpen = () => {
+    let { deletingUserBookshelves, openModal } = this.props
+    deletingUserBookshelves()
     openModal()
   }
 
@@ -27,7 +33,7 @@ class BookshelfHeader extends Component {
   }
 
   bookshelfHeader = () => {
-    let { bookshelves, currentBookshelf, deleteUserBookshelf, openModal } = this.props
+    let { bookshelves, currentBookshelf, openModal } = this.props
     let bookshelvesArray = bookshelves.filter(bookshelf => bookshelf.id !== currentBookshelf.id).map(bookshelf => ({ key: bookshelf.name, text: bookshelf.name, value: bookshelf.id }))
     const { value } = this.state
     return (
@@ -37,10 +43,10 @@ class BookshelfHeader extends Component {
           <Header sub textAlign='center'>Select a Book to View Its Details, Change the Display Cover, or Remove It From Your Shelf</Header>
           <br />
           <div style={{display:'flex', justifyContent:'space-around'}}>
-            {bookshelves.length > 1 ? (<Dropdown button className='icon' labeled icon='angle down' options={bookshelvesArray} value={value}  text='Switch Bookshelves' onChange={this.handleBookshelfChange}/>) : null}
+            {bookshelves.length > 1 ? (<Dropdown button className='icon' labeled icon='angle down' options={bookshelvesArray} value={value} style={{zIndex:1}} text='Switch Bookshelves' onChange={this.handleBookshelfChange}/>) : null}
             <Button onClick={openModal}>Rename This Bookshelf</Button>
             <Button onClick={this.handleCreateBookshelfModalOpen}>Create a New Shelf</Button>
-            {bookshelves.length > 1 ? <Button onClick={() => deleteUserBookshelf(currentBookshelf.id)}>Delete This Bookshelf</Button> : null}
+            {bookshelves.length > 1 ? <Button onClick={this.handleBookshelfDeleteModalOpen}>Delete This Bookshelf</Button> : null}
           </div>
           <br />
         </Segment>
@@ -50,13 +56,13 @@ class BookshelfHeader extends Component {
   }
 
   emptyShelfHeader = () => {
-    let { bookshelves, currentBookshelf, deleteUserBookshelf } = this.props
+    let { bookshelves, currentBookshelf, openModal } = this.props
     let bookshelvesArray = bookshelves.filter(bookshelf => bookshelf.id !== currentBookshelf.id).map(bookshelf => ({ key: bookshelf.name, text: bookshelf.name, value: bookshelf.id }))
     const { value } = this.state
     const newUserImage = require('../assets/img/Alexander-Deineka.jpg')
     return (
       <div>
-        <Segment style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', maxWidth: 800 }}>
+        <Segment>
           <Header as='h2' textAlign='center'>{currentBookshelf.name}</Header>
           <Header sub textAlign='center'>Sorry, no books here yet!<br />
           Head on over to search to add to your shelf.</Header>
@@ -64,8 +70,9 @@ class BookshelfHeader extends Component {
           <Image src={newUserImage} alt='Ex Libris' style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '75%' }}/>
           <br />
           <div style={{display:'flex', justifyContent:'space-around'}}>
-            {bookshelves.length > 1 ? (<Dropdown button className='icon' labeled icon='angle down' options={bookshelvesArray} value={value} text='Switch Bookshelves' onChange={this.handleBookshelfChange}/>) : null}
-            {bookshelves.length > 1 ? <Button onClick={() => deleteUserBookshelf(currentBookshelf.id)}>Delete This Bookshelf</Button> : null}
+            {bookshelves.length > 1 ? (<Dropdown button className='icon' labeled icon='angle down' options={bookshelvesArray} value={value} style={{zIndex:1}} text='Switch Bookshelves' onChange={this.handleBookshelfChange}/>) : null}
+            <Button onClick={openModal}>Rename This Bookshelf</Button>
+            {bookshelves.length > 1 ? <Button onClick={this.handleBookshelfDeleteModalOpen}>Delete This Bookshelf</Button> : null}
             <Link to="/search"><Button style={{width:'197px'}}>Go To Search</Button></Link>
           </div>
         </Segment>
@@ -89,11 +96,11 @@ class BookshelfHeader extends Component {
       </div>
     )
   }
+
   render() {
     let { bookCovers, books, currentBookshelf } = this.props
     if (currentBookshelf) {
       let shelvedBooks = books.filter(book => book.bookshelf_id === currentBookshelf.id)
-    // debugger
       return (
         <div>
           {shelvedBooks.length > 0 && bookCovers.length === 0 ? this.bookshelfHeader() : null}
@@ -109,4 +116,4 @@ class BookshelfHeader extends Component {
 
 const mapStateToProps = ({ user: { currentBookshelf, user: { books, bookshelves } }, book: { bookCovers, modalOpen, selectedBook, selectedCover } }) => ({bookCovers, books, bookshelves, currentBookshelf, modalOpen, selectedBook })
 
-export default connect(mapStateToProps, { clearCoverResults, clearSelectedCover, deleteUserBookshelf, manageUserBookshelves, openModal, switchUserBookshelf })(BookshelfHeader)
+export default connect(mapStateToProps, { clearCoverResults, clearSelectedCover, deletingUserBookshelves, managingUserBookshelves, openModal, switchUserBookshelf })(BookshelfHeader)
