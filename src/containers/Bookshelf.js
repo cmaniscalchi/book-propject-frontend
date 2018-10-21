@@ -1,5 +1,5 @@
 import React from 'react'
-import BookshelfHeader from '../components/BookshelfHeader'
+import BookshelfHeaders from '../components/BookshelfHeaders'
 import BookshelfList from '../components/BookshelfList'
 import BookshelfModals from '../components/BookshelfModals'
 import { Container } from 'semantic-ui-react'
@@ -9,7 +9,7 @@ const Bookshelf = () => {
   return (
     <Container style={{ padding: '2em 2em' }}>
       <BookshelfModals />
-      <BookshelfHeader />
+      <BookshelfHeaders />
       <BookshelfList />
     </Container>
   )

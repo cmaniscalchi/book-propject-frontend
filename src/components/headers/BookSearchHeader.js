@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Segment, Form, Button, Grid, Header, Icon, Image } from 'semantic-ui-react'
-import { searchBook } from '../actions'
+import { searchBook } from '../../actions'
 
-class BookSearchBar extends Component {
+class BookSearchHeader extends Component {
   state = { input: ''}
 
   handleInputChange = event => {
@@ -18,7 +18,7 @@ class BookSearchBar extends Component {
   }
 
   render() {
-    const searchImage = require('../assets/img/Winslow-Homer.jpg')
+    const searchImage = require('../../assets/img/Winslow-Homer.jpg')
     let { searchResults, books } = this.props
 
     return (
@@ -58,4 +58,4 @@ class BookSearchBar extends Component {
 
 const mapStateToProps = ({ book: { searchResults }, user: { user: { books } } }) => ({ searchResults, books })
 
-export default connect(mapStateToProps, { searchBook })(BookSearchBar)
+export default connect(mapStateToProps, { searchBook })(BookSearchHeader)

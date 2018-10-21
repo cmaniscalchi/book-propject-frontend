@@ -1,5 +1,5 @@
 import React from 'react'
-import BookSearchBar from '../components/BookSearchBar'
+import BookSearchHeader from '../components/headers/BookSearchHeader'
 import BookSearchList from '../components/BookSearchList'
 import BookSearchDetailModal from '../components/modals/BookSearchDetailModal'
 import { Container } from 'semantic-ui-react'
@@ -10,7 +10,7 @@ const BookSearch = () => {
   return (
     <Container style={{ padding: '2em 2em' }}>
       <BookSearchDetailModal />
-      <BookSearchBar />
+      <BookSearchHeader />
       <BookSearchList />
     </Container>
   )
