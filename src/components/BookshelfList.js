@@ -25,7 +25,7 @@ class BookshelfList extends Component {
       return (
         <div>
           <Grid relaxed columns={4}>
-            {user.books.length > 0 && bookCovers.length === 0 ? user.books.filter(book => book.bookshelf_id === currentBookshelf.id).map(book => <BookshelfBook book={book} key={book.goodreads_book_id} />).reverse() : null}
+            {user.books.length > 0 && bookCovers.length === 0 ? user.books.filter(book => book.bookshelf_id === currentBookshelf.id).sort((bookA, bookB) => bookA.publication_year - bookB.publication_year).map(book => <BookshelfBook book={book} key={book.goodreads_book_id} />) : null}
             {user.books.length > 0 && bookCovers.length > 0 ? bookCovers.map(cover => <BookshelfBook cover={cover} key={cover.imageId} />) : null}
           </Grid>
         </div>
