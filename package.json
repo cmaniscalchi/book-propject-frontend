@@ -1,5 +1,6 @@
 {
-  "name": "book-project-frontend",
+  "name": "ex-libris-frontend",
+  "homepage": "https://ex-libris-app.herokuapp.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,7 +15,7 @@
     "redux-thunk": "^2.3.0",
     "semantic-ui-css": "^2.4.0",
     "semantic-ui-react": "^0.82.5",
-    "striptags": "^3.1.1"
+    "striptags": "^2.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
