@@ -5,8 +5,7 @@ import ChangeCoverHeader from './headers/ChangeCoverHeader'
 import EmptyShelfHeader from './headers/EmptyShelfHeader'
 
 const BookshelfHeaders = ({ bookCovers, books, currentBookshelf }) => {
-
-  if (currentBookshelf) {
+  if (currentBookshelf && bookCovers) {
     let shelvedBooks = books.filter(book => book.bookshelf_id === currentBookshelf.id)
 
     return (

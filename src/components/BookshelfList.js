@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import BookshelfBook from './BookshelfBook'
 import { Grid } from 'semantic-ui-react'
-import { clearSelectedBook, clearSelectedCover, setDefaultBookshelf } from '../actions'
+import { clearSearchResults, clearSelectedBook, clearSelectedCover, setDefaultBookshelf } from '../actions'
 
 class BookshelfList extends Component {
 
@@ -12,9 +12,11 @@ class BookshelfList extends Component {
       setDefaultBookshelf()
       clearSelectedBook()
       clearSelectedCover()
+      clearSearchResults()
     } else {
       clearSelectedBook()
       clearSelectedCover()
+      clearSearchResults()
     }
   }
 
@@ -38,4 +40,4 @@ class BookshelfList extends Component {
 
 const mapStateToProps = ({ book: { bookCovers }, user: { currentBookshelf, user } }) => ({ bookCovers, user, currentBookshelf })
 
-export default connect(mapStateToProps, { clearSelectedBook, clearSelectedCover, setDefaultBookshelf })(BookshelfList)
+export default connect(mapStateToProps, { clearSearchResults, clearSelectedBook, clearSelectedCover, setDefaultBookshelf })(BookshelfList)
